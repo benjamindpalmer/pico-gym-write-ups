@@ -1,8 +1,11 @@
 <h1 align="center"> :computer: GENERAL SKILLS :computer:</h1>
 
+:pirate_flag: Flags Captured: 20 / 51 :pirate_flag:
+
 - [Obedient Cat](#obedient-cat) :pirate_flag: 
-- [Super SSH](#super-ssh) ::pirate_flag: 
+- [Super SSH](#super-ssh) :pirate_flag: 
 - [what's a net cat?](#whats-a-net-cat) :pirate_flag:
+- [Lets Warm Up](#lets-warm-up):pirate_flag:
 - [Warmed Up](#warmed-up) :pirate_flag: 
 - [2 Warm](#2warm) :pirate_flag: 
 - [Bases](#bases) :pirate_flag: 
@@ -20,9 +23,15 @@
 - [Binary Search](#binary-search) :pirate_flag:
 - [Codebook](#codebook) :pirate_flag:
 - [Convertme.py](#convertme.py) :pirate_flag:
-- [](#title)
+- [runme.py](#runme.py) :pirate_flag:
+- [HashingJobApp](#hasingjobapp) :pirate_flag:
+- [Serpentine](#serpentine) :pirate_flag:
+- [Plumbing](#plumbing):pirate_flag:
+- [Time Machine](#time-machine)
+- [Commitment Issues](#commitment-issues)
+- [Collaborative Development](#collaborative-developement)
+- [Blame Game](#blame-game)
 
-:pirate_flag: Flags Captured: 10 / 51 :pirate_flag:
 
 # Obedient Cat 
 
@@ -113,6 +122,29 @@ https://www.varonis.com/blog/netcat-commands/
 <br>
 ---
 <br>
+
+# Lets warm up
+* **Difficulty:** $\color{Green}{EASY}$
+* **Category:** GENERAL SKILLS
+* **Author:** SANJAY C/DANNY TUNITIS
+
+### Description
+> If I told you a word started with 0x70 in hexadecimal, what would it start with in ASCII?
+
+### Solution: 
+We can solve this one quickly by using Cyberchef's 'From Hex Recipe' to get the character value of 0x70. Inputting `70` gives us a charcter value `p`
+https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')&input=NzA
+
+|Hex|Decimal|ASCII Char|
+|---|---|---|
+|70|112|p|
+
+### Flag
+:pirate_flag:`picoCTF{p}`:pirate_flag:
+
+
+<br>
+
 
 # Warmed Up
 * **Difficulty:** $\color{Green}{EASY}$
@@ -1115,7 +1147,7 @@ picoCTF{c0d3b00k_455157_197a982c}
 # Convertme.py
 * **Difficulty:** EASY
 * **Category:** GENERAL SKILLS
-* **Author:** LT 'SYREAL' JONES
+* **Author:** LT 'syreal' Jones
 
 ### Description
 > Run the Python script and convert the given number from decimal to binary to get the flag.<br>
@@ -1160,19 +1192,183 @@ That is correct! Here's your flag: picoCTF{4ll_y0ur_b4535_9c3b7d4d}
 ---
 <br>
 
-# TITLE
-* **Difficulty:** 
+# runme.py
+* **Difficulty:** EASY
 * **Category:** GENERAL SKILLS
-* **Author:** 
+* **Author:** Sujeet Kumar
 
 ### Description
-> 
->
+> Run the runme.py script to get the flag. Download the script with your browser or with wget in the webshell. 
+> <a href="https://artifacts.picoctf.net/c/34/runme.py">Download runme.py Python script</a>
+
+### Solution
+This is just an sanity check to make sure you can run python scripts. Succesfully running the script will print the flag. It's redundant in the context of this write up, but consider that many of these challenges were published over different challenge years and are aimed at absolute beginners. 
+
+```
+$ python3 runme.py 
+picoCTF{run_s4n1ty_run}
+```
+You could also just open `runme.py` in a text editor and look at the flag in plaintext within the script. 
+
+### Flag
+:pirate_flag:`picoCTF{run_s4n1ty_run}`:pirate_flag: 
+
+
+# HashingJobApp
+* **Difficulty:** Easy
+* **Category:** GENERAL SKILLS
+* **Author:** LT 'syreal' Jones
+
+### Description
+> If you want to hash with the best, beat this test! 
+> nc saturn.picoctf.net 61000
 
 ### Solution 
 
+In this challenge, you're asked to provide the md5 hash value of a bunch of different strings. I found the most straightforward way to do this was to open another terminal window and use the build in `md5` command with the option `-s` to print the checksum of a given string. 
+
+<table border="0">
+<tr>
+<td>
+
+```            
+$ md5 -s caffeine
+MD5 ("caffeine") = e724f8b8a8349afb5beaeaa300323933
+$ $ md5 -s Casablanca
+MD5 ("Casablanca") = adf20488d00fb576b16546b1c93611b4
+$ md5 -s armed robbery
+MD5 ("armed") = 6e0c631e86ef2402cfa1ca3608a5123e
+md5: robbery: No such file or directory
+$ md5 -s 'armed robbery'
+MD5 ("armed robbery") = 986ad0db60b8d3d46281880f693a5926
+```        
+
+</td> 
+<td>    
+
+```
+$ nc saturn.picoctf.net 61000
+Please md5 hash the text between quotes, excluding the quotes: 'caffeine'
+Answer: 
+e724f8b8a8349afb5beaeaa300323933
+e724f8b8a8349afb5beaeaa300323933
+Correct.
+Please md5 hash the text between quotes, excluding the quotes: 'Casablanca'
+Answer: 
+adf20488d00fb576b16546b1c93611b4
+adf20488d00fb576b16546b1c93611b4
+Correct.
+Please md5 hash the text between quotes, excluding the quotes: 'armed robbery'
+Answer: 
+986ad0db60b8d3d46281880f693a5926
+986ad0db60b8d3d46281880f693a5926
+Correct.
+picoCTF{4ppl1c4710n_r3c31v3d_674c1de2}
+```
+                        
+</td>   
+</tr>
+</table>
+
+
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{4ppl1c4710n_r3c31v3d_674c1de2}`:pirate_flag:
+
+<br>
+---
+<br>
+
+
+# Serpentine
+* **Difficulty:** Medium
+* **Category:** GENERAL SKILLS
+* **Author:** LT 'syreal' Jones
+
+### Description
+> Find the flag in the Python script! <br>
+> <a href="https://artifacts.picoctf.net/c/93/serpentine.py">Download Python script</a>
+
+### Solution 
+<p>When we run serpentine.py, we can select option 'b' to print the flag.</p>
+
+```
+Welcome to the serpentine encourager!
+
+
+a) Print encouragement
+b) Print flag
+c) Quit
+
+What would you like to do? (a/b/c) b
+
+Oops! I must have misplaced the print_flag function! Check my source code!
+```
+
+<p>Only option 'b' doesn't print the flag! We can comment out message and replace it with the `print_flag()` function to get the flag to print on option 'b'.</p>
+
+```
+# The 'print_flag' function is the function that actually decrypts and prints the flag. 
+# Let's call this function in the if / else statements below
+def print_flag():
+  flag = str_xor(flag_enc, 'enkidu')
+  print(flag)
+```
+```
+    elif choice == 'b':
+      # calling the function here will allow the flag to actually be printed on option 'b'.
+      print_flag()
+
+      # print('\nOops! I must have misplaced the print_flag function! Check my source code!\n\n')
+```
+
+<p>With the `print_flag()` function in the 'right' place, we can just run serpentine.py to print the flag.</p>
+
+```
+What would you like to do? (a/b/c) b
+picoCTF{7h3_r04d_l355_7r4v3l3d_ae0b80bd}
+```
+
+### Flag
+:pirate_flag:`picoCTF{7h3_r04d_l355_7r4v3l3d_ae0b80bd}`:pirate_flag:
+
+<br>
+---
+<br>
+
+# Plumbing
+* **Difficulty:** EASY
+* **Category:** GENERAL SKILLS
+* **Author:** Alex Fulton/Danny Tunitis
+
+### Description
+> Sometimes you need to handle process data outside of a file. Can you find a way to keep the output from this program and search for the flag? Connect to jupiter.challenges.picoctf.org 7480.
+
+
+### Solution 
+
+<p>Pipes allow you to run processes on the output of another process. In this example, the program we're pointing to just spits out a ridiculous amount of garbage when we connect to it (including the flag).</p>
+
+```
+$ nc jupiter.challenges.picoctf.org07489
+Not a flag either
+This is defintely not a flag
+Not a flag either
+Not a flag either
+I don't think this is a flag either
+Again, I really don't think this is a flag
+I don't think this is a flag either
+...
+```
+
+<p>We want to find the flag in this sea of garbage output. A pipe will allow us to run another process on the garbage. In this case, we can just grep for the string 'picoCTF{' This effectively filters out everything else and shows us only the strings that contain 'picoCTF{' which is where we find the flag.</p>
+
+```
+$ nc jupiter.challenges.picoctf.org 14291 | grep picoCTF{
+picoCTF{digital_plumb3r_ea8bfec7}
+```
+
+### Flag
+:pirate_flag:`picoCTF{digital_plumb3r_ea8bfec7}`:pirate_flag:
 
 <br>
 ---
