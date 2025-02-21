@@ -1452,7 +1452,7 @@ Nice. We've reverted to a commit with the message 'create flag'. This is promisi
 <br>
 
 # Collaborative Development
-![Another screenshot of a challenge that I'll probably take down because I won't like how it looks or I'll link to it incorrectly](/assets/images/challengescreenshots/Commitment_Issues_410)
+![Another screenshot of a challenge that I'll probably take down because I won't like how it looks or I'll link to it incorrectly](https://github.com/benjamindpalmer/pico-gym-write-ups/blob/main/general_skills/assets/images/challengescreenshots/Collaborative_Development_410.png)
 
 ### Solution
 
