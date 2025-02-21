@@ -59,7 +59,9 @@ Learned how to add this stuff to Github so I can document more interesting chall
 :pirate_flag:`picoCTF{s4n1ty_v3r1f13d_f28ac910}`:pirate_flag:
 
 <br>
+
 ---
+
 <br>
 
 # Super SSH
@@ -1375,19 +1377,146 @@ picoCTF{digital_plumb3r_ea8bfec7}
 <br>
 
 
-# TITLE
-* **Difficulty:** 
-* **Category:** GENERAL SKILLS
-* **Author:** 
+# Time Machine
+![https://play.picoctf.org/practice/challenge/411](/assets/images/challengescreenshots/Time Machine)
 
-### Description
-> 
->
 
-### Solution 
+### Solution
+I'm going to use the webshell for these git related challenges so I don't have to deal with a mess of local files. I can `wget` for the right file with `s0ren-picoctf@webshell:~$ wget https://artifacts.picoctf.net/c_titan/66/challenge.zip` and then unzip the file with `unzip`
+
+This gives me a folder called `drop-in` with a file called `message.txt`.
+
+```
+s0ren-picoctf@webshell:~/drop-in$ cat message.txt 
+This is what I was working on, but I'd need to look at my commit history to know why...
+```
+
+The flag isn't in there, but there is a hint about commit history. We can look at the commit history with the `git log` command. 
+
+```
+commit 3339c144a0c78dc2fbd3403d2fb37d3830be5d94 (HEAD -> master)
+Author: picoCTF <ops@picoctf.com>
+Date:   Sat Mar 9 21:10:22 2024 +0000
+
+    picoCTF{t1m3m@ch1n3_d3161c0f}
+```
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{t1m3m@ch1n3_d3161c0f}}`:pirate_flag:
+
+<br>
+---
+<br>
+
+
+
+# Commitment Issues
+![Screenshot of challenge instead of copy and pasting info](/assets/images/challengescreenshots/Commitment_Issues_411.png)
+
+### Solution 
+In this challenge we're given access to another `git` folder with some history. I used the webshell to solve this one by first using `wget` to grab right file from the challenge. 
+
+`s0ren-picoctf@webshell:~$ wget https://artifacts.picoctf.net/c_titan/139/challenge.zip`
+
+I unzipped the file using `unzip` and was able to CD into the directory `/drop-in`. Ran `git status` to confirm this is a git folder. 
+
+```
+s0ren-picoctf@webshell:~/drop-in$ git status
+On branch master
+nothing to commit, working tree clean
+```
+
+The only thing in this folder is a file called message.txt. Let's see what's in there. 
+
+```
+s0ren-picoctf@webshell:~/drop-in$ cat message.txt 
+TOP SECRET
+```
+
+We need to see what the file looked like *before* the last commit. To do this, I can run `git reset --hard HEAD^` to revert the last commit. Then we can `cat message.txt` to see what was written in that file previously. 
+
+```
+s0ren-picoctf@webshell:~/drop-in$ git reset --hard HEAD^
+HEAD is now at 7d3aa55 create flag
+s0ren-picoctf@webshell:~/drop-in$ cat message.txt 
+picoCTF{s@n1t1z3_be3dd3da}
+```
+
+Nice. We've reverted to a commit with the message 'create flag'. This is promising. If we look at the contents of message.txt, we can see it has been reverted and contains the flag. 
+
+### Flag
+:pirate_flag:`picoCTF{s@n1t1z3_be3dd3da}`:pirate_flag:
+
+<br>
+---
+<br>
+
+# Collaborative Development
+![Another screenshot of a challenge that I'll probably take down because I won't like how it looks or I'll link to it incorrectly](/assets/images/challengescreenshots/Commitment_Issues_410)
+
+### Solution
+
+We have another git challenge here. We'll start the same way by grabbing the file and unzipping it and then moving into the 'drop-in' directory to see our status. 
+
+```
+s0ren-picoctf@webshell:~$ wget https://artifacts.picoctf.net/c_titan/71/challenge.zip
+```
+
+This time, we have a python file called `flag.py`. The copy on MAIN only contains the text 'Printing the flag...'
+
+```
+s0ren-picoctf@webshell:~/drop-in$ cat flag.py 
+print("Printing the flag...")
+```
+
+We can use `git branch -a` to see the different branches in this git repo. It looks like there are three. 
+
+
+```
+  feature/part-1
+  feature/part-2
+  feature/part-3
+* main
+```
+
+We can move through each of these branches with `git checkout`. Each branch contains a `flag.py` file that is printing out a different part of the flag. 
+
+
+```
+s0ren-picoctf@webshell:~/drop-in$ git checkout feature/part-1
+Switched to branch 'feature/part-1'
+s0ren-picoctf@webshell:~/drop-in$ cat flag.py 
+print("Printing the flag...")
+print("picoCTF{t3@mw0rk_", end='')s0ren-picoctf@webshell:~/drop-in$
+s0ren-picoctf@webshell:~/drop-in$ git checkout feature/part-2
+Switched to branch 'feature/part-2'
+s0ren-picoctf@webshell:~/drop-in$ cat flag.py 
+print("Printing the flag...")
+
+print("m@k3s_th3_dr3@m_", end='')s0ren-picoctf@webshell:~/drop-in$ 
+s0ren-picoctf@webshell:~/drop-in$ git checkout feature/part-3
+Switched to branch 'feature/part-3'
+s0ren-picoctf@webshell:~/drop-in$ cat flag.py 
+print("Printing the flag...")
+
+print("w0rk_4c24302f}")
+```
+
+How do I merge all of these together? First, I need to move back to MAIN with `git checkout main` and start merging in the different features with starting with `git merge feature/part-1`. 
+
+I ran into conflicts that I had to use nano to correct. 
+
+[!screenshot of editing a merge conflicts in nano](/assets/images/screenshots/collaborative_development_nano.png)
+
+
+```
+s0ren-picoctf@webshell:~/drop-in$ python flag.py 
+Printing the flag...
+picoCTF{t3@mw0rk_m@k3s_th3_dr3@m_w0rk_4c24302f}
+```
+
+### Flag
+:pirate_flag:`picoCTF{t3@mw0rk_m@k3s_th3_dr3@m_w0rk_4c24302f}`:pirate_flag:
 
 <br>
 ---
