@@ -1523,4 +1523,40 @@ picoCTF{t3@mw0rk_m@k3s_th3_dr3@m_w0rk_4c24302f}
 <br>
 
 
+# Blame Game
+* **Difficulty:** EASY
+* **Category:** GENERAL SKILLS
+* **Author:** Jeffery John
+
+### Description
+> Someone's commits seems to be preventing the program from working. Who is it? You can download the challenge files here:
+> * <a href="https://artifacts.picoctf.net/c_titan/157/challenge.zip">challenge.zip</a>
+
+### Solution 
+In this git related challenge,  we're given another git repo with a bunch of different commits. The directory contains one python file. If we run the python script,  we get a syntax error.  
+
+```
+s0ren-picoctf@webshell:~/drop-in$ python message.py 
+  File "/home/s0ren-picoctf/drop-in/message.py", line 1
+    print("Hello, World!"
+         ^
+SyntaxError: '(' was never closed
+```
+
+Let's look at the git log with `git log` to see a list of commits and see if anything pops out.  
+
+Running `git  log` returned a LOT of commits. Too many to look through manually. Let's pipe a grep search for flag to the end of the log and see if that returns anything.  
+
+```
+$ git log |  grep "picoCTF{"
+Author: picoCTF{@sk_th3_1nt3rn_cfca95b2} <ops@picoctf.com>
+```
+
+It  worked! The  commit  that  contains the flag was returned. We could have also created a text file and of the log and searched through that by using the `>` command to print the output to a file. `git log > log.txt`
+
+### Flag
+:pirate_flag:`picoCTF{@sk_th3_1nt3rn_cfca95b2}`:pirate_flag:
+
+
+
 
