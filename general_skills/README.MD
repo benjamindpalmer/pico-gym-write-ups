@@ -13,7 +13,7 @@
 - [Tab, Tab, Attack](#tab-tab-attack) :pirate_flag: 
 - [First grep](#first-grep) :pirate_flag: 
 - [strings it](#strings-it) :pirate_flag: 
-- [python wragling](#python-wrangling) :pirate_flag:
+- [Python Wragling](#python-wrangling) :pirate_flag:
 - [PW Crack 1](#pw-crack-1) :pirate_flag:
 - [PW Crack 2](#pw-crack-2) :pirate_flag:
 - [PW Crack 3](#pw-crack-3) :pirate_flag:
@@ -31,6 +31,16 @@
 - [Commitment Issues](#commitment-issues)
 - [Collaborative Development](#collaborative-developement)
 - [Blame Game](#blame-game)
+- [First Find](#first-find)
+- [Big Zip](#big-zip)
+- [Glitch Cat](#glitch-cat)
+- [fixme1.py](#fixme1.py)
+- [fixme2.py](#fixme2.py)
+- [Magikarp Ground Mission](#magikarp-ground-mission)
+- [Static ain't always noise](#static-ain't-always-noise)
+- [useless](#useless)
+- [Based](#based)
+
 
 
 # Obedient Cat 
@@ -1557,6 +1567,151 @@ It  worked! The  commit  that  contains the flag was returned. We could have als
 ### Flag
 :pirate_flag:`picoCTF{@sk_th3_1nt3rn_cfca95b2}`:pirate_flag:
 
+---
+
+# First Find
+* **Difficulty:** EASY
+* **Category:** GENERAL SKILLS
+* **Author:** LT 'syreal' Jones
+
+### Description
+> Unzip this archive and find the file named 'uber-secret.txt'
+> * <a  href = "https://artifacts.picoctf.net/c/501/files.zip">ownload zip file</a>
+
+### Solution 
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# Big Zip
+* **Difficulty:** EASY
+* **Category:** GENERAL SKILLS
+* **Author:** LT 'syreal' Jones
+
+### Description
+> Unzip this archive and find the flag.
+> * <a href="https://artifacts.picoctf.net/c/503/big-zip-files.zip">Download zip file</a>
+
+### Solution 
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+
+# Glitch Cat
+* **Difficulty:** EASY
+* **Category:** GENERAL SKILLS
+* **Author:** LT 'syreal' Jones
+
+### Description
+> Our flag printing service has started glitching!
+> Additional details will be available after launching your challenge instance.
+> $ nc saturn.picoctf.net 57717
+
+### Solution 
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# fixme1.py
+* **Difficulty:** 
+* **Category:** GENERAL SKILLS
+* **Author:** 
+
+### Description
+> 
+>
+
+### Solution 
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# fixme2.py
+* **Difficulty:** 
+* **Category:** GENERAL SKILLS
+* **Author:** 
+
+### Description
+> 
+>
+
+### Solution 
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# Magikarp Ground Mission
+* **Difficulty:** 
+* **Category:** GENERAL SKILLS
+* **Author:** 
+
+### Description
+> 
+>
+
+### Solution 
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# Static ain't always noise
+* **Difficulty:** 
+* **Category:** GENERAL SKILLS
+* **Author:** 
+
+### Description
+> Can you look at the data in this binary: <a href = "https://mercury.picoctf.net/static/ec4dbd8898ade34e1d60d5b70c1b8c8c/static">static</a>? This <a href="https://mercury.picoctf.net/static/ec4dbd8898ade34e1d60d5b70c1b8c8c/ltdis.sh"><BASH script></a> might help!
+>
+
+### Solution 
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# useless
+* **Difficulty:** MEDIUM
+* **Category:** GENERAL SKILLS
+* **Author:** Loic Shema
+
+### Description
+> There's an interesting script in the user's home directory The work computer is running SSH. We've been given a script which performs some basic calculations, explore the script and find a flag.
+>
+
+### Solution 
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# Based
+* **Difficulty:** MEDIUM
+* **Category:** GENERAL SKILLS
+* **Author:** Alex Fulton/Daniel Tunitis
+
+### Description
+> To get truly 1337, you must understand different data encodings, such as hexadecimal or binary. Can you get the flag from this program to prove you are on the way to becoming 1337? Connect with nc jupiter.challenges.picoctf.org 15130.
+>
+
+### Solution 
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
 
 
 
