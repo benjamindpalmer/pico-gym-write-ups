@@ -1613,9 +1613,18 @@ It's good to know `man find` from the terminal and https://man7.org/linux/man-pa
 > * <a href="https://artifacts.picoctf.net/c/503/big-zip-files.zip">Download zip file</a>
 
 ### Solution 
+In this challenge, we download and unzip a giant folder called `big-zip-files` which contains hundreds of files and subdirectories. Our flag is hidden in this mess, and this time we don't even know which file to look for. 
+
+We do know the flag will contain the string `'picoCTF{'` so we can use a recursive grep (`grep -r`) to search all directories and their children inside the 'big-zip-files' folder. 
+
+```
+$ grep -r "picoCTF"
+./folder_pmbymkjcya/folder_cawigcwvgv/folder_ltdayfmktr/folder_fnpfclfyee/whzxrpivpqld.txt:information on the record will last a billion years. Genes and brains and books encode picoCTF{gr3p_15_m4g1c_ef8790dc}
+```
+
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{gr3p_15_m4g1c_ef8790dc}`:pirate_flag:
 
 
 # Glitch Cat
