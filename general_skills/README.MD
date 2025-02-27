@@ -27,15 +27,15 @@
 - [HashingJobApp](#hasingjobapp) :pirate_flag:
 - [Serpentine](#serpentine) :pirate_flag:
 - [Plumbing](#plumbing):pirate_flag:
-- [Time Machine](#time-machine)
-- [Commitment Issues](#commitment-issues)
-- [Collaborative Development](#collaborative-developement)
-- [Blame Game](#blame-game)
-- [First Find](#first-find)
-- [Big Zip](#big-zip)
-- [Glitch Cat](#glitch-cat)
-- [fixme1.py](#fixme1.py)
-- [fixme2.py](#fixme2.py)
+- [Time Machine](#time-machine) :pirate_flag:
+- [Commitment Issues](#commitment-issues):pirate_flag:
+- [Collaborative Development](#collaborative-developement) :pirate_flag:
+- [Blame Game](#blame-game) :pirate_flag:
+- [First Find](#first-find) :pirate_flag:
+- [Big Zip](#big-zip) :pirate_flag:
+- [Glitch Cat](#glitch-cat) :pirate_flag:
+- [fixme1.py](#fixme1.py) 
+- [fixme2.py](#fixme2.py) 
 - [Magikarp Ground Mission](#magikarp-ground-mission)
 - [Static ain't always noise](#static-ain't-always-noise)
 - [useless](#useless)
