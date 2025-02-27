@@ -1615,13 +1615,14 @@ It's good to know `man find` from the terminal and https://man7.org/linux/man-pa
 ### Solution 
 In this challenge, we download and unzip a giant folder called `big-zip-files` which contains hundreds of files and subdirectories. Our flag is hidden in this mess, and this time we don't even know which file to look for. 
 
+![add screenhot](#path-to-screenshot)
+
 We do know the flag will contain the string `'picoCTF{'` so we can use a recursive grep (`grep -r`) to search all directories and their children inside the 'big-zip-files' folder. 
 
 ```
 $ grep -r "picoCTF"
 ./folder_pmbymkjcya/folder_cawigcwvgv/folder_ltdayfmktr/folder_fnpfclfyee/whzxrpivpqld.txt:information on the record will last a billion years. Genes and brains and books encode picoCTF{gr3p_15_m4g1c_ef8790dc}
 ```
-
 
 ### Flag
 :pirate_flag:`picoCTF{gr3p_15_m4g1c_ef8790dc}`:pirate_flag:
@@ -1639,8 +1640,32 @@ $ grep -r "picoCTF"
 
 ### Solution 
 
+```
+s0ren-picoctf@webshell:~$  nc saturn.picoctf.net 53869
+'picoCTF{gl17ch_m3_n07_' + chr(0x39) + chr(0x63) + chr(0x34) + chr(0x32) + chr(0x61) + chr(0x34) + chr(0x35) + chr(0x64) + '}'
+```
+
+The environment we're in has part of the flag printed in plaintext and the rest is encoded in hexidecimal. In Python,  the `chr()` function should return charater based on its encoding value.  e.g. `chr(0x39)`returns "9" in python.  Rather than look up the encoding values for every character and create the flag manually, I'd rather just save what we have as a python file see if it will run. Let's use `touch` to create a new python file called `flag.py` and the use `nano` to open it from the shell. 
+
+```
+s0ren-picoctf@webshell:~$ touch flag.py
+s0ren-picoctf@webshell:~$ nano flag.py 
+```
+
+With nano open, I copy/pasted our bit of python into flag.py and wrapped it in a `print()`
+```python
+print('picoCTF{gl17ch_m3_n07_' + chr(0x39) + chr(0x63) + chr(0x34) + chr(0x32) + chr(0x61) + chr(0x34) + chr(0x35) + chr(0x64) + '}')
+```
+
+Now running flag.py will should print our flag. 
+
+```
+s0ren-picoctf@webshell:~$ python3 flag.py
+picoCTF{gl17ch_m3_n07_9c42a45d}
+```
+
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{gl17ch_m3_n07_9c42a45d}`:pirate_flag:
 
 ---
 
