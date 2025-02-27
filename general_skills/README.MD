@@ -1576,12 +1576,30 @@ It  worked! The  commit  that  contains the flag was returned. We could have als
 
 ### Description
 > Unzip this archive and find the file named 'uber-secret.txt'
-> * <a  href = "https://artifacts.picoctf.net/c/501/files.zip">ownload zip file</a>
+> * <a  href = "https://artifacts.picoctf.net/c/501/files.zip">Download zip file</a>
 
 ### Solution 
+The unzipped directory contains a ton of subdirectories, and we're trying to find the folder that contains  `uber-secret.txt`
+
+Looking at some of the documentation for `find` and it is very powerful and takes a lot of paramenters. In this case, we're given the full name of the file so we just need to use `-name` along with `find` to look for that file. Initially, I used `find ~\` which looks through your *entire* home directory.  That worked, but was very unecessary. I founed out we can use `.` to tell find to only look in the directory that I unzipped from the challenge. 
+
+``` 
+$ find .  -name "uber-secret.txt"
+./adequate_books/more_books/.secret/deeper_secrets/deepest_secrets/uber-secret.txt
+```
+
+Great! We successfully used `find` to locate the target file. Now we know that `uber-secret.txt` can be found in `/adequate_books/more_books/.secret/deeper_secrets/deepest_secrets/uber-secret.txt` From there, I copied the file path and used it with the `cat` command to print out the contents of `uber-secret.txt` Our flag is in this file. 
+
+```
+$ cat ./adequate_books/more_books/.secret/deeper_secrets/deepest_secrets/uber-secret.txt
+picoCTF{f1nd_15_f457_ab443fd1}
+```
+
+It's good to know `man find` from the terminal and https://man7.org/linux/man-pages/man1/find.1.html exist. Will keep them handy to reference later when 
+
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{f1nd_15_f457_ab443fd1}`:pirate_flag:
 
 ---
 
@@ -1618,13 +1636,13 @@ It  worked! The  commit  that  contains the flag was returned. We could have als
 ---
 
 # fixme1.py
-* **Difficulty:** 
+* **Difficulty:** EASY
 * **Category:** GENERAL SKILLS
-* **Author:** 
+* **Author:** LT 'syreal' Jones
 
 ### Description
 > 
->
+> <a href="https://artifacts.picoctf.net/c/26/fixme1.py">Download Python script</a>
 
 ### Solution 
 
@@ -1634,13 +1652,14 @@ It  worked! The  commit  that  contains the flag was returned. We could have als
 ---
 
 # fixme2.py
-* **Difficulty:** 
+* **Difficulty:** EASY
 * **Category:** GENERAL SKILLS
-* **Author:** 
+* **Author:** LT 'syreal' Jones
 
 ### Description
-> 
->
+> Fix the syntax error in the Python script to print the flag. 
+> <a href="https://artifacts.picoctf.net/c/5/fixme2.py">Download Python script</a>
+
 
 ### Solution 
 
@@ -1650,12 +1669,12 @@ It  worked! The  commit  that  contains the flag was returned. We could have als
 ---
 
 # Magikarp Ground Mission
-* **Difficulty:** 
+* **Difficulty:** EASY
 * **Category:** GENERAL SKILLS
-* **Author:** 
+* **Author:** SYREAL
 
 ### Description
-> 
+> Do you know how to move between directories and read files in the shell? Start the container, `ssh` to it, and then `ls` once connected to begin. Login via `ssh` as `ctf-player` with the password, `481e7b14`
 >
 
 ### Solution 
