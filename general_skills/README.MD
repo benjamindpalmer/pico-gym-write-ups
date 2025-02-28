@@ -1794,18 +1794,75 @@ Even though I feel somewhat shell-proficient, I'm still learning new commands al
 ---
 
 # Static ain't always noise
-* **Difficulty:** 
+* **Difficulty:** EASY
 * **Category:** GENERAL SKILLS
-* **Author:** 
+* **Author:** Syreal
 
 ### Description
 > Can you look at the data in this binary: <a href = "https://mercury.picoctf.net/static/ec4dbd8898ade34e1d60d5b70c1b8c8c/static">static</a>? This <a href="https://mercury.picoctf.net/static/ec4dbd8898ade34e1d60d5b70c1b8c8c/ltdis.sh"><BASH script></a> might help!
 >
 
 ### Solution 
+In this challenge, we're given a binary and a Bash script. 
+
+First, I tried to run the `static`  binary and had to change permissions to run it. 
+
+> [!TIP]
+> *chmod +x* is used here to give _execute_ permissions to the file so that I can run it. 
+
+```
+s0ren-picoctf@webshell:~$ ./static
+-bash: ./static: Permission denied
+s0ren-picoctf@webshell:~$ chmod +x ./static
+s0ren-picoctf@webshell:~$ ./static
+Oh hai! Wait what? A flag? Yes, it's around here somewhere!
+```
+
+So we got the binary to run, but it gave us a cheeky comment instead of the flag. I decided to take a look and see what this binary looked like on the inside with `cat` and got a bunch of garbage printed on the screen. Below is only a small percentage of said garbage. 
+
+
+```
+s0ren-picoctf@webshell:~$ cat static 
+8#TT 1tt$DNd-linux-x86-64.so.2GNUGNUc\Wieb5ai?= 
+ @@ 0@)pp V``^okys0ren-picoctf@webshell:~$      Y h "libc.so.6puts__cxa_finalize__libc_start_mainGLIBC_2.2.5_ITM_deregis
+```
+
+Next, I gave the provided BASH script `ltdis.sh` permission to run and tried running it. 
+
+```
+$ ./ltdis.sh
+Attempting disassembly of  ...
+objdump: 'a.out': No such file
+objdump: section '.text' mentioned in a -j option, but not found in any input file
+Disassembly failed!
+Usage: ltdis.sh <program-file>
+Bye!
+```
+
+Ah, it looks like this script needs a file as an argument. That makes sense. Let's try running `ltdis.sh` and with the `static` binary. 
+
+```
+s0ren-picoctf@webshell:~$ ./ltdis.sh static
+Attempting disassembly of static ...
+Disassembly successful! Available at: static.ltdis.x86_64.txt
+Ripping strings from binary with file offsets...
+Any strings found in static have been written to static.ltdis.strings.txt with file offset
+s0ren-picoctf@webshell:~$ ls 
+ltdis.sh  static  static.ltdis.strings.txt  static.ltdis.x86_64.txt
+```
+
+Running `ltdis.sh` this time appeared to create a couple of new files. The Bash script appears to strip strings from binary files and save the strings in a text file. Honestly something that will be probably handy to keep in my back pocket for other challenges. 
+
+From here, I was able to `cat` the newly created .txt `static.ltdis.strings` and grep for "picoCTF" to get the flag. 
+
+```
+s0ren-picoctf@webshell:~$ cat static.ltdis.strings.txt | grep "picoCTF"
+   1020 picoCTF{d15a5m_t34s3r_98d35619}
+```
+
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{d15a5m_t34s3r_98d35619}`:pirate_flag:
 
 ---
 
