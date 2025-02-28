@@ -34,8 +34,8 @@
 - [First Find](#first-find) :pirate_flag:
 - [Big Zip](#big-zip) :pirate_flag:
 - [Glitch Cat](#glitch-cat) :pirate_flag:
-- [fixme1.py](#fixme1.py) 
-- [fixme2.py](#fixme2.py) 
+- [fixme1.py](#fixme1) 
+- [fixme2.py](#fixme2) 
 - [Magikarp Ground Mission](#magikarp-ground-mission)
 - [Static ain't always noise](#static-ain't-always-noise)
 - [useless](#useless)
@@ -1669,23 +1669,38 @@ picoCTF{gl17ch_m3_n07_9c42a45d}
 
 ---
 
-# fixme1.py
+# fixme1
 * **Difficulty:** EASY
 * **Category:** GENERAL SKILLS
 * **Author:** LT 'syreal' Jones
 
 ### Description
-> 
+> Fix the syntax error in this Python script to print the flag.
 > <a href="https://artifacts.picoctf.net/c/26/fixme1.py">Download Python script</a>
 
 ### Solution 
+Error messages can be extremely helpful sometimes. After downloading `fixme1.py` I decided to run it first and it returned an indentation error on line 20.  
+
+```
+s0ren-picoctf@webshell:~$ python3 fixme1.py 
+  File "/home/s0ren-picoctf/fixme1.py", line 20
+    print('That is correct! Here\'s your flag: ' + flag)
+IndentationError: unexpected indent
+```
+
+Python cares about indents. In this case, we just have to remove the indent from line 20 where the flag is printed. I did this and the script ran without errors and printed the flag. 
+
+```
+s0ren-picoctf@webshell:~$ python3 fixme1.py 
+That is correct! Here's your flag: picoCTF{1nd3nt1ty_cr1515_09ee727a}
+```
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{1nd3nt1ty_cr1515_09ee727a}`:pirate_flag:
 
 ---
 
-# fixme2.py
+# fixme2
 * **Difficulty:** EASY
 * **Category:** GENERAL SKILLS
 * **Author:** LT 'syreal' Jones
@@ -1697,8 +1712,33 @@ picoCTF{gl17ch_m3_n07_9c42a45d}
 
 ### Solution 
 
+Let's try running the script again to see what kind of error we get. 
+
+```
+s0ren-picoctf@webshell:~$ python3  fixme2.py 
+  File "/home/s0ren-picoctf/fixme2.py", line 22
+    if flag = "":
+       ^^^^^^^^^
+SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?
+```
+In this case, it looks like a single equal operator is being used for an `if` statement, which is incorrect syntax in many languages. 
+
+> [!TIP]
+> Python (and other languages) Comparison Operator 
+> - == comparison operator used to compare two values. If the values are the same then `True` is returned
+> - =! Inverse comparison returns `True` if the values are not the same.
+> - = assignment operator used to assign a value to a variable. 
+
+Put the comparison operator in the correct place and re-ran the script.
+
+```
+s0ren-picoctf@webshell:~$ python3 fixme2.py 
+That is correct! Here's your flag: picoCTF{3qu4l1ty_n0t_4551gnm3nt_4863e11b}
+```
+
+
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`{3qu4l1ty_n0t_4551gnm3nt_4863e11b}`:pirate_flag:
 
 ---
 
