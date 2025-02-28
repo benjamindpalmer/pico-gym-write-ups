@@ -446,8 +446,13 @@ The genesis of GREP has to do with early text editors using regular expressions 
 The GREP origin story. This is an interesting video:<br>
 https://www.youtube.com/watch?v=NTfOnGZUZDk
 
-* g/re/p
-* $\color{Green}{global}$/$\color{yellow}{regex}$/$\color{red}{print}$
+
+> [!TIP]
+> Why is it called Grep?
+> * g/re/p
+> * $\color{Green}{global}$
+> * $\color{yellow}{regex}$
+> * $\color{red}{print}$
 
 Was able to solve this challenge by downloading the file and "grepping?" for the beginning of the flag. Since all flags start with `picoCTF` I figured that would be a good string to use. 
 
