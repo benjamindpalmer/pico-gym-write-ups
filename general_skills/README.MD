@@ -1749,12 +1749,47 @@ That is correct! Here's your flag: picoCTF{3qu4l1ty_n0t_4551gnm3nt_4863e11b}
 
 ### Description
 > Do you know how to move between directories and read files in the shell? Start the container, `ssh` to it, and then `ls` once connected to begin. Login via `ssh` as `ctf-player` with the password, `481e7b14`
->
+
 
 ### Solution 
+Once we start the challenge instance we're given full ssh endpoints to login to the right environment. This is good practice for moving around in the shell.  First, `ls` is used to list the contents of the directory we are in. From there, we use `cat` to to print out the context of each file. In this challenge, each file contains part of the flag and instructions on how to navigate up and down the directory tree to find the next piece of the flag. 
+
+```
+ctf-player@pico-chall$ ls
+1of3.flag.txt  instructions-to-2of3.txt
+ctf-player@pico-chall$ cat 1of3.flag.txt 
+picoCTF{xxsh_
+ctf-player@pico-chall$ cat instructions-to-2of3.txt 
+Next, go to the root of all things, more succinctly `/`
+ctf-player@pico-chall$ cd /
+ctf-player@pico-chall$ ls
+2of3.flag.txt  boot  etc   instructions-to-3of3.txt  lib64  mnt  proc  run   srv  tmp  var
+bin            dev   home  lib                       media  opt  root  sbin  sys  usr
+ctf-player@pico-chall$ cat 2of3.flag.txt 
+0ut_0f_\/\/4t3r_
+ctf-player@pico-chall$ cat instructions-to-3of3.txt 
+Lastly, ctf-player, go home... more succinctly `~`
+ctf-player@pico-chall$ cd ~
+ctf-player@pico-chall$ ls
+3of3.flag.txt  drop-in
+ctf-player@pico-chall$ cat 3of3.flag.txt 
+1118a9a4}
+```
+
+putting in all together we get picoCTF{xxsh_0ut_0f_\/\/4t3r_1118a9a4}
+
+> [!TIP]
+> Bash Commands used in this challege: 
+> - *ls* list the contents of a directory
+> - *cat {file}*: print the contents of file
+> - *cd /*: change to root directory
+> - *cd ~/: change to home directory
+
+Even though I feel somewhat shell-proficient, I'm still learning new commands all the time. Here's a handy list of Bash commands I have bookmarked: https://github.com/RehanSaeed/Bash-Cheat-Sheet
+
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{xxsh_0ut_0f_\/\/4t3r_1118a9a4}`:pirate_flag:
 
 ---
 
