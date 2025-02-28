@@ -34,10 +34,10 @@
 - [First Find](#first-find) :pirate_flag:
 - [Big Zip](#big-zip) :pirate_flag:
 - [Glitch Cat](#glitch-cat) :pirate_flag:
-- [fixme1.py](#fixme1) 
-- [fixme2.py](#fixme2) 
-- [Magikarp Ground Mission](#magikarp-ground-mission)
-- [Static ain't always noise](#static-ain't-always-noise)
+- [fixme1.py](#fixme1) :pirate_flag:
+- [fixme2.py](#fixme2) :pirate_flag:
+- [Magikarp Ground Mission](#magikarp-ground-mission) :pirate_flag:
+- [Static ain't always noise](#static-aint-always-noise):pirate_flag: 
 - [useless](#useless)
 - [Based](#based)
 
@@ -1793,7 +1793,7 @@ Even though I feel somewhat shell-proficient, I'm still learning new commands al
 
 ---
 
-# Static ain't always noise
+# Static aint always noise
 * **Difficulty:** EASY
 * **Category:** GENERAL SKILLS
 * **Author:** Syreal
