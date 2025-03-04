@@ -1964,6 +1964,10 @@ Authors
 
 There *is* a manual for this thing! And it contains the flag at the bottom of the page. 
 
+
+[!RTFM.gif](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWpzcXc2bWlwNTA0ems5Z2s4dXI3eDllZ2RrdmMzdmVjcXM4cnljZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3NXbecukTskoSGZngb/giphy.gif)
+
+
 >[!NOTE]
 > Where do manual pages actually live? When I type `man foo` where is the manual page for `foo` actually coming from? 
 
@@ -1984,25 +1988,13 @@ There *is* a manual for this thing! And it contains the flag at the bottom of th
 
 ### Solution
 
+In this challenge, we're given data encoding three different ways and are asked to convert each into a word. I used the online data conversion tool cyberchef to actually do the conversions. 
+
+I was able to recognize each of the encoding types as they were given. The first was binary, second we're given an octal string, and the final data was in hexidecimal. 
+
 ```
 $ nc jupiter.challenges.picoctf.org 15130
 Let us see how data is stored
-test
-Please give the 01110100 01100101 01110011 01110100 as a word.
-...
-you have 45 seconds.....
-
-Input:
-test
-Please give me the  143 150 141 151 162 as a word.
-Input:
-chair
-Please give me the 6c69676874 as a word.
-Input:
-Too slow!
-Bens-MBP:PICOCTF palm$ nc jupiter.challenges.picoctf.org 15130
-Let us see how data is stored
-nurse
 Please give the 01101110 01110101 01110010 01110011 01100101 as a word.
 ...
 you have 45 seconds.....
