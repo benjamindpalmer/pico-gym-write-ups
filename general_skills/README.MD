@@ -38,7 +38,7 @@
 - [fixme2.py](#fixme2) :pirate_flag:
 - [Magikarp Ground Mission](#magikarp-ground-mission) :pirate_flag:
 - [Static ain't always noise](#static-aint-always-noise):pirate_flag: 
-- [useless](#useless)
+- [useless](#useless) :pirate_flag: 
 - [Based](#based)
 
 
@@ -1878,12 +1878,98 @@ s0ren-picoctf@webshell:~$ cat static.ltdis.strings.txt | grep "picoCTF"
 
 ### Description
 > There's an interesting script in the user's home directory The work computer is running SSH. We've been given a script which performs some basic calculations, explore the script and find a flag.
->
+> Hostname: saturn.picoctf.net
+> Port:     50432
+> Username: picoplayer
+> Password: password
 
 ### Solution 
+Once we SSH in, we are given access to a shell script called `'useless'`. I started out by just trying to run it and got a 'Read the code first' error message.  
+
+```
+picoplayer@challenge:~$ ./useless
+Read the code first 
+```
+
+Let's read the code. It looks like this script takes three arguments. An operator ("add", "sub", "mul", "div") and then two numbers you want to do those operations with. 
+
+```
+picoplayer@challenge:~$ cat useless
+#!/bin/bash
+# Basic mathematical operations via command-line arguments
+
+if [ $# != 3 ]
+then
+  echo "Read the code first"
+else
+        if [[ "$1" == "add" ]]
+        then 
+          sum=$(( $2 + $3 ))
+          echo "The Sum is: $sum"  
+
+        elif [[ "$1" == "sub" ]]
+        then 
+          sub=$(( $2 - $3 ))
+          echo "The Substract is: $sub" 
+
+        elif [[ "$1" == "div" ]]
+        then 
+          div=$(( $2 / $3 ))
+          echo "The quotient is: $div" 
+
+        elif [[ "$1" == "mul" ]]
+        then
+          mul=$(( $2 * $3 ))
+          echo "The product is: $mul" 
+
+        else
+          echo "Read the manual"
+         
+        fi
+fi
+```
+
+I played with the script a little bit. It does indeed add, substract, multiply, and divide. But this didn't get me anywhere towards finding the flag. I noticed an `else` condition built into the script that was meant to print out "Read the manual". What happens when I try `man useless`. Is there really a manual for this thing? 
+
+```
+picoplayer@challenge:~$ man useless
+
+useless
+     useless, -- This is a simple calculator script
+
+SYNOPSIS
+     useless, [add sub mul div] number1 number2
+
+DESCRIPTION
+     Use the useless, macro to make simple calulations like addition,subtraction, multiplication and division.
+
+Examples
+     ./useless add 1 2
+       This will add 1 and 2 and return 3
+
+     ./useless mul 2 3
+       This will return 6 as a product of 2 and 3
+
+     ./useless div 6 3
+       This will return 2 as a quotient of 6 and 3
+
+     ./useless sub 6 5
+       This will return 1 as a remainder of substraction of 5 from 6
+
+Authors
+     This script was designed and developed by Cylab Africa
+
+     picoCTF{us3l3ss_ch4ll3ng3_3xpl0it3d_6194}
+```
+
+There *is* a manual for this thing! And it contains the flag at the bottom of the page. 
+
+>[!NOTE]
+> Where do manual pages actually live? When I type `man foo` where is the manual page for `foo` actually coming from? 
+
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{us3l3ss_ch4ll3ng3_3xpl0it3d_6194}`:pirate_flag:
 
 ---
 
@@ -1896,10 +1982,45 @@ s0ren-picoctf@webshell:~$ cat static.ltdis.strings.txt | grep "picoCTF"
 > To get truly 1337, you must understand different data encodings, such as hexadecimal or binary. Can you get the flag from this program to prove you are on the way to becoming 1337? Connect with nc jupiter.challenges.picoctf.org 15130.
 >
 
-### Solution 
+### Solution
+
+```
+$ nc jupiter.challenges.picoctf.org 15130
+Let us see how data is stored
+test
+Please give the 01110100 01100101 01110011 01110100 as a word.
+...
+you have 45 seconds.....
+
+Input:
+test
+Please give me the  143 150 141 151 162 as a word.
+Input:
+chair
+Please give me the 6c69676874 as a word.
+Input:
+Too slow!
+Bens-MBP:PICOCTF palm$ nc jupiter.challenges.picoctf.org 15130
+Let us see how data is stored
+nurse
+Please give the 01101110 01110101 01110010 01110011 01100101 as a word.
+...
+you have 45 seconds.....
+
+Input:
+nurse
+Please give me the  141 156 151 155 141 164 151 157 156 as a word.
+Input:
+animation
+Please give me the 636f6d7075746572 as a word.
+Input:
+computer
+You've beaten the challenge
+Flag: picoCTF{learning_about_converting_values_02167de8}
+```
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{learning_about_converting_values_02167de8}`:pirate_flag:
 
 ---
 
