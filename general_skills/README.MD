@@ -40,6 +40,8 @@
 - [Static ain't always noise](#static-aint-always-noise):pirate_flag: 
 - [useless](#useless) :pirate_flag: 
 - [Based](#based)
+- [ASCII Numbers](#ascii-numbers)
+- [Repititions](#repititions)
 
 
 
@@ -2016,5 +2018,66 @@ Flag: picoCTF{learning_about_converting_values_02167de8}
 
 ---
 
-#
+# ASCII Numbers
+* **Difficulty:** MEDIUM
+* **Category:** GENERAL SKILLS
+* **Author:** LT 'syreal' Jones
+
+### Description
+> Convert the following string of ASCII numbers into a readable string: 
+> `0x70 0x69 0x63 0x6f 0x43 0x54 0x46 0x7b 0x34 0x35 0x63 0x31 0x31 0x5f 0x6e 0x30 0x5f 0x71 0x75 0x33 0x35 0x37 0x31 0x30 0x6e 0x35 0x5f 0x31 0x6c 0x6c 0x5f 0x74 0x33 0x31 0x31 0x5f 0x79 0x33 0x5f 0x6e 0x30 0x5f 0x6c 0x31 0x33 0x35 0x5f 0x34 0x34 0x35 0x64 0x34 0x31 0x38 0x30 0x7d`
+
+### Solution
+
+I used <a href="https://gchq.github.io/CyberChef/#recipe=From_Hex(">Cyberchef's 'From Hex' Recipe</a> to convert the provided string into a readable flag. Cyberchef has an intuitive UI that makes doing these types of conversions easy. 
+
+[!cyberchef screenshot](#/general_skills/assets/images/screenshots/ASCII_Numbers_390.png)
+
+### Flag
+:pirate_flag:`picoCTF{45c11_n0_qu35710n5_1ll_t311_y3_n0_l135_445d4180}`:pirate_flag:
+
+---
+
+# repititions
+* **Difficulty:** EASY
+* **Category:** GENERAL SKILLS
+* **Author:** Theoneste Byagutangaza
+
+### Description
+> Can you make sense of this file? Download the file <a href="https://artifacts.picoctf.net/c/471/enc_flag">here</a>.
+>  *HINT:* Multiple decoding is always good.
+
+### Solution 
+Ran `cat` on the provided file `enc_flag` and got a long alphanumeric string that ended with two equals signs. 
+
+```
+$ cat enc_flag 
+VmpGU1EyRXlUWGxTYmxKVVYwZFNWbGxyV21GV1JteDBUbFpPYWxKdFVsaFpWVlUxWVZaS1ZWWnVh
+RmRXZWtab1dWWmtSMk5yTlZWWApiVVpUVm10d1VWZFdVa2RpYlZaWFZtNVdVZ3BpU0VKeldWUkNk
+MlZXVlhoWGJYQk9VbFJXU0ZkcVRuTldaM0JZVWpGS2VWWkdaSGRXCk1sWnpWV3hhVm1KRk5XOVVW
+VkpEVGxaYVdFMVhSbFpSV0VKWVZGVmtNRTVHV2tWU2JYUlVDbUpXV25sVWJGcHZWbGRHZEdWRlZs
+aGkKYlRrelZERldUMkpzUWxWTlJYTkxDZz09Cg==
+```
+
+Immediately recognized this as Base64 from the previous [!Bases](#bases) challenge in this section, so I copied the string into CyberChef and ran the 'From Base64' recipe on it. However, the returned string was only slightly different. 
+
+```
+VjFSQ2EyTXlSblJUV0dSVllrWmFWRmx0TlZOalJtUlhZVVU1YVZKVVZuaFdWekZoWVZkR2NrNVVX
+bUZTVmtwUVdWUkdibVZXVm5WUgpiSEJzWVRCd2VWVXhXbXBOUlRWSFdqTnNWZ3BYUjFKeVZGZHdW
+MlZzVWxaVmJFNW9UVVJDTlZaWE1XRlZRWEJYVFVkME5GWkVSbXRUCmJWWnlUbFpvVldGdGVFVlhi
+bTkzVDFWT2JsQlVNRXNLCg==
+```
+
+
+I probably wouldn't know what to do here without the hint: "mulitple decoding is always good".  I kepted adding 'From Base64' decoding to the string until eventually the flag was returned. The flag had been encoded in base 64 six times, so it needed to be decoded six times.  
+
+<a href="https://gchq.github.io/CyberChef/#recipe=From_Base64">CyberChef Recipe</a>
+
+
+### Flag
+:pirate_flag:`picoCTF{base64_n3st3d_dic0d!n8_d0wnl04d3d_9b59b35c}`:pirate_flag:
+
+---
+
+
 
