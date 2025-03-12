@@ -42,6 +42,7 @@
 - [Based](#based)
 - [ASCII Numbers](#ascii-numbers)
 - [Repititions](#repititions)
+- [Chrono](#chrono)
 
 
 
@@ -2079,5 +2080,76 @@ I probably wouldn't know what to do here without the hint: "mulitple decoding is
 
 ---
 
+# Chrono
+* **Difficulty:** MEDIUM
+* **Category:** GENERAL SKILLS
+* **Author:** Mubarak Mikail
+
+### Description
+> How to automate tasks to run at intervals on linux servers? Use ssh to connect to this server:
+> (Server Creds)
+
+### Solution 
+Got the server creds and SSH'ed into the server. 
+
+```
+picoplayer@challenge:~$ ls  -la
+total 12
+drwxr-xr-x 1 picoplayer picoplayer   20 Mar  7 23:05 .
+drwxr-xr-x 1 root       root         24 Aug  4  2023 ..
+-rw-r--r-- 1 picoplayer picoplayer  220 Feb 25  2020 .bash_logout
+-rw-r--r-- 1 picoplayer picoplayer 3771 Feb 25  2020 .bashrc
+drwx------ 2 picoplayer picoplayer   34 Mar  7 23:05 .cache
+-rw-r--r-- 1 picoplayer picoplayer  807 Feb 25  2020 .profile
+```
+
+Nothing is jumping out at us in our home directory. What are we meant to do here? I used to work on a product that used chron jobs sync data to the site. Could this be a chron job related challenge? What tasks do I need to run here? 
+
+I did a little of of web searching and found a helpful Red Hat blogpost on Cron jobs. 
 
 
+Let's navigate to etc and see what's in there. There's quite a bit of stuff. 
+
+```
+picoplayer@challenge:~$ cd ../../etc
+picoplayer@challenge:/etc$ ls
+adduser.conf            crontab         gshadow      ld.so.conf     mke2fs.conf          python3      shadow       systemd
+alternatives            dbus-1          gshadow-     ld.so.conf.d   modules-load.d       python3.8    shadow-      terminfo
+apt                     debconf.conf    gss          legal          mtab                 rc0.d        shells       timezone
+bash.bashrc             debian_version  host.conf    libaudit.conf  networkd-dispatcher  rc1.d        skel         tmpfiles.d
+bindresvport.blacklist  default         hostname     localtime      networks             rc2.d        ssh          ucf.conf
+binfmt.d                deluser.conf    hosts        login.defs     nsswitch.conf        rc3.d        ssl          ufw
+ca-certificates         dhcp            hosts.allow  logrotate.d    opt                  rc4.d        subgid       update-motd.d
+ca-certificates.conf    dpkg            hosts.deny   lsb-release    os-release           rc5.d        subgid-      wgetrc
+cloud                   e2scrub.conf    init.d       machine-id     pam.conf             rc6.d        subuid       xattr.conf
+cron.d                  environment     inputrc      magic          pam.d                rcS.d        subuid-      xdg
+cron.daily              fstab           issue        magic.mime     passwd               resolv.conf  sudoers
+cron.hourly             gai.conf        issue.net    mailcap        passwd-              rmt          sudoers.d
+cron.monthly            group           kernel       mailcap.order  profile              security     sysctl.conf
+cron.weekly             group-          ld.so.cache  mime.types     profile.d            selinux      sysctl.d
+```
+
+Let's just `grep` for the flag from here. 
+
+```linux
+picoplayer@challenge:/etc$ grep -r "picoCTF"
+grep: .pwd.lock: Permission denied
+grep: gshadow: Permission denied
+grep: security/opasswd: Permission denied
+grep: shadow: Permission denied
+grep: ssh/ssh_host_ecdsa_key: Permission denied
+grep: ssh/ssh_host_ed25519_key: Permission denied
+grep: ssh/ssh_host_rsa_key: Permission denied
+grep: ssh/ssh_host_dsa_key: Permission denied
+crontab:# picoCTF{Sch3DUL7NG_T45K3_L1NUX_7754e199}
+grep: gshadow-: Permission denied
+grep: shadow-: Permission denied
+grep: ssl/private: Permission denied
+grep: sudoers: Permission denied
+grep: sudoers.d/README: Permission denied
+```
+
+Look at that! The flag is in the crontab file. If I'm understanding what I'm reading about Cron correctly, this is the configuration file for a linux user to set up their own cron jobs. 
+
+### Flag
+:pirate_flag:`picoCTF{Sch3DUL7NG_T45K3_L1NUX_7754e199}`:pirate_flag:
