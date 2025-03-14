@@ -39,11 +39,11 @@
 - [Magikarp Ground Mission](#magikarp-ground-mission) :pirate_flag:
 - [Static ain't always noise](#static-aint-always-noise):pirate_flag: 
 - [useless](#useless) :pirate_flag: 
-- [Based](#based)
-- [ASCII Numbers](#ascii-numbers)
-- [Repititions](#repititions)
-- [Chrono](#chrono)
-- [Special](#special)
+- [Based](#based) :pirate_flag: 
+- [ASCII Numbers](#ascii-numbers) :pirate_flag: 
+- [Repititions](#repititions) :pirate_flag: 
+- [Chrono](#chrono) :pirate_flag: 
+- [Special](#special) :pirate_flag: 
 
 
 
