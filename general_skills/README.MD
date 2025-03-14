@@ -2230,7 +2230,7 @@ $(grep or "picoCTF" ~/blargh)
 grep: picoCTF: No such file or directory
 ```
 
-[!head bashing gif](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjRzMnhyZTF6Z2UzeDcwaXVvcXd2dWVraWNxNWRzaWo0aWt0Ym1iNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IpkyqWqbipGg/giphy.gif)
+[!head bashing gif](#https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjRzMnhyZTF6Z2UzeDcwaXVvcXd2dWVraWNxNWRzaWo0aWt0Ym1iNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IpkyqWqbipGg/giphy.gif)
 
 It changed `grep -r` to "grep or" which isn't what we want. I found a way to use regular grep by just pointing to "anything in the blargh directory" with `*`. After some trial and error and fat-fingered syntax errors, the winning command looked like this: 
 `Special$ $(`grep "picoCTF" ~/blargh/*`)`
@@ -2243,5 +2243,22 @@ sh: 1: $picoCTF{5p311ch3ck_15_7h3_w0r57_3befb794}: not found
 
 ### Flag
 :pirate_flag:`picoCTF{5p311ch3ck_15_7h3_w0r57_3befb794}`:pirate_flag:
+
+---
+
+# Specialer
+* **Difficulty:** Medium
+* **Category:** General Skills
+* **Author:** LT 'syreal' Jones, et al.
+
+### Description
+> Reception of Special has been cool to say the least. That's why we made an exclusive version of Special, called Secure Comprehensive Interface for Affecting Linux Empirically Rad, or just 'Specialer'. With Specialer, we really tried to remove the distractions from using a shell. Yes, we took out spell checker because of everybody's complaining. But we think you will be excited about our new, reduced feature set for keeping you focused on what needs it the most. Please start an instance to test your very own copy of Specialer. 
+
+
+### Solution 
+
+
+### Flag
+:pirate_flag:``:pirate_flag:
 
 ---
