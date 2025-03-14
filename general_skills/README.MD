@@ -43,6 +43,7 @@
 - [ASCII Numbers](#ascii-numbers)
 - [Repititions](#repititions)
 - [Chrono](#chrono)
+- [Special](#special)
 
 
 
@@ -2153,3 +2154,94 @@ Look at that! The flag is in the crontab file. If I'm understanding what I'm rea
 
 ### Flag
 :pirate_flag:`picoCTF{Sch3DUL7NG_T45K3_L1NUX_7754e199}`:pirate_flag:
+
+# Special
+* **Difficulty:** Medium
+* **Category:** GENERAL SKILLS
+* **Author:** LT 'syreal' Jones
+
+### Description
+> Don't power users get tired of making spelling mistakes in the shell? Not anymore! Enter Special, the Spell Checked Interface for Affecting Linux. Now, every word is properly spelled and capitalized... automatically and behind-the-scenes! Be the first to test Special in beta, and feel free to tell us all about how Special streamlines every development process that you face. When your co-workers see your amazing shell interface, just tell them: That's Special (TM) Start your instance to see connection details.
+
+### Solution 
+After I started the instance and SSH'ed in with the provided creds, I tried running the `ls` command to see what was in the home directory. 
+
+```
+Special$ ls
+Is 
+sh: 1: Is: not found
+```
+
+Whatever is running in this shell is capitalizing the first letter and spell correcting any string input. This is very frustrating. None of the normal commands work. "ls" autocorrects to "Is" and "cd" autocorrects to "Ad". 
+
+```
+Special$ hello world
+Hello world 
+sh: 1: Hello: not found
+```
+
+At this point I wasn't sure what to do. So I Asked Jeeves what to do when "shell is interpreting commands as strings". Which eventually lead me to this gnu documentation on <a href = "https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html">Command Substitution</a>. My understanding is that these sort of work like interpolated strings in other languages where you can place a varible inside of a string and it's string literal value will be ignored for it's variable value. Here we want the actually command value to be read. 
+
+
+```
+Special$ $(ls)
+$(ls) 
+sh: 1: blargh: not found
+```
+
+It's been hours and we finally found something called `blargh`. Great. Is it a directory? `cd` doesn't appear to do anything. We can't `cd` into `'blargh` for some reason. First `$(cd blargh)` wasn't fully injected. The autocorrect got ahold of the `cd` command again, changing it to "ocd". I wrapped the command subsitition in 'backquote' escape characters to see if that would help. And we got `can't cd to /blargh`. '
+
+```
+Special$ $(cd blargh)
+Ocd blargh) 
+sh: 1: Syntax error: ")" unexpected
+Special$ $(cd ~/blargh)
+Ocd ~/blargh) 
+sh: 1: Syntax error: ")" unexpected
+Special$ $(`cd /blargh`)
+$(`cd /blargh`) 
+sh: 1: cd: can't cd to /blargh
+```
+
+Maybe we can just `cat` blargh. Maybe it isn't a directory? 
+
+```
+Special$ $(`cat blargh`)
+$(`cat blargh`) 
+cat: blargh: Is a directory
+```
+
+Ok, it's definitely a directory. That's a helpful error message. 
+
+What is going on here? I'm beating my head against the table at little bit at this point. I command subbed for "print working directory" just to see what was going on. 
+
+```
+Special$ $(pwd)
+$(pwd) 
+sh: 1: /home/ctf-player: Permission denied
+```
+
+So I just don't have any permission to look at the `/blargh` directory. I went down another rabbit hole trying to change the permissions of `blargh`. Which also didn't work. The program parsing my commands into strings was still getting in the way. This is what happened when I changed tack and tried to just recursive grep (`grep -r`) for anything in the `\blargh` directory. 
+
+
+```
+Special$ $(grep -r "picoCTF" ~/blargh)
+$(grep or "picoCTF" ~/blargh) 
+grep: picoCTF: No such file or directory
+```
+
+[!head bashing gif](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjRzMnhyZTF6Z2UzeDcwaXVvcXd2dWVraWNxNWRzaWo0aWt0Ym1iNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IpkyqWqbipGg/giphy.gif)
+
+It changed `grep -r` to "grep or" which isn't what we want. I found a way to use regular grep by just pointing to "anything in the blargh directory" with `*`. After some trial and error and fat-fingered syntax errors, the winning command looked like this: 
+`Special$ $(`grep "picoCTF" ~/blargh/*`)`
+
+```
+Special$ ($`grep "picoCTF" ~/blargh/*`)
+($`grep "picoCTF" ~/blargh/*`) 
+sh: 1: $picoCTF{5p311ch3ck_15_7h3_w0r57_3befb794}: not found
+```
+
+### Flag
+:pirate_flag:`picoCTF{5p311ch3ck_15_7h3_w0r57_3befb794}`:pirate_flag:
+
+---
