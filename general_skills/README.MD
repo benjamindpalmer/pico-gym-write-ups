@@ -1,6 +1,6 @@
 <h1 align="center"> :computer: GENERAL SKILLS :computer:</h1>
 
-:pirate_flag: Flags Captured: 20 / 51 :pirate_flag:
+:pirate_flag: Flags Captured: 42 / 51 :pirate_flag:
 
 - [Obedient Cat](#obedient-cat) :pirate_flag: 
 - [Super SSH](#super-ssh) :pirate_flag: 
