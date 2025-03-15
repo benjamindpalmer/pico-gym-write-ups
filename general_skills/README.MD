@@ -2262,3 +2262,142 @@ sh: 1: $picoCTF{5p311ch3ck_15_7h3_w0r57_3befb794}: not found
 :pirate_flag:``:pirate_flag:
 
 ---
+
+# endianess
+* **Difficulty:** Easy
+* **Category:** General Skills
+* **Author:** Nana Ama Atombo-Sackey
+
+### Description
+> Know of little and big endian? 
+> <a href="https://artifacts.picoctf.net/c_titan/119/flag.c">Source</a> 
+> nc [Redacted]
+
+### Solution 
+
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# Binhexa
+* **Difficulty:** Easy
+* **Category:** General Skills
+* **Author:** Nana Ama Atombo-Sackey
+
+### Description
+> How well can you perfom basic binary operations? Start searching for the flag here 
+> nc [Redacted]
+
+### Solution 
+
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# dont-you-love-banners
+* **Difficulty:** Medium
+* **Category:** General Skills
+* **Author:** Loic Shema / syreal
+
+### Description
+>Can you abuse the banner? The server has been leaking some crucial information on tethys.picoctf.net 54211. Use the leaked information to get to the server. To connect to the running application use nc tethys.picoctf.net 50580. From the above information abuse the machine and find the flag in the /root directory.
+
+### Solution 
+
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# SansAlpha
+* **Difficulty:** Medium
+* **Category:** General Skills
+* **Author:** SYREAL
+
+### Description
+> The Multiverse is within your grasp! Unfortunately, the server that contains the secrets of the multiverse is in a universe where keyboards only have numbers and (most) symbols. ssh [Redacted] Use password: [Redacted]
+
+### Solution 
+
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# Permissions
+* **Difficulty:** Medium
+* **Category:** General Skills
+* **Author:** Geoffrey Njogu
+
+### Description
+> Can you read files in the root file? The system admin has provisioned an account for you on the main server: 
+> ssh [Redacted] Password: [Redacted]
+> Can you login and read the root file?
+
+
+### Solution 
+
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# flag_shop
+* **Difficulty:** Medium
+* **Category:** General Skills
+* **Author:** Danny
+
+### Description
+> There's a flag shop selling stuff, can you buy a flag? <a href="https://jupiter.challenges.picoctf.org/static/dd28f0987f28c894f35d5d48564c3402/store.c">Source</a>. 
+> Connect with nc jupiter.challenges.picoctf.org 44566.
+
+### Solution 
+
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# Music
+* **Difficulty:** Medium
+* **Category:** General Skills
+* **Author:** Danny
+
+### Description
+> I wrote you a <a href="https://jupiter.challenges.picoctf.org/static/c0863a3b0170d6dd176be3a595b4b75e/lyrics.txt">song</a>. Put it in the picoCTF{} flag format.
+
+### Solution 
+
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+# 1_wanna_b3_a_r0ck5tar
+* **Difficulty:** Medium
+* **Category:** General Skills
+* **Author:**  Alex Bushkin
+
+### Description
+> I wrote you another <a href="https://jupiter.challenges.picoctf.org/static/96904d361d61fada5bd2d13536706f9a/lyrics.txt">song</a>. Put the flag in the picoCTF{} flag format.
+> The Rockstar language has changed since this problem was released! Use this Wayback Machine URL to use an older version of Rockstar, <a href="https://web.archive.org/web/20190522020843/https://codewithrockstar.com/online">here</a>.
+
+
+### Solution 
+
+
+### Flag
+:pirate_flag:``:pirate_flag:
+
+---
+
+
