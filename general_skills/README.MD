@@ -44,6 +44,15 @@
 - [Repititions](#repititions) :pirate_flag: 
 - [Chrono](#chrono) :pirate_flag: 
 - [Special](#special) :pirate_flag: 
+- [Specialer](#specialer)
+- [endianess](#endianess)
+- [Binhexa](#binhexa)
+- [dont-you-love-banners](#dont-you-love-banners)
+- [SansAlpha](#sansalpha)
+- [Permissions](#permissions)
+- [flag_shop](#flag_shop)
+- [Music](#music)
+- [1_wanna_b3_a_r0ck5tar](#1_wanna_b3_a_r0ck5tar)
 
 
 
