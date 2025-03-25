@@ -2263,12 +2263,74 @@ sh: 1: $picoCTF{5p311ch3ck_15_7h3_w0r57_3befb794}: not found
 ### Description
 > Reception of Special has been cool to say the least. That's why we made an exclusive version of Special, called Secure Comprehensive Interface for Affecting Linux Empirically Rad, or just 'Specialer'. With Specialer, we really tried to remove the distractions from using a shell. Yes, we took out spell checker because of everybody's complaining. But we think you will be excited about our new, reduced feature set for keeping you focused on what needs it the most. Please start an instance to test your very own copy of Specialer. 
 
-
 ### Solution 
+I connected using SSH and immediately tried to use `ls` to see what was in the home directory. However, it looks like `ls` isn't on the "Specialer" tool or we don't have permission access to it. I confirmed we have access to `cd` and a few other programs using `type`. Without `ls`, how I can view the contents of a directory?  
 
+```
+Specialer$ type cd
+cd is a shell builtin
+Specialer$ type pwd
+pwd is a shell builtin
+Specialer$ type ls
+-bash: type: ls: not found
+```
+
+I searched for some alternatives to `ls` and finally landed on `echo *`. Globbing with `echo` tells echo to print anything in the current direction. Doing this listed out three subdirectories: 'abra' 'ala' and 'sim'
+
+```
+Specialer$ echo *
+abra ala sim
+```
+
+So this is getting us somewhere. I could `cd` and then glob `echo` on each of these to see what's inside. But I wanted to try some search programs first.  I tried `grep`, `find`, `sed`, and `awk` and wasn't able to use any of them in this environment. Oh well. 
+
+This made me curious about what programs we *do* actually have access to. I used `$PATH` to see where all of our commands live. We do have access to `$PATH`. 
+
+```
+Specialer$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+```
+
+[!NOTE]
+> `echo $PATH` lists out all directories where your shell commands live, separated by colons :
+>  This is how the shell knows where to find the command you want to use when you type it.
+
+However, I wasn't able to access any of these directories. I was hoping to get a list of all of the commands I could actually run in this environment. 
+
+```
+Specialer$ cd /usr/bin
+-bash: cd: /usr/bin: No such file or directory
+```
+
+That's no matter. I ended up searching manually for the flag using `cd` (to change directories), `echo *` (to print out the contents of the current directory) and `echo $(<filename)` to print out the contents of each of the files. 
+
+I landed on `echo $(<filename>)` after unsuccessfully trying `cat`, `tac`, `less`, `more`. 
+`printf "%s" $(<filename)` would also have worked. 
+
+Searching directories manually is sometimes necessary. There was nothing useful in the `abra` folder: 
+
+```
+Specialer$ cd abra
+Specialer$ echo *
+cadabra.txt cadaniel.txt
+Specialer$ echo $(<cadaniel.txt)
+Yes, I did it! I really did it! I'm a true wizard!
+Specialer$ echo $(<cadabra.txt)
+Nothing up my sleeve!
+```
+
+The `ala` folder had what we were looking for though. 
+
+```
+Specialer$ cd ala
+Specialer$ echo *
+kazam.txt mode.txt
+Specialer$ echo $(<kazam.txt)
+return 0 picoCTF{y0u_d0n7_4ppr3c1473_wh47_w3r3_d01ng_h3r3_38f5cc78}
+```
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{y0u_d0n7_4ppr3c1473_wh47_w3r3_d01ng_h3r3_38f5cc78}`:pirate_flag:
 
 ---
 
