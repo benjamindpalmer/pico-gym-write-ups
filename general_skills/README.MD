@@ -2400,9 +2400,156 @@ With both answers entered correctly our flag is printed as promised.
 
 ### Solution 
 
+I can't perform basic binary operations at all. At least I couldn't before I saw this challenge. I had to do quite a bit of searching for each of the six questions in the jeopary-like challenge. See the 'Note' below for summary of each operator I encounted in this challenge 
+
+
+[!NOTE]
+> Binary Operators
+> '>>' right shift
+> '<<' left shift
+> & And operator. If both bits at a given position are 1, the resulting bit is 1 otherwise, the resulting bit is 0.
+> | OR operator; if either bit at a given position are 1, the resulting bit is 1 otherwise the resulting bit is 0.
+> '*' multiplication 
+> '+' addition 
+
+```
+Welcome to the Binary Challenge!"
+Your task is to perform the unique operations in the given order and find the final result in hexadecimal that yields the flag.
+
+Binary Number 1: 01011110
+Binary Number 2: 01011011
+
+Question 1/6:
+Operation 1: '|'
+Perform the operation on Binary Number 1&2.
+Enter the binary result: 01011111
+Correct!
+```
+
+Question 1 asks us to do an bitwise 'or' operation. Do to this, compare the bits in each byte to the bit in the same position. If either are 1, then then result is 1.  
+
+position|byte1|byte2|"or" result|
+|---|---|---|---|
+0|0|0|0|
+1|1|0|1|
+2|0|1|1|
+3|1|1|1|
+
+
+
+```
+Question 2/6:
+Operation 2: '&'
+Perform the operation on Binary Number 1&2.
+Enter the binary result: 01011010
+Correct!
+```
+
+position|byte1|byte2|"&" result|
+|---|---|---|---|
+0|0|0|0|
+1|1|0|0|
+2|0|1|0|
+3|1|1|1|
+
+Question two is similar to question 1, but we're asked to do the bitwise "and" operation. 1 is only returned if *both* bits in the same position are 1.  
+
+```
+Question 3/6:
+Operation 3: '*'
+Perform the operation on Binary Number 1&2.
+Enter the binary result: 1010100011010
+Incorrect. Try again
+Enter the binary result: 010000101101010
+Correct!
+```
+
+Question 3 asks us to multiply `01011110` and `01011011`. This was by far the most difficult question task in the challenge. There are a couple ways to approach this. I could have converted each binary number to it's decimal equivalent, found the product in decimal, and then converted that number back to base 2. But I wanted to learn how a binary multiply operation actually works at the base 2 level. 
+
+    01011110
+x   01011011
+
+To multiply, start with the least significant bit of binary number 2 and multiply it by the entire binary number 1. 
+
+1 x 01011110 = 01011110
+
+We repeat this each bit in binary number 2, offsetting the result by one place each time. Once this is done, we can add products of each of these operations together to get the final result. Adding these together was difficult. I created a little cheat sheet below to so I wasn't confused about what values I was actually carrying over to the next most significant bit position. 
+
+
+                  01011110  
+                 010111100
+                0000000000
+               01011110000
+              010111100000
+             0000000000000
+            01011110000000
+           000000000000000
+           ---------------
+           010000101101010
+
+```
+Question 4/6:
+Operation 4: '+'
+Perform the operation on Binary Number 1&2.
+Enter the binary result: 10111001
+Correct!
+```
+
+  01011110
++ 01011011
+---------- 
+  10111001
+
+
+Online tutorials will tell you to add binary numbers just like regular integers by carrying the remainders over to the next digit. This works when you're adding two bytes as you'll never be carrying more than a value of 1 over to the more significant bit. 
+
+This sort of works when finding the sum of two bytes, but it's less obvious what you're actually meant to me carrying over when adding many bytes togther encounter a line of 1s. 
+I made this table to make adding a bit easier (this was really built for finding the sum of all of the shifted bytes in question 3). Once I understood what was really happening I was able to confidently add multiple 
+
+
+[!TIP]
+> Binary Addition Cheat Sheet: 
+> 0 + 1 = 1<sub>2</sub> (1) place 1
+> 1 + 1 = 10<sub>2</sub> (2) place 0, carry 1
+> 1 + 1 + 1 = 11<sub>2</sub> (3) place 1, carry 1
+> 1 + 1 + 1 + 1 = 100<sub>2</sub> (4) place 0, carry 2 
+> 1 + 1 + 1 + 1 + 1 = 101<sub>2</sub> (5) placd 1, carry 2
+> 1 + 1 + 1 + 1 + 1 + 1 = 110<sub>2</sub> (6) place 0, carry 3 
+> 1 + 1 + 1 + 1 + 1 + 1 + 1 = 111<sub>2</sub> (7) place 1, carry 3
+> 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 = 1000<sub>2</sub> (8) place 0, carry 4
+
+```
+Question 5/6:
+Operation 5: '>>'
+Perform a right shift of Binary Number 2 by 1 bits .
+Enter the binary result: 00101101
+Correct!
+```
+
+A 'right shift' essentially divides the binary number by 2, rounded down to the nearest integer. To do this, we just remove the least significant bit (rightmost) and add a zero before the most significant bit. So `01011011` becomes `00101101`
+
+```
+Question 6/6:
+Operation 6: '<<'
+Perform a left shift of Binary Number 1 by 1 bits.
+Enter the binary result: 10111100
+Correct!
+````
+
+Similarly, a 'left shift' multiples the binary number by 2. To do this, remove the most significant bit (leftmost) and add a zero at the end. In this case, binary number `01011110` becomes `10111100` when shifted left. 
+
+```
+Enter the results of the last operation in hexadecimal: bc
+
+Correct answer!
+The flag is: picoCTF{b1tw^3se_0p3eR@tI0n_su33essFuL_6862762d}
+```
+
+Finally, we're asked to convert the final answer to hexadecimal for some reason. Entering the hex value printed the flag. 
+
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{b1tw^3se_0p3eR@tI0n_su33essFuL_6862762d}`:pirate_flag:
 
 ---
 
