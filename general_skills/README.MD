@@ -2342,13 +2342,50 @@ return 0 picoCTF{y0u_d0n7_4ppr3c1473_wh47_w3r3_d01ng_h3r3_38f5cc78}
 ### Description
 > Know of little and big endian? 
 > <a href="https://artifacts.picoctf.net/c_titan/119/flag.c">Source</a> 
-> nc [Redacted]
+> nc titan.picoctf.net 54147
+> 
+> *HINT:* You might want to check the ASCII table to first find the hexadecimal representation of characters before finding the endianness.
 
 ### Solution 
+I used net cat to connect to the challenge instance and was prompted to find the little endian and big endian representations of the word 'mybry'. 
 
+```
+Welcome to the Endian CTF!
+You need to find both the little endian and big endian representations of a word.
+If you get both correct, you will receive the flag.
+Word: mybry
+```
+
+I found the hint helpful here as I wasn't sure if which format we were meant to give the answer in (binary, decimal, hex, etc). 
+
+[!NOTE]
+> 'Endianess' refers to the way bytes of data are stored in memory. In "Little Endian" format, the least significant byte is stored first. In "Big Endian" the most significant byte is stored first. 
+> e.g. If I had a decimal number like 1234 i
+
+In this case, we first have to convert the word 'mybry' to hexidecimal. I like <a href="https://gchq.github.io/CyberChef">cyberchef</a> for conversions, but an ascii reference table would get use the same result. 
+
+`'mybry'` in in hex is  `6d 79 62 72 79` 
+
+In little endian, we take the LSB (79) first, followed by (72), and so on until we get 797262796d.
+
+```
+Enter the Little Endian representation: 797262796d
+Correct Little Endian representation!
+```
+
+In big endian, we do the opposite. The MSB is stored first (6e), followed by 79, and so on until we get 6d79627279.
+
+```
+Enter the Big Endian representation: 6d79627279 
+Correct Big Endian representation!
+Congratulations! You found both endian representations correctly!
+Your Flag is: picoCTF{3ndi4n_sw4p_su33ess_28329f0a}
+```
+
+With both answers entered correctly our flag is printed as promised. 
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{3ndi4n_sw4p_su33ess_28329f0a}`:pirate_flag:
 
 ---
 
