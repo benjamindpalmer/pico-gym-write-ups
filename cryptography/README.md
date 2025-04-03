@@ -3,12 +3,12 @@
 * [Easy1](#easy1)
 * [13](#13)
 * [Mod 26](#mod-26)
-
+* [Caesar](#caesar)
 
 # Easy1
-* **Difficulty:** EASY
+* **Difficulty:** Medium
 * **Category:** Cryptography
-* **Author:** 
+* **Author:** Alex Fulton/Daniel Tunitis
 
 ### Description
 > The one time pad can be cryptographically secure, but not when you know the key. Can you solve this? 
@@ -49,7 +49,7 @@ Z | Z A B C D E F G H I J K L M N O P Q R S T U V W X Y
 ```
 
 
-## Solution
+### Solution
 
 This is called a <a href="https://www.youtube.com/watch?v=SkJcmCaHqS0">Vigenère Cipher</a>. You can use a key and the above table to encrypt/decrypt text.
 The cipher text is just the letter by letter interseciton of the plaintext one axis of the table and the key on the other. 
@@ -80,17 +80,17 @@ Plain Text: `CRYPTOISFUN`
 
 
 # 13
-* **Points:** 100
+* **Difficulty:** Easy
 * **Category:** Cryptography
-* **Challenge Year:** 2019
+* **Author:** Alex Fulton/Daniel Tunitis
 
-## Description
+### Description
 
 > Cryptography can be easy, do you know what ROT13 is? 
 >
 > cvpbPGS{abg_gbb_onq_bs_n_ceboyrz}
 
-## Solution
+### Solution
 
 A ROT13 cipher substitues a letter of plaintext with a letter 13 places away from it in the A-Z alphabet. 
 Because of this, it works the same both forwards and backwards. 
@@ -114,6 +114,7 @@ I'm using Python's maketrans method below to compare my rot0 string with my rot1
 There is probably a much better way to do this. But it was more fun than just going to someone else's site to decipher. 
 
 ```python
+# manually created some keys
 rot0 = "abcdefghijklmnopqrstuvwxyz"
 rot1 = "bcdefghijklmnopqrstuvwxyza"
 rot13 = "nopqrstuvwxyzabcdefghijklm"
@@ -143,28 +144,24 @@ print(final_flag)
 `picoCTF{not_too_bad_of_a_problem}`
 
 
-
 # Mod 26
 
 * **Difficulty:** EASY
 * **Category:** CRYPTOGRAPHY
 * **Author:** PANDU
 
-## Description
+### Description
 > Cryptography can be easy, do you know what ROT13 is? 
 > cvpbPGS{arkg_gvzr_V'yy_gel_2_ebhaqf_bs_ebg13_nSkgmDJE}
 
-## Solution
-Oh! I know this! 
+### Solution 
 
-ROT13 is a cipher where you take the 26 letter alphabet and replace each letter with the letter 13 places from that letter.
+Like previous challenge, we have a ROT13 cipher where you take the 26 letter alphabet and replace each letter with the letter 13 places from that letter.
 so "a" (1) becomes "n" (1+13)
 
-used this site instead of manually counting
-https://rot13.com/
+This time, I used <a href="https://gchq.github.io/CyberChef/">CyberChef</a> to do the basic decryption. There is a "ROT13" recipe built right into it. 
 
-> [!NOTE]
-> [<a href='https://gchq.github.io/CyberChef/'>Cyberchef</a> is a better resource for basic decryptions like this.]
+[!cyberchef screenshot](#/cryptography/assets/screenshots/Mod26_144_1.png)
 
 ### flag
 :pirate_flag:`picoCTF{next_time_I'll_try_2_rounds_of_rot13_aFxtzQWR}`:pirate_flag:
@@ -287,22 +284,3 @@ Again, easy to solve online but you can probably tell I had fun here :nerd-glase
 
 ### Flag
 :pirate_flag: **flag:**`picoCTF{crossingtherubiconvfhsjkou}`:pirate_flag:
-
-# title
-* **Difficulty:** 
-* **Category:** CRYPTOGRAPHY
-* **Author:** 
-
-### Description
->
-
-### Solution
-
-
-### flag
-:pirate_flag: :pirate_flag:
-
-<br>
----
-<br>
-
