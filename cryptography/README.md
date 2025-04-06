@@ -4,6 +4,7 @@
 * [13](#13)
 * [Mod 26](#mod-26)
 * [Caesar](#caesar)
+* [interencdec](#interencdec)
 
 # Easy1
 * **Difficulty:** Medium
@@ -284,3 +285,90 @@ Again, easy to solve online but you can probably tell I had fun here :nerd-glase
 
 ### Flag
 :pirate_flag: **flag:**`picoCTF{crossingtherubiconvfhsjkou}`:pirate_flag:
+
+
+
+# interencdec
+* **Difficulty:** Easy
+* **Category:** CRYPTOGRAPHY
+* **Tags:** Base64, Caesar
+* **Author:** NGIRIMANA Schadrack
+
+### Description
+> Can you get the real meaning from this file. Download the file <a href="Can you get the real meaning from this file. Download the file here. ">here</a>. 
+
+> **HINT:** Engaging in various decoding processes is of utmost importance
+
+### Solution
+The file provided contains one encrypted string:
+
+`YidkM0JxZGtwQlRYdHFhR3g2YUhsZmF6TnFlVGwzWVROclh6YzRNalV3YUcxcWZRPT0nCg==` 
+
+Based on the tags in the challenge and the little bit I know about Base64, I suspect this is probably a Base64 encoded string.
+
+I using CyberChef's 'From Base64' recipe, the string is decoded to the following: 
+
+`b'd3BqdkpBTXtqaGx6aHlfazNqeTl3YTNrXzc4MjUwaG1qfQ=='` 
+
+From here, I had a little bit of trouble. Based on the hint and tags provided with the challenge, I assumed that this would be a simple caesar decode. It was that, but I skipped a crucial step before running a rot13 decrypt and rot47 decrypt (rot47 rotates through more ascii character to include non-alphanumeric characters). This didn't get me anywhere until I removed the `b'` and `'` at the beginning and end of the decoded string. As soon as I recognized this as Python's byte string syntax, I realized I needed to do the decryption on just the text inside the byte string. 
+
+Running another 'From Base64' decode on the byte string `d3BqdkpBTXtqaGx6aHlfazNqeTl3YTNrXzc4MjUwaG1qfQ==` gives us a string that looks like it's finally ready for simple caesar decryption:
+
+`wpjvJAM{jhlzhy_k3jy9wa3k_78250hmj}`
+
+[!NOTE]
+> In Python binary strings are expressed this way `b'string'`
+> Byte string syntax is used before encoding to base64 because the encoding is done on the binary data
+> See the <a href ="/general_skills/README.MD#Bases">Bases</a> challenge for a high-level summary on how Base64 encoding works
+
+I ran this string through the cute little brute-force caesar decryptor script I wrote. The flag was printed at rot-19. 
+
+```
+$ python3 brute_caesar.py 
+ ________   ________   _________   _________
+|   _____| |   __   | |   ___   | |   ___   | 
+|   |____  |  |__|  | |  |   |  | |  |___|  |
+|_____   | |   _____| |  |_\  \ | |   __   _|
+ _____|  | |  |       |_____\  \| |  |  \  \
+|________| |__| BRUTÉ CAESAR \__\ |__|   \__\ 
+
+Enter the text you want to encrypt / decrypt
+>
+>wpjvJAM{jhlzhy_k3jy9wa3k_78250hmj}
+>
+rot-0:wpjvjam{jhlzhy_k3jy9wa3k_78250hmj}
+rot-1:xqkwkbn{kimaiz_l3kz9xb3l_78250ink}
+rot-2:yrlxlco{ljnbja_m3la9yc3m_78250jol}
+rot-3:zsmymdp{mkockb_n3mb9zd3n_78250kpm}
+rot-4:atnzneq{nlpdlc_o3nc9ae3o_78250lqn}
+rot-5:buoaofr{omqemd_p3od9bf3p_78250mro}
+rot-6:cvpbpgs{pnrfne_q3pe9cg3q_78250nsp}
+rot-7:dwqcqht{qosgof_r3qf9dh3r_78250otq}
+rot-8:exrdriu{rpthpg_s3rg9ei3s_78250pur}
+rot-9:fysesjv{squiqh_t3sh9fj3t_78250qvs}
+rot-10:gztftkw{trvjri_u3ti9gk3u_78250rwt}
+rot-11:haugulx{uswksj_v3uj9hl3v_78250sxu}
+rot-12:ibvhvmy{vtxltk_w3vk9im3w_78250tyv}
+rot-13:jcwiwnz{wuymul_x3wl9jn3x_78250uzw}
+rot-14:kdxjxoa{xvznvm_y3xm9ko3y_78250vax}
+rot-15:leykypb{ywaown_z3yn9lp3z_78250wby}
+rot-16:mfzlzqc{zxbpxo_a3zo9mq3a_78250xcz}
+rot-17:ngamard{aycqyp_b3ap9nr3b_78250yda}
+rot-18:ohbnbse{bzdrzq_c3bq9os3c_78250zeb}
+rot-19:picoctf{caesar_d3cr9pt3d_78250afc}
+rot-20:qjdpdug{dbftbs_e3ds9qu3e_78250bgd}
+rot-21:rkeqevh{ecguct_f3et9rv3f_78250che}
+rot-22:slfrfwi{fdhvdu_g3fu9sw3g_78250dif}
+rot-23:tmgsgxj{geiwev_h3gv9tx3h_78250ejg}
+rot-24:unhthyk{hfjxfw_i3hw9uy3i_78250fkh}
+rot-25:voiuizl{igkygx_j3ix9vz3j_78250gli}
+```
+
+### flag
+:pirate_flag:`picoctf{caesar_d3cr9pt3d_78250afc}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
