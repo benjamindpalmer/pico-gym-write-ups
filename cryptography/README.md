@@ -1,10 +1,12 @@
 <h1 align="center"> :closed_lock_with_key: CRYPTOGRAPHY :closed_lock_with_key:</h1>
 
-* [Easy1](#easy1)
-* [13](#13)
-* [Mod 26](#mod-26)
-* [Caesar](#caesar)
-* [interencdec](#interencdec)
+* [Easy1](#easy1):pirate_flag:
+* [13](#13):pirate_flag:
+* [Mod 26](#mod-26):pirate_flag:
+* [Caesar](#caesar):pirate_flag:
+* [interencdec](#interencdec):pirate_flag:
+
+:pirate_flag: Flags Captured: 5 / 5 :pirate_flag:
 
 # Easy1
 * **Difficulty:** Medium
