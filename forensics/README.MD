@@ -104,3 +104,49 @@ Although it's entirely safe in this case, scanning random QR codes with one's ph
 
 ### Flag
 :pirate_flag:`picoCTF{p33k_@_b00_b5ce2572}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+
+# extensions
+* **Difficulty:** Medium
+* **Category:** Forensics
+* **Author:** Sanjay C/Danny
+
+### Description
+> This is a really weird text file <a href="https://jupiter.challenges.picoctf.org/static/e7e5d188621ee705ceeb0452525412ef/flag.txt">TXT</a>? Can you find the flag?
+>
+> **Hint 1:** How do operating systems know what kind of file it is? (It's not just the ending!)
+> 
+
+### Solution 
+
+Running the `file` command shows us the that the downloaded "flag.txt" is really a PNG file. 
+
+```
+$ file flag.txt
+flag.txt: PNG image data, 1697 x 608, 8-bit/color RGB, non-interlaced
+```
+
+We can also open the file. The .txt extension is causing my OS to treat it like a txt file. In a text editor, a 'PNG' header is visible. 
+
+[screenshot of png file in text editor](/forensics/assets/screenshots/png_header.png)
+
+
+I changed the extenstion of the .txt file to .png to see if that would get it to open as an image. It's amazing when stuff 'just works'. Basically I'm just telling my OS to 'treat this like a PNG' because a PNG is what it is. The flag is displayed on the png file.
+
+[screenshot of png file displaying as an image](/forensics/assets/screenshots/flag_extensions.png)
+
+
+### Flag
+:pirate_flag:`picoCTF{now_you_know_about_extensions}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
