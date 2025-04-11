@@ -9,7 +9,7 @@
 ## TOC 
 - :computer:[General Skills](general_skills/README.MD)
 - :globe_with_meridians:[Web Exploitation](###)
-- :closed_lock_with_key:[Cryptography](###)
+- :closed_lock_with_key:[Cryptography](cryptography/README.md)
 - :gear:[Reverse Engineering](###)
 - :microscope:[Forensics](###)
 - :space_invader:[Binary Exploitation](###)
