@@ -150,3 +150,55 @@ I changed the extenstion of the .txt file to .png to see if that would get it to
 ---
 
 <br>
+
+# Glory of the Garden
+* **Difficulty:** Easy
+* **Category:** Forensics
+* **Author:** Jedavis/Danny
+
+### Description
+> This <a href="https://raw.githubusercontent.com/QPalmer/Pico-Gym-Write-Ups/master/forensics/glory_of_the_garden/garden.jpg">garden</a>contains more than it seems.
+>
+> **Hint:** What is a hex editor?
+
+### Solution
+
+We are provided with this photo of a path winding through a green garden. 
+
+[photo of a path winding through a green garden](/forensics/assets/images/garden.jpg)
+
+```
+$ file garden.jpg 
+garden.jpg: JPEG image data, JFIF standard 1.01, resolution (DPI), density 72x72, segment length 16, baseline, precision 8, 2999x2249, components 3
+```
+
+This is definitely a jpg. Opening in a text editor was not helpful. I don't have a hex editor installed on this machine currently, and sometimes rather than install software first, I want to see what can actually be done with the tools that I currently have. After a little searching I found out there ARE ways to view binaries in different formats from the terminal. 
+
+I ended up running `xxd garden.jpg` which printed out the file in hexidecimal and the ASCII representaton of the bytes. 
+
+[!TIP]
+>HexDump
+> `xxd filename` - display file in hexidecimal
+> `xxd -b filename` - display file in binary
+> `od filename` - display file in octal
+
+
+```
+00230550: a2bb bdac 9687 98e4 d3b2 e87f ffd9 4865  ..............He
+00230560: 7265 2069 7320 6120 666c 6167 2022 7069  re is a flag "pi
+00230570: 636f 4354 467b 6d6f 7265 5f74 6861 6e5f  coCTF{more_than_
+00230580: 6d33 3374 735f 7468 655f 3379 3365 4264  m33ts_the_3y3eBd
+00230590: 4264 3263 637d 220a                      Bd2cc}".
+```
+
+At the bottom of the hex dump, we can see the ASCII characters "Here is a flag "picoCTF{more_than_m33ts_the_3y3eBdBd2cc}"
+
+
+### Flag
+:pirate_flag:`picoCTF{more_than_m33ts_the_3y3eBdBd2cc}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
