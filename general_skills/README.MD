@@ -2,7 +2,7 @@
 
 <p align="center">:pirate_flag: Flags Captured: 45 / 51 :pirate_flag:</p>
 
-<div align="center">
+
 |     |     |     |
 | ----- | ----- | -----|
 | [Obedient Cat](#obedient-cat) :pirate_flag:| [Convertme.py](#convertme.py) :pirate_flag:| [Chrono](#chrono) :pirate_flag:|
@@ -25,7 +25,7 @@
 | [Nice netcat...](#Nice-netcat...) :pirate_flag:| [Based](#based) :pirate_flag:| 
 | [Binary Search](#binary-search) :pirate_flag:| [ASCII Numbers](#ascii-numbers) :pirate_flag: |
 | [Codebook](#codebook) :pirate_flag: | [Repititions](#repititions) :pirate_flag: |
-</div>
+
 
 
 # Obedient Cat 
