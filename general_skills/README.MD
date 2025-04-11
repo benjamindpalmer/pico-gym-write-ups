@@ -1,59 +1,31 @@
 <h1 align="center"> :computer: GENERAL SKILLS :computer:</h1>
 
-:pirate_flag: Flags Captured: 45 / 51 :pirate_flag:
+<p align="center">:pirate_flag: Flags Captured: 45 / 51 :pirate_flag:</p>
 
-- [Obedient Cat](#obedient-cat) :pirate_flag: 
-- [Super SSH](#super-ssh) :pirate_flag: 
-- [what's a net cat?](#whats-a-net-cat) :pirate_flag:
-- [Lets Warm Up](#lets-warm-up):pirate_flag:
-- [Warmed Up](#warmed-up) :pirate_flag: 
-- [2 Warm](#2warm) :pirate_flag: 
-- [Bases](#bases) :pirate_flag: 
-- [Wave a flag](#wave-a-flag) :pirate_flag: 
-- [Tab, Tab, Attack](#tab-tab-attack) :pirate_flag: 
-- [First grep](#first-grep) :pirate_flag: 
-- [strings it](#strings-it) :pirate_flag: 
-- [Python Wragling](#python-wrangling) :pirate_flag:
-- [PW Crack 1](#pw-crack-1) :pirate_flag:
-- [PW Crack 2](#pw-crack-2) :pirate_flag:
-- [PW Crack 3](#pw-crack-3) :pirate_flag:
-- [PW Crack 4](#pw-crack-4) :pirate_flag:
-- [PW Crack 5](#pw-crack-5) :pirate_flag:
-- [Nice netcat...](#Nice-netcat...) :pirate_flag:
-- [Binary Search](#binary-search) :pirate_flag:
-- [Codebook](#codebook) :pirate_flag:
-- [Convertme.py](#convertme.py) :pirate_flag:
-- [runme.py](#runme.py) :pirate_flag:
-- [HashingJobApp](#hasingjobapp) :pirate_flag:
-- [Serpentine](#serpentine) :pirate_flag:
-- [Plumbing](#plumbing):pirate_flag:
-- [Time Machine](#time-machine) :pirate_flag:
-- [Commitment Issues](#commitment-issues):pirate_flag:
-- [Collaborative Development](#collaborative-developement) :pirate_flag:
-- [Blame Game](#blame-game) :pirate_flag:
-- [First Find](#first-find) :pirate_flag:
-- [Big Zip](#big-zip) :pirate_flag:
-- [Glitch Cat](#glitch-cat) :pirate_flag:
-- [fixme1.py](#fixme1) :pirate_flag:
-- [fixme2.py](#fixme2) :pirate_flag:
-- [Magikarp Ground Mission](#magikarp-ground-mission) :pirate_flag:
-- [Static ain't always noise](#static-aint-always-noise):pirate_flag: 
-- [useless](#useless) :pirate_flag: 
-- [Based](#based) :pirate_flag: 
-- [ASCII Numbers](#ascii-numbers) :pirate_flag: 
-- [Repititions](#repititions) :pirate_flag: 
-- [Chrono](#chrono) :pirate_flag: 
-- [Special](#special) :pirate_flag: 
-- [Specialer](#specialer) :pirate_flag: 
-- [endianess](#endianess) :pirate_flag: 
-- [Binhexa](#binhexa) :pirate_flag: 
-- [dont-you-love-banners](#dont-you-love-banners)
-- [SansAlpha](#sansalpha)
-- [Permissions](#permissions)
-- [flag_shop](#flag_shop)
-- [Music](#music)
-- [1_wanna_b3_a_r0ck5tar](#1_wanna_b3_a_r0ck5tar)
-
+<div align="center">
+|     |     |     |
+| ----- | ----- | -----|
+| [Obedient Cat](#obedient-cat) :pirate_flag:| [Convertme.py](#convertme.py) :pirate_flag:| [Chrono](#chrono) :pirate_flag:|
+| [Super SSH](#super-ssh) :pirate_flag: | [runme.py](#runme.py) :pirate_flag:| [Special](#special) :pirate_flag:|
+| [what's a net cat?](#whats-a-net-cat) :pirate_flag:|[HashingJobApp](#hasingjobapp) :pirate_flag:|[Specialer](#specialer) :pirate_flag:|
+| [Lets Warm Up](#lets-warm-up):pirate_flag:| [Serpentine](#serpentine) :pirate_flag:| [endianess](#endianess) :pirate_flag:|
+| [Warmed Up](#warmed-up) :pirate_flag:| [Plumbing](#plumbing):pirate_flag:| [Binhexa](#binhexa) :pirate_flag:|
+| [2 Warm](#2warm) :pirate_flag:| [Time Machine](#time-machine) :pirate_flag:| [dont-you-love-banners](#dont-you-love-banners)|
+| [Bases](#bases) :pirate_flag: | [Commitment Issues](#commitment-issues):pirate_flag:| [SansAlpha](#sansalpha)|
+| [Wave a flag](#wave-a-flag) :pirate_flag:| [Collaborative Development](#collaborative-developement) :pirate_flag:|[Permissions](#permissions)|
+| [Tab, Tab, Attack](#tab-tab-attack) :pirate_flag:| [Blame Game](#blame-game) :pirate_flag:| [flag_shop](#flag_shop)|
+| [First grep](#first-grep) :pirate_flag:| [First Find](#first-find) :pirate_flag:| [Music](#music)|
+| [strings it](#strings-it) :pirate_flag:| [Big Zip](#big-zip) :pirate_flag:| [1_wanna_b3_a_r0ck5tar](#1_wanna_b3_a_r0ck5tar)|
+| [Python Wragling](#python-wrangling) :pirate_flag:| [Glitch Cat](#glitch-cat) :pirate_flag:|
+| [PW Crack 1](#pw-crack-1) :pirate_flag:| [fixme1.py](#fixme1) :pirate_flag:|
+| [PW Crack 2](#pw-crack-2) :pirate_flag:| [fixme2.py](#fixme2) :pirate_flag:|
+| [PW Crack 3](#pw-crack-3) :pirate_flag:| [Magikarp Ground Mission](#magikarp-ground-mission) :pirate_flag:|
+| [PW Crack 4](#pw-crack-4) :pirate_flag:| [Static ain't always noise](#static-aint-always-noise):pirate_flag: |
+| [PW Crack 5](#pw-crack-5) :pirate_flag:| [useless](#useless) :pirate_flag: |
+| [Nice netcat...](#Nice-netcat...) :pirate_flag:| [Based](#based) :pirate_flag:| 
+| [Binary Search](#binary-search) :pirate_flag:| [ASCII Numbers](#ascii-numbers) :pirate_flag: |
+| [Codebook](#codebook) :pirate_flag: | [Repititions](#repititions) :pirate_flag: |
+</div>
 
 
 # Obedient Cat 
