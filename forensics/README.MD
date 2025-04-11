@@ -3,6 +3,8 @@
 - [Enhance](#enhance!):pirate_flag:
 - [Verify](#verify) :pirate_flag:
 - [Scan Surprise](#scan-surprise) :pirate_flag: 
+- [extensions](#extensions) :pirate_flag:
+- [Glory of the Garden](#glory-of-the-garden) :pirate_flag:
 
 
 # Enhance!
