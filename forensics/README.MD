@@ -1,5 +1,10 @@
 <h1 align="center"> :microscope: FORENSICS :microscope:</h1>
 
+- [Enhance](#enhance!):pirate_flag:
+- [Verify](#verify) :pirate_flag:
+- [Scan Surprise](#scan-surprise) :pirate_flag: 
+
+
 # Enhance!
 * **Difficulty:** $\color{Yellow}{MEDIUM}$
 * **Category:** FORENSICS
@@ -27,14 +32,16 @@ The first two values are the x y coordinates and the last two determind the heig
 
 Also had some fun editing other parts of the file. Changing colors of the elements, changing the text color, etc. 
 
-![Blade Runner Enchance Gif]()
+![Blade Runner Enchance Gif](https://i.gifer.com/9XO3.gif)
 
 
 ### Flag
 :pirate_flag:`picoCTF{3nh4nc3d_24374675}`:pirate_flag:
 
 <br>
+
 ---
+
 <br>
 
 
@@ -54,17 +61,17 @@ Also had some fun editing other parts of the file. Changing colors of the elemen
 ### Solution 
 We have access to to files and a directory called files that contains a bunch of files. Too many to sift through manually. I used `ls` to list the files and directories in the first directory, and then used `cd` to change to the files directory. From there I used `ls -la` to list all of the files. There were a lot of files. 
 
-![Screenshot](verify_1.png)
+![Screenshot](/forensics/assets/screenshots/verify_1.png)
 
-The flag is somewhere in this group of files, but is encrypted. So doing somethign like
+The flag is somewhere in this group of files, but is encrypted. I tried running a quick grep but that doesn't work here. 
 
 `$ grep 'picoCTF{' *` 
 
-on the files directory won't work here. We ARE given the Sha256 hash though. We can return all of the sha256 sums on every file in the directry with `sha256sum *` and then grep for the checksum value provided in the challenge. We can combine these two commands with a |
+We ARE given the Sha256 hash though. We can return all of the sha256 sums on every file in the directry with `sha256sum *` and then grep for the checksum value provided in the challenge. We can combine these two commands with a | (pipe). 
 
 `sha256sum * | grep 67a10447deb3d4e17634cacc2a68ba6c2bb62a6637dad9145ea673bf0be5e02`
 
-![Screenshot](verify_2.png)
+![Screenshot](/forensics/assets/screenshots/verify_2.png)
 
 This returns the file that matches the sha256 value we're lookinig for! Which is `c6c8b911`. Now we just run the `decrypt.sh` script on that file to return the flag. For some reason, you have to be outside of the `files` directory to run the script. I believe it is expecting to look in a directory first (files) and then at a specific file. 
 
@@ -72,7 +79,9 @@ This returns the file that matches the sha256 value we're lookinig for! Which is
 :pirate_flag:`picoCTF{trust_but_verify_c6c8b911}`:pirate_flag:
 
 <br>
+
 ---
+
 <br>
 
 # Scan Surprise
@@ -87,7 +96,7 @@ This returns the file that matches the sha256 value we're lookinig for! Which is
 ### Solution 
 After downloading and unzipping <<a href="https://artifacts.picoctf.net/c_atlas/2/challenge.zip">challenge.zip</a>, we find a file called flag.png buried in a few other directories. It is a .png that displays a QR code. 
 
-![PNG file that contains a QR code](/assets/images/flag.png)
+![PNG file that contains a QR code](/forensics/assets/images/flag.png)
 
 Although it's entirely safe in this case, scanning random QR codes with one's phone probably isn't best practice from a security standpoint. I used this online QR code scanner https://scanqr.org/#scan to print the scanned flag. 
 
