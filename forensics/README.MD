@@ -46,7 +46,6 @@ Also had some fun editing other parts of the file. Changing colors of the elemen
 
 <br>
 
-
 # Verify
 * **Difficulty:** Easy
 * **Category:** FORENSICS
@@ -58,7 +57,6 @@ Also had some fun editing other parts of the file. Changing colors of the elemen
 
 > * Checksum: 467a10447deb3d4e17634cacc2a68ba6c2bb62a6637dad9145ea673bf0be5e02
 > * To decrypt the file once you've verified the hash, run `./decrypt.sh files/<file>`.
-
 
 ### Solution 
 We have access to to files and a directory called files that contains a bunch of files. Too many to sift through manually. I used `ls` to list the files and directories in the first directory, and then used `cd` to change to the files directory. From there I used `ls -la` to list all of the files. There were a lot of files. 
@@ -111,7 +109,6 @@ Although it's entirely safe in this case, scanning random QR codes with one's ph
 
 <br>
 
-
 # extensions
 * **Difficulty:** Medium
 * **Category:** Forensics
@@ -134,12 +131,12 @@ flag.txt: PNG image data, 1697 x 608, 8-bit/color RGB, non-interlaced
 
 We can also open the file. The .txt extension is causing my OS to treat it like a txt file. In a text editor, a 'PNG' header is visible. 
 
-[screenshot of png file in text editor](/forensics/assets/screenshots/png_header.png)
+![screenshot of png file in text editor](/forensics/assets/screenshots/png_header.png)
 
 
 I changed the extenstion of the .txt file to .png to see if that would get it to open as an image. It's amazing when stuff 'just works'. Basically I'm just telling my OS to 'treat this like a PNG' because a PNG is what it is. The flag is displayed on the png file.
 
-[screenshot of png file displaying as an image](/forensics/assets/screenshots/flag_extensions.png)
+![screenshot of png file displaying as an image](/forensics/assets/screenshots/flag_extensions.png)
 
 
 ### Flag
@@ -157,7 +154,7 @@ I changed the extenstion of the .txt file to .png to see if that would get it to
 * **Author:** Jedavis/Danny
 
 ### Description
-> This <a href="https://raw.githubusercontent.com/QPalmer/Pico-Gym-Write-Ups/master/forensics/glory_of_the_garden/garden.jpg">garden</a>contains more than it seems.
+> This <a href="https://jupiter.challenges.picoctf.org/static/d0e1ffb10fc0017c6a82c57900f3ffe3/garden.jpg">garden</a>contains more than it seems.
 >
 > **Hint:** What is a hex editor?
 
@@ -165,7 +162,7 @@ I changed the extenstion of the .txt file to .png to see if that would get it to
 
 We are provided with this photo of a path winding through a green garden. 
 
-[photo of a path winding through a green garden](/forensics/assets/images/garden.jpg)
+![photo of a path winding through a green garden](/forensics/assets/images/garden.jpg)
 
 ```
 $ file garden.jpg 
@@ -176,8 +173,8 @@ This is definitely a jpg. Opening in a text editor was not helpful. I don't have
 
 I ended up running `xxd garden.jpg` which printed out the file in hexidecimal and the ASCII representaton of the bytes. 
 
-[!TIP]
->HexDump
+> [!TIP]
+> Hex Dumps
 > `xxd filename` - display file in hexidecimal
 > `xxd -b filename` - display file in binary
 > `od filename` - display file in octal
