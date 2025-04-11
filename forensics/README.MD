@@ -20,17 +20,19 @@ SVG stands for Scalable Vector Graphics, and in this challenge we want to scale 
 
 I was able to open the provided file in the web browser and zoom in enough to see a little black speck inside a small white circle, surrounded by a large black circle. Opening the inspector revealed what was going on. There was indeed a very small elipse element in the center of the white circle. There was also a text element that listed out letters of the flag separately. So one way to get the flag is just to look at the text element and piece the flag together manually. 
 
-(svg_inspected.png)
+[screenshot of svg file](/forensics/assets/screenshots/svg_inspected.png)
 
 But what if I wanted to actually zoom in on this SVG? It _is scalable_ right? It says so right in the name. I was able to do some successful web searching that pointed me to the `viewbox` element in the SVG file. The Viewbox pretty much does what it's namesake says, allows the view to set parameters around which parts of the SVG they're looking at by setting x y cooridnates for an anchorpoint and then box size in pixles width by heigh. Opening the file in a text editor, we can see the four values of the `viewbox`
 
-(svg_viewbox.png)
+[screenshot of svg viewbox](/forensics/assets/screenshots/svg_viewbox.png)
 
 The first two values are the x y coordinates and the last two determind the height and width of the view in pixels. I had a very hard time 'moving' the viewbox into the correct position with trial and error, so I grabbed the coordinates from lines 71 and 72 that set the coordinates of the elipse element that contained the flag. Adjusting the viewbox to display the flag was still finnicky and required somem trial and error but I was able to get a nice screenshot after a minute or two once I had the right coordinates. 
 
-(svg_flag.png)
+[screenshot of svg displaying flag](/forensics/assets/screenshots/svg_flag.png)
 
 Also had some fun editing other parts of the file. Changing colors of the elements, changing the text color, etc. 
+
+[screenshot of some unnessary but fun edits to the svg file](/forensics/assets/screenshots/svg_flag_fun.png)
 
 ![Blade Runner Enchance Gif](https://i.gifer.com/9XO3.gif)
 
@@ -55,7 +57,7 @@ Also had some fun editing other parts of the file. Changing colors of the elemen
 > ssh -p 49657 ctf-player@rhea.picoctf.net Using the password 83dcefb7. Accept the fingerprint with yes, and ls once connected to begin. Remember, in a shell, passwords are hidden!
 
 > * Checksum: 467a10447deb3d4e17634cacc2a68ba6c2bb62a6637dad9145ea673bf0be5e02
-> * To decrypt the file once you've verified the hash, run ./decrypt.sh files/<file>.
+> * To decrypt the file once you've verified the hash, run `./decrypt.sh files/<file>`.
 
 
 ### Solution 
