@@ -460,9 +460,75 @@ IN 1508, JOHANNES TRITHEMIUS INVENTED THE SO-CALLED TABULA RECTA (A MATRIX OF SH
 BELLASO’S SECOND BOOKLET APPEARED IN 1555 AS A CONTINUATION OF THE FIRST. THE LOWER HALVES OF THE ALPHABETS ARE NOW SHIFTED REGULARLY, BUT THE ALPHABETS AND THE INDEX LETTERS ARE MIXED BY MEANS OF A MNEMONIC KEY PHRASE, WHICH CAN BE DIFFERENT WITH EACH CORRESPONDENT.
 ```
 
-
 ### flag
 :pirate_flag:`picoCTF{B311A50_0R_V1GN3R3_C1PH3RA966878A}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# Mr-WorldWide
+* **Difficulty:** Medium
+* **Category:** CRYPTOGRAPHY
+* **Author:** Danny
+
+### Description
+> A musician left us a <a href="https://jupiter.challenges.picoctf.org/static/d5570d48262dbba2a31f2a940409ad9d/message.txt">message</a>. What's it mean?
+>
+
+### Solution
+<p>message.text looks like it has a list of gps coordinates inside of the 'picoCTF' flag format string. Punching these gps coordinates into google maps will take us to these places. I did two of these before I got bored and started looking at random places in Egypt. 
+
+```
+picoCTF{(35.028309, 135.753082)(46.469391, 30.740883)(39.758949, -84.191605)(41.015137, 28.979530)(24.466667, 54.366669)(3.140853, 101.693207)_(9.005401, 38.763611)(-3.989038, -79.203560)(52.377956, 4.897070)(41.085651, -73.858467)(57.790001, -152.407227)(31.205753, 29.924526)}
+```
+
+As fun as it would be copy and paste all of these into google maps, it would be more fun to use a script to just give us the location names. I found this script in a forum <a href="/cryptography/assets/scripts/locations.py">locations.py"</a> and leveraged it to work with the coords in this challenge. Here's what it returned when I fed `locations.py` the list of coordinates.
+
+```
+$ python3 locations.py 
+(35.028309, 135.753082) : セブン-イレブン, 元誓願寺通, 鷹司町, 東町, 上京区, 京都市, 京都府, 602-0953, 日本
+(46.469391, 30.740883) : Лев, Привокзальна площа, Центр, Приморський район, Одеса, Одеська міська громада, Одеський район, Одеська область, 65011, Україна
+(39.758949, -84.191605) : Fusion, 20, South Main Street, East Second Street Historic District, Dayton, Montgomery County, Ohio, 45402, United States
+(41.015137, 28.97953) : 1, Istasyon Arkası Sokağı, Hocapaşa Mahallesi, Cankurtaran Mahallesi, Fatih, İstanbul, Marmara Bölgesi, 34110, Türkiye
+(24.466667, 54.366669) : شارع هزاع بن زايد الأول, الكرامة, المنهل, أبو ظبي, المَنهَل, أبوظبي, أبو ظبي, 109595, الإمارات العربية المتحدة
+(3.140853, 101.693207) : Bulatan KTM, Brickfields, Kuala Lumpur, 50000, Malaysia
+(9.005401, 38.763611) : ኦሎምፒያ, Addis Ababa / አዲስ አበባ, Kirkos, አዲስ አበባ / Addis Ababa, 111, ኢትዮጵያ
+(-3.989038, -79.20356) : Avenida Nueva Loja, Paris, Loja, 110105, Ecuador
+(52.377956, 4.89707) : Art'Otel, 33, Prins Hendrikkade, Centrum, Amsterdam, Noord-Holland, Nederland, 1012TM, Nederland
+(41.085651, -73.858467) : 276, North Broadway, Sleepy Hollow, Town of Mount Pleasant, Westchester County, New York, 10591, United States
+(57.790001, -152.407227) : Rezanof Drive West, Kodiak, Kodiak Island, Alaska, 99615, United States
+(31.205753, 29.924526) : كلية الهندسة ، جامعة الإسكندرية, شارع جمال عبد الناصر, كامب شيزار, الشاطبى, الإسكندرية, 21561, مص
+```
+
+This is neat but not super helpful, some of the results aren't in English. I ended up just manually googling most of these and copying the city and state next to the GPS coordinates. If you take the first letter of every city name, it spells out `KODIAK_ALASKA`
+
+```
+message.txt
+-----------
+
+picoCTF{
+(35.028309, 135.753082)  - KYOTO JAPAN
+(46.469391, 30.740883)   - ODESSA UKRAINE
+(41.015137, 28.979530)   - DAYTON OHIO
+(39.758949, -84.191605)  - ISTABUL TURKEY
+(24.466667, 54.366669)   - ABU DHABI UAE
+(3.140853, 101.693207)   - KUALA LUMPUR MALAYSIA
+_
+(9.005401, 38.763611)    - ADDIS ABABA ኢትዮጵያ
+(-3.989038, -79.203560)  - LOJA ECUADOR
+(52.377956, 4.897070)    - AMSTERDAM NEDERLAND
+(41.085651, -73.858467)  - SLEEPY HOLLOW NEW YORK
+(57.790001, -152.407227) - KODIAK ALASKA
+(31.205753, 29.924526)}  - ALEXANDRIA EGYPT
+```
+
+<p>I learned a little about google APIs in researching ways to get addresses from GPS coordinates before discovering <a href="https://geopy.readthedocs.io/en/stable/index.html#module-geopy.geocoders">GeoPy</a>. GeoPy just leverages the Nominatim API - https://nominatim.org/ It probably would have been less of a headache in this case to manually google search each GPS coordinates. However, even when it's terrible code copied from forums, PYTHON IS FUN.</p> 
+
+### flag
+:pirate_flag:picoCTF{KODIAK_ALASKA}`:pirate_flag:
 
 <br>
 
