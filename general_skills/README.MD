@@ -2741,11 +2741,11 @@ We sell flags
 We can buy 'not the flag' flags for 900 each, or the real flag for 100,000. Since we don't have 100,000 we're going to have to use a large number (per the hint) to **overflow* the 2s complement binary number.  I tried to buy 1 million dummy flags but this number was not high enough. 
 
 > [!NOTE]
-> Overflow in 2s complement
-> Overflow can happen when the result of adding or subtracting two signed binary numbers exceeds the number of bits needed to represent that number. 
-> For instance, if I'm subtracting numbers and get should get -20, but I only have four signed bits, I'm going to run into an overflow error. 
-> -20<sub>10<sub> equals 10110<sub>2<sub> in twos complement. However, there are two many bits here. When this happens the MSB gets dropped and we're left with 0110<sub>2<sub> or positive 12. We we're expecting a negative number, but got a positive one instead. 
-> The same principle applies to this challenge, just with much larger numbers. 
+> :warning: Overflow in 2s complement :warning:
+> - Overflow can happen when the result of adding or subtracting two signed binary numbers exceeds the number of bits needed to represent that number. 
+> - For instance, if I'm subtracting numbers and get should get -20, but I only have four signed bits, I'm going to run into an overflow error. 
+> - -20<sub>10</sub> equals 10110<sub>2</sub> in twos complement. However, there are two many bits here. When this happens the MSB gets dropped and we're left with 0110<sub>2</sub> or positive 12. We we're expecting a negative number, but got a positive one instead. 
+> - The same principle applies to this challenge, just with much larger numbers. 
 
 
 ```
