@@ -2716,7 +2716,7 @@ what is the password?
 
 ### Solution 
 
-We netcat in and find a cute little flag shop. I started by checking my balance. 
+We netcat in and and find a "flag exchange" that is selling flags. I started by checking my balance. 
 
 ```
 nc jupiter.challenges.picoctf.org 44566
@@ -2751,7 +2751,7 @@ Enter 1 to buy one1
 Not enough funds for transaction
 ```
 
-Since we don't have 100,000 we're going to have to use a large number (per the hint) to **overflow* the 2s complement binary number.  I tried to buy 1 million dummy flags but this number was not high enough. 
+Since we don't have 100,000 we're going to have to use a large number (per the hint) to *overflow* the 2s complement binary number.  I tried to buy 1 million dummy flags but this number was not high enough. 
 
 ![Dr evil 1 million dollars.gif](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2N4OXYzeGw1Y3ZlY3p3OHhjYmUwcTVkajZzMm05MzBlOXVxYTVtZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0Iyf53PyEdBPZMys/giphy.gif)
 
@@ -2778,7 +2778,7 @@ The final cost is: -1748818944
 
 Your current balance after transaction: 1748820044
 ```
-Nice. It looks like we successfully triggered an overflow and were able to buy the 900 million dummy flags for a **negative** -1748818944! This gives us a balance of 1,748,820,044 which is more than enough to buy the '1337 flag' for 100k. 
+Nice. It looks like we successfully triggered an overflow and were able to buy the 900 million dummy flags for **negative** -1748818944! This gives us a balance of 1,748,820,044 which is more than enough to buy the '1337 flag' for 100k. 
 
 > [!NOTE]
 > :warning: Overflow in 2s complement :warning:
@@ -2787,6 +2787,8 @@ Nice. It looks like we successfully triggered an overflow and were able to buy t
 > - -20<sub>10</sub> equals 10110<sub>2</sub> in twos complement. However, there are two many bits here. When this happens the MSB gets dropped and we're left with 0110<sub>2</sub> or positive 12. We we're expecting a negative number, but got a positive one instead. 
 > - The same principle applies to this challenge, just with much larger numbers. 
 
+
+Freshly minted, we can just buy the flag like a normal user. 
 
 ```
 Currently for sale
