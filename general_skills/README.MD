@@ -2738,14 +2738,22 @@ We sell flags
 
 ```
 
-We can buy 'not the flag' flags for 900 each, or the real flag for 100,000. Since we don't have 100,000 we're going to have to use a large number (per the hint) to **overflow* the 2s complement binary number.  I tried to buy 1 million dummy flags but this number was not high enough. 
+We can buy 'not the flag' flags for 900 each, or the real flag for 100,000. If we try to buy the real flag, we're told we don't have enough funds. 
 
-> [!NOTE]
-> :warning: Overflow in 2s complement :warning:
-> - Overflow can happen when the result of adding or subtracting two signed binary numbers exceeds the number of bits needed to represent that number. 
-> - For instance, if I'm subtracting numbers and get should get -20, but I only have four signed bits, I'm going to run into an overflow error. 
-> - -20<sub>10</sub> equals 10110<sub>2</sub> in twos complement. However, there are two many bits here. When this happens the MSB gets dropped and we're left with 0110<sub>2</sub> or positive 12. We we're expecting a negative number, but got a positive one instead. 
-> - The same principle applies to this challenge, just with much larger numbers. 
+```
+Currently for sale
+1. Defintely not the flag Flag
+2. 1337 Flag
+2
+1337 flags cost 100000 dollars, and we only have 1 in stock
+Enter 1 to buy one1
+
+Not enough funds for transaction
+```
+
+Since we don't have 100,000 we're going to have to use a large number (per the hint) to **overflow* the 2s complement binary number.  I tried to buy 1 million dummy flags but this number was not high enough. 
+
+![Dr evil 1 million dollars.gif](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2N4OXYzeGw1Y3ZlY3p3OHhjYmUwcTVkajZzMm05MzBlOXVxYTVtZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0Iyf53PyEdBPZMys/giphy.gif)
 
 
 ```
@@ -2770,7 +2778,15 @@ The final cost is: -1748818944
 
 Your current balance after transaction: 1748820044
 ```
-Nice. It looks like we successfully exploited 2's complement and we're able to actually buy the 900 million dummy flags for a **negative** amount! This gives us a balance of 1,748,820,044 which is more than enough to buy the '1337 flag' for 100k. 
+Nice. It looks like we successfully triggered an overflow and were able to buy the 900 million dummy flags for a **negative** -1748818944! This gives us a balance of 1,748,820,044 which is more than enough to buy the '1337 flag' for 100k. 
+
+> [!NOTE]
+> :warning: Overflow in 2s complement :warning:
+> - Overflow can happen when the result of adding or subtracting two signed binary numbers exceeds the number of bits needed to represent that number. 
+> - For instance, if I'm subtracting numbers and get should get -20, but I only have four signed bits, I'm going to run into an overflow error. 
+> - -20<sub>10</sub> equals 10110<sub>2</sub> in twos complement. However, there are two many bits here. When this happens the MSB gets dropped and we're left with 0110<sub>2</sub> or positive 12. We we're expecting a negative number, but got a positive one instead. 
+> - The same principle applies to this challenge, just with much larger numbers. 
+
 
 ```
 Currently for sale
