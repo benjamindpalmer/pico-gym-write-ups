@@ -5,6 +5,7 @@
 - [Scan Surprise](#scan-surprise) :pirate_flag: 
 - [extensions](#extensions) :pirate_flag:
 - [Glory of the Garden](#glory-of-the-garden) :pirate_flag:
+- [information](#information) :pirate_flag:
 
 # Enhance!
 * **Difficulty:** $\color{Yellow}{MEDIUM}$
@@ -194,6 +195,69 @@ At the bottom of the hex dump, we can see the ASCII characters "Here is a flag "
 
 ### Flag
 :pirate_flag:`picoCTF{more_than_m33ts_the_3y3eBdBd2cc}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# information
+* **Difficulty:** Easy
+* **Category:** Forensics
+* **Author:** Susie
+
+### Description
+> Files can always be changed in a secret way. Can you find the flag? <a href="https://mercury.picoctf.net/static/b4d62f6e431dc8e563309ea8c33a06b3/cat.jpg">cat.jpg</a>
+
+### Solution
+Downloading cat.jpg gives a picture of a kitten sitting on a laptop keyboard. Very cool. 
+
+I first opened the image in a hex editor using `xxd` from the terminal, but that didn't yield anything. I took a look at the image metadata using `exiftool` and noticed something strange about the license value. 
+
+```
+$ exiftool cat.jpg 
+ExifTool Version Number         : 13.25
+File Name                       : cat.jpg
+Directory                       : .
+File Size                       : 878 kB
+File Modification Date/Time     : 2025:04:20 16:31:24-07:00
+File Access Date/Time           : 2025:04:22 14:36:40-07:00
+File Inode Change Date/Time     : 2025:04:22 01:15:27-07:00
+File Permissions                : -rw-r--r--
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+JFIF Version                    : 1.02
+Resolution Unit                 : None
+X Resolution                    : 1
+Y Resolution                    : 1
+Current IPTC Digest             : 7a78f3d9cfb1ce42ab5a3aa30573d617
+Copyright Notice                : PicoCTF
+Application Record Version      : 4
+XMP Toolkit                     : Image::ExifTool 10.80
+License                         : cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9
+Rights                          : PicoCTF
+Image Width                     : 2560
+Image Height                    : 1598
+Encoding Process                : Baseline DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
+Image Size                      : 2560x1598
+Megapixels                      : 4.1
+```
+
+This looks familiar. A lot of these challenges encode the flag in Base64. I've seen Base64 encoded strings in the <a href="/general_skills/README.MD#Bases">Bases</a> and <a href="/web_exploitation/README.md#webdecode">WebDecode</a> challenges. These are getting easier to recognize. The combinations of upper and lower cased letters and numbers indicate a Base64 encoding. 
+
+```
+License                         : cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9
+```
+
+From here, I copied `cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9` into CyberChef's "From Base64" recipe which returned the flag. 
+
+### flag
+:pirate_flag:picoCTF{the_m3tadata_1s_modified}:pirate_flag:
 
 <br>
 
