@@ -439,16 +439,21 @@ $ icat -o 2048 dds2-alpine.flag.img 18291
 
 <br>
 
-# TITLE
-* **Difficulty:** 
-* **Category:** 
-* **Author:** 
+# Sleuthkit Apprentice
+* **Difficulty:** Medium
+* **Category:** Forensics
+* **Author:** LT 'syreal' Jones
 
 ### Description
-> 
+> Download this disk image and find the flag. Note: if you are using the webshell, download and extract the disk image into /tmp not your home directory.
+
+> - <a href="https://artifacts.picoctf.net/c/137/disk.flag.img.gz">Download compressed disk image</a>
+
 
 
 ### Solution
+
+No hints or file names or Sleuthkit tools to try this time. We're on our own. After downloading and uncompressing the disk image, I ran `mmls` to look at the partition table. 
 
 ```
 $ mmls disk.flag.img
