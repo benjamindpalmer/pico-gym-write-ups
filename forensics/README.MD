@@ -7,6 +7,9 @@
 - [Glory of the Garden](#glory-of-the-garden) :pirate_flag:
 - [information](#information) :pirate_flag:
 - [Sleuthkit Intro](#sleuthkit-intro) :pirate_flag:
+- [Disk, disk, sleuth!](#disk-disk-sleuth) :pirate_flag:
+- [Disk, disk, sleuth! II](#disk-disk-sleuth-ii) :pirate_flag:
+- [Sleuthkit Apprentice](#sleuthkit-apprentice) :pirate_flag:
 
 # Enhance!
 * **Difficulty:** $\color{Yellow}{MEDIUM}$
