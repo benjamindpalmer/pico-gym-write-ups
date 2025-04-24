@@ -6,6 +6,7 @@
 - [extensions](#extensions) :pirate_flag:
 - [Glory of the Garden](#glory-of-the-garden) :pirate_flag:
 - [information](#information) :pirate_flag:
+- [Sleuthkit Intro](#sleuthkit-intro) :pirate_flag:
 
 # Enhance!
 * **Difficulty:** $\color{Yellow}{MEDIUM}$
@@ -88,7 +89,7 @@ This returns the file that matches the sha256 value we're lookinig for! Which is
 
 # Scan Surprise
 * **Difficulty:** EASY
-* **Category:** GENERAL SKILLS
+* **Category:** FORENSICS
 * **Author:** Jeffery John
 
 ### Description
@@ -264,3 +265,53 @@ From here, I copied `cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9` into CyberChe
 ---
 
 <br>
+
+# Sleuthkit Intro
+* **Difficulty:** Medium
+* **Category:** Forensics
+* **Author:** LT 'syreal' Jones
+
+### Description
+> Download the disk image and use `mmls` on it to find the size of the Linux partition. Connect to the remote checker service to check your answer and get the flag. Note: if you are using the webshell, download and extract the disk image into /tmp not your home directory. 
+> <a href="https://artifacts.picoctf.net/c/164/disk.img.gz">Download disk image</a>
+> Access checker program: nc saturn.picoctf.net 51212
+
+### Solution
+
+I downloaded and unzipped the linked disk image after installing Sleuthkit. I opted to start with the non-gui version of Sleuthkit for now, and we'll see how far that gets me. It worked fine for this challenge, but based on what I'm reading about 'autopsy' (the GUI for Sleuthkit) it's probably worth using moving forward. 
+
+`mmls` is a sleuthkit tool that runs on the MultiMedia layer of the disk image. This tool prints out the partition table, which will be helpful to finding the size of the linux partition. 
+
+```
+$ mmls disk.img
+DOS Partition Table
+Offset Sector: 0
+Units are in 512-byte sectors
+
+      Slot      Start        End          Length       Description
+000:  Meta      0000000000   0000000000   0000000001   Primary Table (#0)
+001:  -------   0000000000   0000002047   0000002048   Unallocated
+002:  000:000   0000002048   0000204799   0000202752   Linux (0x83)
+```
+
+The Linux partition has a Lenght of 202752 sectors. Connecting with net cat and answering the question gives us the flag. 
+
+```
+$ nc saturn.picoctf.net 59875
+What is the size of the Linux partition in the given disk image?
+Length in sectors: 202752
+202752
+Great work!
+picoCTF{mm15_f7w!}
+```
+
+
+### flag
+:pirate_flag:picoCTF{mm15_f7w!}:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
