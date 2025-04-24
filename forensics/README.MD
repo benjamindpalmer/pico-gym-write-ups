@@ -315,3 +315,216 @@ picoCTF{mm15_f7w!}
 
 <br>
 
+# Disk, disk, sleuth!
+* **Difficulty:** Medium
+* **Category:** Forensics
+* **Author:** Syreal
+
+### Description
+> Use `srch_strings` from the sleuthkit and some terminal-fu to find a flag in this disk image: <a href="https://mercury.picoctf.net/static/920731987787c93839776ce457d5ecd6/dds1-alpine.flag.img.gz">dds1-alpine.flag.img.gz</a>
+
+### Solution
+
+After downloading and uncompressing the disk image `dds1-alpine.flag.img.gz`, I did as instructed and used the Sleuthkit tool `srch_strings`. 
+
+According to this wiki of Sleuthkit commands https://wiki.sleuthkit.org/index.php?title=The_Sleuth_Kit_commands, `srch_strings` does exactly what I thought it did. It finds printable strings in files. 
+
+However, running `srch_strings` returns **all** of the strings. So many. Like thousands probably. I didn't count theme all. There were too many. To get around this, I justed piped the result of `srch_strings` to a `grep` on "picoCTF". It took a few seconds to actually complete, but this worked to print just the flag. 
+
+```
+$ srch_strings dds1-alpine.flag.img | grep "picoCTF"
+  SAY picoCTF{f0r3ns1c4t0r_n30phyt3_564ff1a0}
+```
+
+### flag
+:pirate_flag:picoCTF{f0r3ns1c4t0r_n30phyt3_564ff1a0}:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# Disk, disk, sleuth! II
+* **Difficulty:** Medium
+* **Category:** Forensics
+* **Author:** Syreal
+
+### Description
+> All we know is the file with the flag is named `down-at-the-bottom.txt`... 
+> Disk image: <a href="https://mercury.picoctf.net/static/6cd5ca45d75250451931cea538fb38c0/dds2-alpine.flag.img.gz">dds2-alpine.flag.img.gz</a>
+
+> **HINT:** Sleuthkit docs here are so helpful: <a href=https://wiki.sleuthkit.org/index.php?title=TSK_Tool_Overview>TSK Tool Overview</a>
+
+### Solution
+
+Alright, no more hand-holding with this one. We're given a file name a link to some Sleuthkit Documentation in a hint. 
+
+https://wiki.sleuthkit.org/index.php?title=TSK_Tool_Overview
+
+`fls` popped out at me right away as a contender for useful tools in this challenge. The file-system layer seemed like a good place to start looking for a file, and `fls` "lists allocated and deleted file names" which seemed like a great place to start. However, I kept getting 'cannot determine file system type' when using this and other commands. 
+
+```
+$ fls dds2-alpine.flag.img
+Cannot determine file system type
+```
+
+This was happening because there are a few different partitions in the image, and I needed to tell fls which partition to look in. We can do this with `-o` for 'imgoffset'. 
+
+I ran `mmls` to determine where I should be telling `fls` to look. It looks like our Linux partition starts at sector 2048. 
+
+```
+$ mmls dds2-alpine.flag.img
+DOS Partition Table
+Offset Sector: 0
+Units are in 512-byte sectors
+
+      Slot      Start        End          Length       Description
+000:  Meta      0000000000   0000000000   0000000001   Primary Table (#0)
+001:  -------   0000000000   0000002047   0000002048   Unallocated
+002:  000:000   0000002048   0000262143   0000260096   Linux (0x83)
+```
+
+Knowing this, I was able to run `fls` with an offset argument which allowed me to see a list of directories. After some trial and error, I also passed `-r` to make fls recursive. 
+
+
+```
+$ fls -r -o 2048 dds2-alpine.flag.img
+```
+
+This returned a lot of (too much) stuff, but we're probably getting somewhere. Piping all of this to a grep for the file name 'bottom-of-the-page.txt' to the end of this `fls` command hopefully gets us somewhere. 
+
+```
+$ fls -r -o 2048 dds2-alpine.flag.img | grep "down-at-the-bottom.txt"
++ r/r 18291:	down-at-the-bottom.txt
+```
+
+This did get us somewhere. We have found the file that contains the flag and we know the inode number. In the Sleuthkit documentation, I remember seeing a command that let's us `cat` out a file if we know the inode number. 
+
+```
+ICAT(1)                                                                                                                           General Commands Manual                                                                                                                          ICAT(1)
+
+NAME
+       icat - Output the contents of a file based on its inode number.
+
+SYNOPSIS
+       icat [-hrsvV] [-f fstype ] [-i imgtype ] [-o imgoffset ] [-b dev_sector_size] image [images] inode
+```
+
+Now we just have to `icat` on the `dds2-alpine.flag.img` image starting in sector 2048 for inode number 18291. 
+
+```
+$ icat -o 2048 dds2-alpine.flag.img 18291
+   _     _     _     _     _     _     _     _     _     _     _     _     _  
+  / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \ 
+ ( p ) ( i ) ( c ) ( o ) ( C ) ( T ) ( F ) ( { ) ( f ) ( 0 ) ( r ) ( 3 ) ( n )
+  \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/ 
+   _     _     _     _     _     _     _     _     _     _     _     _     _  
+  / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \ 
+ ( s ) ( 1 ) ( c ) ( 4 ) ( t ) ( 0 ) ( r ) ( _ ) ( n ) ( 0 ) ( v ) ( 1 ) ( c )
+  \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/ 
+   _     _     _     _     _     _     _     _     _     _     _  
+  / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \ 
+ ( 3 ) ( _ ) ( f ) ( f ) ( 2 ) ( 7 ) ( f ) ( 1 ) ( 3 ) ( 9 ) ( } )
+  \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/ 
+```
+
+
+### flag
+:pirate_flag:`picoCTF{f0r3ns1c4t0r_n0v1c3_ff27f139}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# TITLE
+* **Difficulty:** 
+* **Category:** 
+* **Author:** 
+
+### Description
+> 
+
+
+### Solution
+
+```
+$ mmls disk.flag.img
+DOS Partition Table
+Offset Sector: 0
+Units are in 512-byte sectors
+
+      Slot      Start        End          Length       Description
+000:  Meta      0000000000   0000000000   0000000001   Primary Table (#0)
+001:  -------   0000000000   0000002047   0000002048   Unallocated
+002:  000:000   0000002048   0000206847   0000204800   Linux (0x83)
+003:  000:001   0000206848   0000360447   0000153600   Linux Swap / Solaris x86 (0x82)
+004:  000:002   0000360448   0000614399   0000253952   Linux (0x83)
+```
+
+We have some more partitions this time. I did a quick `fls` at each offset to take glance. The second linux partition that starts at `360448` looked the most promising. 
+
+```
+ fls -o 360448 disk.flag.img 
+d/d 451:	home
+d/d 11:	lost+found
+d/d 12:	boot
+d/d 1985:	etc
+d/d 1986:	proc
+d/d 1987:	dev
+d/d 1988:	tmp
+d/d 1989:	lib
+d/d 1990:	var
+d/d 3969:	usr
+d/d 3970:	bin
+d/d 1991:	sbin
+d/d 1992:	media
+d/d 1993:	mnt
+d/d 1994:	opt
+d/d 1995:	root
+d/d 1996:	run
+d/d 1997:	srv
+d/d 1998:	sys
+d/d 2358:	swap
+V/V 31745:	$OrphanFiles
+```
+
+I didn't feel like looking in each of these directories manually. So I decided to use our recursive `fls` piped to a `grep` for "flag" to see if that could narrow down the search a little. I figured I might ass well check all partitions this way. 
+
+```
+$ fls -r -o 2048 disk.flag.img | grep "flag"
+$
+```
+
+Nothing in the first `Linux (0x83P)` partition... 
+
+```
+$ fls -r -o 360448 disk.flag.img | grep "flag"
+++ r/r * 2082(realloc):	flag.txt
+++ r/r 2371:	flag.uni.txt
+```
+
+But we have a hit in the second partition that starts in sector 360448. There is a 'flag.txt' and a 'flag.uni.txt'. I was unable to `icat` the 'flag.txt'. My understanding is that a 'realloc' means the file might have been moved or deleted. 
+
+I was able to successfully use the icat tool to open 'flag.uni.text' by passing the inode number `2371`. 
+
+```
+$ icat -o 360448 disk.flag.img 2371
+picoCTF{by73_5urf3r_adac6cb4}
+```
+
+
+### flag
+:pirate_flag:`picoCTF{by73_5urf3r_adac6cb4}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+
+
+
