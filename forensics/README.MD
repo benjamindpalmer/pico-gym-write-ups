@@ -10,6 +10,7 @@
 - [Disk, disk, sleuth!](#disk-disk-sleuth) :pirate_flag:
 - [Disk, disk, sleuth! II](#disk-disk-sleuth-ii) :pirate_flag:
 - [Sleuthkit Apprentice](#sleuthkit-apprentice) :pirate_flag:
+- [Secret of the Polyglot](#secret-of-the-polyglot) :pirate_flag:
 
 # Enhance!
 * **Difficulty:** $\color{Yellow}{MEDIUM}$
@@ -523,7 +524,6 @@ $ icat -o 360448 disk.flag.img 2371
 picoCTF{by73_5urf3r_adac6cb4}
 ```
 
-
 ### flag
 :pirate_flag:`picoCTF{by73_5urf3r_adac6cb4}`:pirate_flag:
 
@@ -533,6 +533,62 @@ picoCTF{by73_5urf3r_adac6cb4}
 
 <br>
 
+# Secret of the Polyglot
+* **Difficulty:** Easy
+* **Category:** Forensics
+* **Author:** Syreal
+
+### Description
+> The Network Operations Center (NOC) of your local institution picked up a suspicious file, they're getting conflicting information on what type of file it is. They've brought you in as an external expert to examine the file. Can you extract all the information from this strange file? 
+> Download the suspicious file <a href="https://artifacts.picoctf.net/c_titan/98/flag2of2-final.pdf">here</a>. 
+
+
+### Solution
+
+In this challenge, I downloaded the provided file named `'flag2of2-final.pdf'`. This file has a PDF extension. I was able to open in on my machine's PDF reader and see what looks like the second half of a flag. 
+
+![Screenshot of PDF reader which displays part of a flag](/forensics/assets/screenshots/polyglot_1.png)
+
+Next, I took a look at the file with the `xxd` hex reader and noticed the PNG file signature (`89 50 4E 47 0D 0A 1A 0A`)
+
+```
+$ xxd flag2of2-final.pdf 
+00000000: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR
+00000010: 0000 0032 0000 0032 0806 0000 001e 3f88  ...2...2......?.
+00000020: b100 0001 8569 4343 5049 4343 2070 726f  .....iCCPICC pro
+00000030: 6669 6c65 0000 2891 7d91 3d48 c340 1cc5  file..(.}.=H.@..
+00000040: 5f53 a5a2 1511 3b88 0866 a80e 6241 54c4  _S....;..f..bAT.
+00000050: 51ab 5084 0aa1 5668 d5c1 e4d2 2f68 d290  Q.P...Vh..../h..
+00000060: a4b8 380a ae05 073f 16ab 0e2e ceba 3ab8  ..8....?......:.
+00000070: 0a82 e007 88ab 8b93 a28b 94f8 bfa4 d022  ..............."
+```
+
+This is curious, because I was able to open this as a PDF. I changed the file extension to `.png` and opened `'flag2of2-final.png'` and was able to the native photos app. This displayed(albeit in very low resolution) the first half of the flag. 
+
+![screenshot of photo containing low res text of flag](/forensics/assets/screenshots/polyglot_2.png)
+
+What's happening here? This file is BOTH a PNG and a PDF. Depending on which applications read it, the 'code' of the file is interpreted differently. With my PDF reader noticing the PDF parts and the photo app (after changing the file extension) noticing the PNG parts. 
+
+The PNG file signature is at the very top of the file. But I was curious on where the PDF signature lived. There has to be a PDF signature in the file as well, right? To check this, I piped `xxd` to `grep` and searched for PDF. 
+
+```
+$ xxd flag2of2-final.pdf | grep PDF
+00000390: 6082 2550 4446 2d31 2e34 0a25 c7ec 8fa2  `.%PDF-1.4.%....
+00000550: 6353 6574 5b2f 5044 4620 2f54 6578 745d  cSet[/PDF /Text]
+```
+Confirmed, at offset `00000390` we have a PDF file signature. 
+
+I knew exactly what was going on here because earlier today a friend sent me this LiveOverFlow video which covers this exact concept. 
+https://www.youtube.com/watch?v=VVdmmN0su6E 
+
+
+### flag
+:pirate_flag:`picoCTF{f1u3n7_1n_pn9_&_pdf_1f991f77}`:pirate_flag:
+<br>
+
+---
+
+<br>
 
 
 
