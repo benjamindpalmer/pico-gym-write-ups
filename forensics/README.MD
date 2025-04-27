@@ -6,6 +6,7 @@
 - [extensions](#extensions) :pirate_flag:
 - [Glory of the Garden](#glory-of-the-garden) :pirate_flag:
 - [information](#information) :pirate_flag:
+- [CanYouSee](#canyousee) :pirate_flag:
 - [Sleuthkit Intro](#sleuthkit-intro) :pirate_flag:
 - [Disk, disk, sleuth!](#disk-disk-sleuth) :pirate_flag:
 - [Disk, disk, sleuth! II](#disk-disk-sleuth-ii) :pirate_flag:
@@ -263,6 +264,65 @@ From here, I copied `cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9` into CyberChe
 
 ### flag
 :pirate_flag:picoCTF{the_m3tadata_1s_modified}:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# CanYouSee
+* **Difficulty:** Easy
+* **Category:** Forensics
+* **Author:** Mubarak Mikail
+
+### Description
+> How about some hide and seek? 
+> Download this file <a href="https://artifacts.picoctf.net/c_titan/130/unknown.zip">here</a>. 
+
+
+### Solution
+Hide and seek is easy when the hiding spot is the same every time. Like the above challenge, there is a Base64 string hiding in the image metadata. 
+
+I downloaded and unzipped the included file `ukn_reality.jpg` and used `exiftool` to view the image metadata. 
+
+```
+$ exiftool ukn_reality.jpg 
+ExifTool Version Number         : 13.25
+File Name                       : ukn_reality.jpg
+Directory                       : .
+File Size                       : 2.3 MB
+File Modification Date/Time     : 2024:03:11 17:05:55-07:00
+File Access Date/Time           : 2025:04:27 15:17:19-07:00
+File Inode Change Date/Time     : 2025:04:27 15:11:39-07:00
+File Permissions                : -rw-r--r--
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+JFIF Version                    : 1.01
+Resolution Unit                 : inches
+X Resolution                    : 72
+Y Resolution                    : 72
+XMP Toolkit                     : Image::ExifTool 11.88
+Attribution URL                 : cGljb0NURntNRTc0RDQ3QV9ISUREM05fNmE5ZjVhYzR9Cg==
+Image Width                     : 4308
+Image Height                    : 2875
+Encoding Process                : Baseline DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
+Image Size                      : 4308x2875
+Megapixels                      : 12.4
+```
+
+These Base64 strings are *really* starting to pop out at me now, especially since `cGljb0NURntNRTc0RDQ3QV9ISUREM05fNmE5ZjVhYzR9Cg==` doesn't look like an 'Attribution URL'. I copied the Base64 string into Cyberchef to decode from Base64. 
+
+Base64: `cGljb0NURntNRTc0RDQ3QV9ISUREM05fNmE5ZjVhYzR9Cg==`
+Plaintext: `picoCTF{ME74D47A_HIDD3N_6a9f5ac4}`
+
+
+### flag
+:pirate_flag:`picoCTF{ME74D47A_HIDD3N_6a9f5ac4}`:pirate_flag:
 
 <br>
 
