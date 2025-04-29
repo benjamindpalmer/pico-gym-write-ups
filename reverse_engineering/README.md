@@ -1,6 +1,7 @@
 <h1 align="center"> :gear: REVERSE ENGINEERING :gear:</h1>
 
-- [keygenme-py](#keygenme-py) :pirate_flag:
+- [Picker 1](#picker-1)
+- [keygenme-py](#keygenme-py) 
 - [asm1](#asm1) :pirate_flag:
 - [asm2](#asm2)
 - [vault-door-training](#vault-door-training) :pirate_flag:
