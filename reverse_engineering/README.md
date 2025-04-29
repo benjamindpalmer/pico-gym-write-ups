@@ -34,7 +34,18 @@ Try entering "getRandomNumber" without the double quotes...
 4
 ```
 
-This is because what we are really doing when is calling a function in python. If we look at the included copy of the source code, there is a function named `getRandomNumber` that just prints the number 4. 
+This is because what we are really doing is calling a function in python. We can throw a very common python error when entering anything that isn't a function name the python script.  
+
+```
+$ nc saturn.picoctf.net 63749
+Try entering "getRandomNumber" without the double quotes...
+==> iTestInProduction
+name 'iTestInProduction' is not defined
+```
+
+"is not defined" is thrown when trying to invoke a function name that doesn't exist. Like "iTestInProduction"
+
+If we look at the included copy of the source code, there is a function named `getRandomNumber` that just prints the number 4. 
 
 ```python
 def getRandomNumber():
@@ -61,7 +72,7 @@ def win():
   print(str_flag)
 ```
 
-Instead of calling "getRandomNumber", we can call "win" instead and get this function to execute. 
+Instead of calling "getRandomNumber", we can call "win" and get this function to execute. 
 
 ```
 Try entering "getRandomNumber" without the double quotes...
@@ -69,7 +80,7 @@ Try entering "getRandomNumber" without the double quotes...
 0x70 0x69 0x63 0x6f 0x43 0x54 0x46 0x7b 0x34 0x5f 0x64 0x31 0x34 0x6d 0x30 0x6e 0x64 0x5f 0x31 0x6e 0x5f 0x37 0x68 0x33 0x5f 0x72 0x30 0x75 0x67 0x68 0x5f 0x62 0x35 0x32 0x33 0x62 0x32 0x61 0x31 0x7d 
 ```
 
-This is definitely the flag. It starts to "pico" magic bytes `0x70 0x69 0x63 0x6f`. Using <a href="https://cyberchef.org/#recipe=From_Hex('Auto')">Cyberchef</a> we can convert this from hex to a plaintext string. 
+This time, the python script printed out some stuff in hexidecimal. This is definitely the flag. It starts to "pico" magic bytes `0x70 0x69 0x63 0x6f`. Using <a href="https://cyberchef.org/#recipe=From_Hex('Auto')">Cyberchef</a> we can convert this from hex to a plaintext string. 
 
 
 ### flag
