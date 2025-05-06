@@ -615,3 +615,68 @@ THE FLAG IS: PICOCTF{5UB5717U710N_3V0LU710N_59533A2E}
 ---
 
 <br>
+
+# Substituion1
+* **Difficulty:** Medium
+* **Category:** Cryptography
+* **Author:** Will Hong
+
+### Description
+> A second message has come in the mail, and it seems almost identical to the first one. Maybe the same thing will work again. Download the message <a href="https://artifacts.picoctf.net/c/183/message.txt">here</a>.
+
+
+### Solution
+
+```
+LKOb (bwvek ove lgqkhej kwj osgx) gej g kyqj vo lvrqhkje bjlhetky lvrqjktktvu. Lvukjbkgukb gej qejbjukjz dtkw g bjk vo lwgssjuxjb dwtlw kjbk kwjte lejgktftky, kjlwutlgs (guz xvvxstux) bitssb, guz qevmsjr-bvsftux gmtstky. Lwgssjuxjb hbhgssy lvfje g uhrmje vo lgkjxvetjb, guz dwju bvsfjz, jglw ytjszb g bketux (lgssjz g osgx) dwtlw tb bhmrtkkjz kv gu vustuj blvetux bjeftlj. LKOb gej g xejgk dgy kv sjgeu g dtzj geegy vo lvrqhkje bjlhetky bitssb tu g bgoj, sjxgs juftevurjuk, guz gej wvbkjz guz qsgyjz my rguy bjlhetky xevhqb gevhuz kwj dvesz ove ohu guz qeglktlj. Ove kwtb qevmsjr, kwj osgx tb: qtlvLKO{OE3AH3ULY_4774LI5_4E3_L001_6J0659OM}
+```
+
+Looking at the contents of this message.txt, we can see that there is a string that looks just like the flag. Even though it is encrypted, we know this is the flag, and we know all flags start with 'picoCTF'. 
+
+`qtlvLKO{OE3AH3ULY_4774LI5_4E3_L001_6J0659OM} `
+
+| q | t | l | v | L | K | 0 |
+|---|---|---|---|---|---|---|
+| p | i | c | o | C | T | F | 
+
+We can punch these values into the <a href="https://www.101computing.net/frequency-analysis/">substitution tool</a> we used in the last challenge. 
+
+From here. It's easy to start guessing what letters are missing from partially decrypted words. 
+
+`qtlvLKO{OE3AH3ULY_4774LI5_4E3_L001_6J0659OM}` becomes `PICOCTF{F*3**3UC*_4774C*5_4*3_C001_6*0659F*}`
+
+Just based on the flag section of our text, there are a few likely substitutions we can can make. Assuming `FR3QU3NCY_4774CK5_4R3_C001_` is the string we are going for, we can substitue 'E' for 'R', 'A' for 'Q',  'I' for 'K', 'H' for 'U', 'U' for 'N' and 'Y' for 'Y'. 
+
+`OE3AH3ULY_4774LI5_4E3_L001_` becomes `FR3QU3UCY_4774CK5_4R3_C001_`
+
+When we apply just these substitutions to the rest of the ciphertext, it's almost readable. 
+
+```
+CTF* (**ORT FOR C*PTUR* T** F***) *R* * TYP* OF CO*PUT*R **CURITY CO*P*TITION. CONT**T*NT* *R* PR***NT** *IT* * **T OF C*****N*** **IC* T**T T**IR CR**TI*ITY, T*C*NIC** (*N* *OO**IN*) *KI***, *N* PRO****-*O**IN* **I*ITY. C*****N*** U*U***Y CO**R * NU***R OF C*T**ORI**, *N* ***N *O****, **C* YI**** * *TRIN* (C***** * F***) **IC* I* *U**ITT** TO *N ON*IN* *CORIN* **R*IC*. CTF* *R* * *R**T **Y TO ***RN * *I** *RR*Y OF CO*PUT*R **CURITY *KI*** IN * **F*, ***** *N*IRON**NT, *N* *R* *O*T** *N* P**Y** *Y **NY **CURITY *ROUP* *ROUN* T** *OR** FOR FUN *N* PR*CTIC*. FOR T*I* PRO****, T** F*** I*: PICOCTF{FR3QU3NCY_4774CK5_4R3_C001_6*0659F*}
+```
+
+We can make more educated substitutions from here. For instance, based on the above we can guess that first sentence of the encypted text
+
+|   |    | 
+| --- | --- | 
+|encrypted| `LKOb (bwvek ove lgqkhej kwj osgx) gej g kyqj vo lvrqhkje bjlhetky lvrqjktktvu.` |
+|partially decrypted| `CTF* (**ORT FOR C*PTUR* T** F***) *R* * TYP* OF CO*PUT*R **CURITY CO*P*TITION.`|
+|likely plaintext| `CTFs (short for capture the flag) are a type of computer security competition.` | 
+
+knowing this, we can substitute more letters, ('b' for 's' and 'w' for 'h' to make the word 'short') which makes our encrypted text more readable, which allows us make informed substitutions. Rinse and repeat until our flag is readable. 
+
+```
+CTFS (SHORT FOR CAPTURE THE FLAG) ARE A TYPE OF COMPUTER SECURITY COMPETITION. CONTESTANTS ARE PRESENTED WITH A SET OF CHALLENGES WHICH TEST THEIR CREATIVITY, TECHNICAL (AND GOOGLING) SKILLS, AND PROBLEM-SOLVING ABILITY. CHALLENGES USUALLY COVER A NUMBER OF CATEGORIES, AND WHEN SOLVED, EACH YIELDS A STRING (CALLED A FLAG) WHICH IS SUBMITTED TO AN ONLINE SCORING SERVICE. CTFS ARE A GREAT WAY TO LEARN A WIDE ARRAY OF COMPUTER SECURITY SKILLS IN A SAFE, LEGAL ENVIRONMENT, AND ARE HOSTED AND PLAYED BY MANY SECURITY GROUPS AROUND THE WORLD FOR FUN AND PRACTICE. FOR THIS PROBLEM, THE FLAG IS: PICOCTF{FR3QU3NCY_4774CK5_4R3_C001_6E0659FB}
+```
+
+It's interesting that frequency analysis wasn't necessary here. We're able to deduce the right substitutions just by looking at ciphertext, applying those substitions, and looking at the partially decrypted text again. 
+
+
+### flag
+:pirate_flag:`PICOCTF{FR3QU3NCY_4774CK5_4R3_C001_6E0659FB}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
