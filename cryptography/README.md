@@ -5,6 +5,12 @@
 * [Mod 26](#mod-26):pirate_flag:
 * [Caesar](#caesar):pirate_flag:
 * [interencdec](#interencdec):pirate_flag:
+* [la cifra de](#la-cifra-de) :pirate_flag:
+* [Mr Worldwide](#mr-worldwide) :pirate_flag: 
+* [substitution0]
+* [substitution1]
+* [substitution2]
+
 
 :pirate_flag: Flags Captured: 5 / 5 :pirate_flag:
 
@@ -529,6 +535,80 @@ _
 
 ### flag
 :pirate_flag:picoCTF{KODIAK_ALASKA}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# Substitution0
+* **Difficulty:** Medium
+* **Category:** Cryptography
+* **Author:** Will Hong
+
+### Description
+> A message has come in but it seems to be all scrambled. Luckily it seems to have the key at the beginning. Can you crack this substitution cipher? 
+> Download the message <a href="https://artifacts.picoctf.net/c/152/message.txt">here</a>.
+
+> **HINT:** Try a frequency attack. An online tool might help.
+
+### Solution
+
+At the bottom of <a href="https://artifacts.picoctf.net/c/152/message.txt">message.txt</a> there is a string that looks just like the flag. 
+
+`Bif mwdy qa: xqcpCBM{5UE5717U710Z_3S0WU710Z_59533D2F}`
+
+Let's start by mapping 'picoCTF{'to part of this string that definitely decrypts to 'picoCTF'. Four lowercase letters, three caps, followed by more text surrounded by curly brackets is definitley our flag. 
+
+| x | q | c | p | C | B | M |
+|---|---|---|---|---|---|---|
+| p | i | c | o | C | T | F | 
+
+
+This is interesting, but I doesn't really crack our substitution cipher outside of these letters. This is where frequeny analysis comes in. 
+
+<!NOTE>
+- Frequency Analyis involves comparing the relative frequency distribution of letters in ciphertext with the expected frequency distribution of letters in the target language of the plaintext. For instance, in English, we can expect the letter 'e' to make up 12.2% of all letters in plaintext. It follows that any character in our ciphertext (assuming a substitution cipher is being used) that also occurs ~12.2% of the time, likely maps to an 'e'. 
+- Frequency Analysis best works when there is a large amount of encrypted data. Small samples of text will break 'normal' frequency distribution rules. 
+
+I found a frequency analysis tool online that shows a graph of the average frequency of letters in English:
+![Graph with letters A-Z](https://www.101computing.net/wp/wp-content/uploads/frequency-analysis-english-language.png)
+
+
+I copied the body of text found in message.txt to that frequency analysis tool and was able to start mapping the letters 'picoCTF' to the letters in the ciphertext. 
+
+
+![Frequency analysis tool filled out partially](/cryptography/assets/screenshots/substitution0_1.png)
+
+This only got me so far. However, in this challenge we ARE provided with a key at the start of the ciphertext. The Key is *exactly* 26 letters which lead me to try mapping `DECKFMYIQJRWTZPXGNABUSOLVH` to `ABCDEFGHIJKLMNOPQRSTUVWXYZ`. 
+
+|D|E|C|K|F|M|Y|I|Q|J|R|W|T|Z|P|X|G|N|A|B|U|S|O|L|V|H|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---| 
+|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|
+
+
+With the key, it was easy to just fill out the proper substitutions for each letter in the alphabet. I knew I had everything filled out correctly when my key was decrypted to `ABCDEFGHIJKLMNOPQRSTUVWXYZ`
+
+![Frequency analysis tool filled out completely](/cryptography/assets/screenshots/substitution0_2.png)
+
+```
+ABCDEFGHIJKLMNOPQRSTUVWXYZ 
+
+HEREUPON LEGRAND AROSE, WITH A GRAVE AND STATELY AIR, AND BROUGHT ME THE BEETLE
+FROM A GLASS CASE IN WHICH IT WAS ENCLOSED. IT WAS A BEAUTIFUL SCARABAEUS, AND, AT
+THAT TIME, UNKNOWN TO NATURALISTS—OF COURSE A GREAT PRIZE IN A SCIENTIFIC POINT
+OF VIEW. THERE WERE TWO ROUND BLACK SPOTS NEAR ONE EXTREMITY OF THE BACK, AND A
+LONG ONE NEAR THE OTHER. THE SCALES WERE EXCEEDINGLY HARD AND GLOSSY, WITH ALL THE
+APPEARANCE OF BURNISHED GOLD. THE WEIGHT OF THE INSECT WAS VERY REMARKABLE, AND,
+TAKING ALL THINGS INTO CONSIDERATION, I COULD HARDLY BLAME JUPITER FOR HIS OPINION
+RESPECTING IT.
+
+THE FLAG IS: PICOCTF{5UB5717U710N_3V0LU710N_59533A2E}
+```
+
+### flag
+:pirate_flag:`PICOCTF{5UB5717U710N_3V0LU710N_59533A2E}`:pirate_flag:
 
 <br>
 
