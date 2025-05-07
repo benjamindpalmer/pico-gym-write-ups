@@ -622,7 +622,8 @@ THE FLAG IS: PICOCTF{5UB5717U710N_3V0LU710N_59533A2E}
 * **Author:** Will Hong
 
 ### Description
-> A second message has come in the mail, and it seems almost identical to the first one. Maybe the same thing will work again. Download the message <a href="https://artifacts.picoctf.net/c/183/message.txt">here</a>.
+> A second message has come in the mail, and it seems almost identical to the first one. Maybe the same thing will work again. 
+> Download the message <a href="https://artifacts.picoctf.net/c/183/message.txt">here</a>.
 
 
 ### Solution
@@ -663,7 +664,7 @@ We can make more educated substitutions from here. For instance, based on the ab
 |partially decrypted| `CTF* (**ORT FOR C*PTUR* T** F***) *R* * TYP* OF CO*PUT*R **CURITY CO*P*TITION.`|
 |likely plaintext| `CTFs (short for capture the flag) are a type of computer security competition.` | 
 
-knowing this, we can substitute more letters, ('b' for 's' and 'w' for 'h' to make the word 'short') which makes our encrypted text more readable, which allows us make informed substitutions. Rinse and repeat until our flag is readable. 
+Knowing this, we can substitute more letters, ('b' for 's' and 'w' for 'h' to make the word 'short') which makes our encrypted text more readable, which allows us make informed substitutions. Rinse and repeat until our flag is readable. 
 
 ```
 CTFS (SHORT FOR CAPTURE THE FLAG) ARE A TYPE OF COMPUTER SECURITY COMPETITION. CONTESTANTS ARE PRESENTED WITH A SET OF CHALLENGES WHICH TEST THEIR CREATIVITY, TECHNICAL (AND GOOGLING) SKILLS, AND PROBLEM-SOLVING ABILITY. CHALLENGES USUALLY COVER A NUMBER OF CATEGORIES, AND WHEN SOLVED, EACH YIELDS A STRING (CALLED A FLAG) WHICH IS SUBMITTED TO AN ONLINE SCORING SERVICE. CTFS ARE A GREAT WAY TO LEARN A WIDE ARRAY OF COMPUTER SECURITY SKILLS IN A SAFE, LEGAL ENVIRONMENT, AND ARE HOSTED AND PLAYED BY MANY SECURITY GROUPS AROUND THE WORLD FOR FUN AND PRACTICE. FOR THIS PROBLEM, THE FLAG IS: PICOCTF{FR3QU3NCY_4774CK5_4R3_C001_6E0659FB}
@@ -674,6 +675,70 @@ It's interesting that frequency analysis wasn't necessary here. We're able to de
 
 ### flag
 :pirate_flag:`PICOCTF{FR3QU3NCY_4774CK5_4R3_C001_6E0659FB}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# Substituion2
+* **Difficulty:** Medium
+* **Category:** Cryptography
+* **Author:** Will Hong
+
+### Description
+> It seems that another encrypted message has been intercepted. The encryptor seems to have learned their lesson though and now there isn't any punctuation! Can you still crack the cipher? 
+> Download the message <a href="https://artifacts.picoctf.net/c/114/message.txt">here</a>.
+
+
+### Solution
+
+```
+fnjdjjzqsfsjpjdxwmfnjdcjwwjsfxhwqsnjynqensknmmwkmuvafjdsjkadqftkmuvjfqfqmgsqgkwayqgekthjdvxfdqmfxgyaskthjdknxwwjgejfnjsjkmuvjfqfqmgslmkasvdquxdqwtmgstsfjusxyuqgqsfdxfqmglagyxujgfxwscnqknxdjpjdtasjlawxgyuxdojfxhwjsoqwwsnmcjpjdcjhjwqjpjfnjvdmvjdvadvmsjmlxnqensknmmwkmuvafjdsjkadqftkmuvjfqfqmgqsgmfmgwtfmfjxknpxwaxhwjsoqwwshafxwsmfmejfsfayjgfsqgfjdjsfjyqgxgyjzkqfjyxhmafkmuvafjdskqjgkjyjljgsqpjkmuvjfqfqmgsxdjmlfjgwxhmdqmasxllxqdsxgykmujymcgfmdaggqgeknjkowqsfsxgyjzjkafqgekmglqeskdqvfsmlljgsjmgfnjmfnjdnxgyqsnjxpqwtlmkasjymgjzvwmdxfqmgxgyquvdmpqsxfqmgxgymlfjgnxsjwjujgfsmlvwxtcjhjwqjpjxkmuvjfqfqmgfmaknqgemgfnjmlljgsqpjjwjujgfsmlkmuvafjdsjkadqftqsfnjdjlmdjxhjffjdpjnqkwjlmdfjknjpxgejwqsufmsfayjgfsqgxujdqkxgnqensknmmwsladfnjdcjhjwqjpjfnxfxgagyjdsfxgyqgemlmlljgsqpjfjkngqiajsqsjssjgfqxwlmdumagfqgexgjlljkfqpjyjljgsjxgyfnxffnjfmmwsxgykmglqeadxfqmglmkasjgkmagfjdjyqgyjljgsqpjkmuvjfqfqmgsymjsgmfwjxysfayjgfsfmogmcfnjqdjgjutxsjlljkfqpjwtxsfjxknqgefnjufmxkfqpjwtfnqgowqojxgxffxkojdvqkmkflqsxgmlljgsqpjwtmdqjgfjynqensknmmwkmuvafjdsjkadqftkmuvjfqfqmgfnxfsjjosfmejgjdxfjqgfjdjsfqgkmuvafjdskqjgkjxumgenqensknmmwjdsfjxknqgefnjujgmaenxhmafkmuvafjdsjkadqftfmvqiajfnjqdkadqmsqftumfqpxfqgefnjufmjzvwmdjmgfnjqdmcgxgyjgxhwqgefnjufmhjffjdyjljgyfnjqduxknqgjsfnjlwxeqsvqkmKFL{G6D4U_4G41T515_15_73Y10A5_42JX1770}
+```
+
+No punctuation this time, but we can still start in the same place as the other challenges because we have an unmistakable flag at the end of the file: `vqkmKFL{G6D4U_4G41T515_15_73Y10A5_42JX1770}`. Once again, we can substitute the first eight letters before the curly brackets with `picoCTF`. 
+
+| v | q | k | m | K | F | L |
+|---|---|---|---|---|---|---|
+| p | i | c | o | C | T | F |
+
+
+After substituting these values with the <a href="https://www.101computing.net/frequency-analysis/">frequency analysis tool</a>, I noticed that the letter 'J' appears the most in our ciphertext. About the same frequency as the letter 'e' in English. 
+
+![Frequency Analysis tool screenshot](/cryptography/assets/screenshots/substitution2_1.png)
+
+After substituting 'j' for 'e', I noticed another pattern near the flag. The sentence preceding the flag is always 'the flag is', which fits what we have so far. 
+
+`T*E****I*PICOCTF{*6*4*_4*41*515_15_73*10*5_42EA1770}`
+
+| f | n | j | l | w | x | e | q | s | v | q | k | m | K | F | L |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| t | h | e | f | l | a | g | i | s | p | i | c | o | C | T | F |
+
+When these substitutions are made, we have: 
+
+`THEFLAGISPICOCTF{*6*4*_4*41*515_15_73*10*5_42EA1770}`
+
+From here, we there are some recognizeable words / fragements are starting to form. We can make guesses on what the words for sentence fragments say in plaintext, and map it to the cooresponding ciphertext to fill in the blanks. 
+
+|   |    | 
+| --- | --- | 
+|encrypted| `jgxhwqgefnjufmhjffjdyjljgyfnjqduxknqgjs` |
+|partially decrypted| `ENA*LINGTHEMTO*ETTE**EFEN*THEI*MACHINES`|
+|guess| "enable" (subtitute 'h' for 'b') |
+|which gives us: |ENABLINGTHEMTOBETTE**EFEN*THEI*MACHINES|
+|guess| "better", "thier" (subs 'r' for 'd')
+|which gives us: |ENABLINGTHEMTOBETTER*EFEN*THEIRMACHINES|
+|guess| "defend" ('y' for 'd')|
+|which givese us:|ENABLINGTHEMTOBETTERDEFENDTHEIRMACHINES|
+
+The process IS a little tedious, but rinse and repeat until the flag text is decrypted: 
+
+
+### flag
+:pirate_flag:`PICOCTF{N6R4M_4N41Y515_15_73D10U5_42EA1770}` :pirate_flag:
 
 <br>
 
