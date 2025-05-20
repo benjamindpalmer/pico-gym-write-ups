@@ -1,6 +1,6 @@
 <h1 align="center"> :gear: REVERSE ENGINEERING :gear:</h1>
 
-- [Picker 1](#picker-1)
+- [Picker 1](#picker-1) :pirate_flag:
 - [keygenme-py](#keygenme-py) 
 - [asm1](#asm1) :pirate_flag:
 - [asm2](#asm2)
@@ -10,6 +10,8 @@
 - [vault-door-4](#vault-door-4) :pirate_flag:
 - [vault-door-5](#vault-door-5) :pirate_flag:
 - [vault-door-6](#vault-door-6)
+- [Safe Opener](#safe-opener)
+- [Safe Opener 2](#safe-opener-2)
 
 
 
@@ -663,5 +665,103 @@ We have another 32 characters to decrypt here. This time it looks like they're
 :pirate_flag:``:pirate_flag:
 
 <br>
+
 ---
+
+<br>
+
+# Safe Opener
+* **Difficulty:** Medium
+* **Category:** Reverse Engineering
+* **Author:** Mubarak Mikail
+
+### Description
+> Can you open this safe? 
+> I forgot the key to my safe but this <a href="https://artifacts.picoctf.net/c/83/SafeOpener.java">program</a> is supposed to help me with retrieving the lost key. Can you help me unlock my safe? 
+> Put the password you recover into the picoCTF flag format like: 
+> picoCTF{password}
+
+
+### Solution
+Downloaded and opened the <a href="https://artifacts.picoctf.net/c/83/SafeOpener.java">SafeOpener.java</a> program, and found an interesting variable called 'encodedkey'
+
+```java
+    public static boolean openSafe(String password) {
+        String encodedkey = "cGwzYXMzX2wzdF9tM18xbnQwX3RoM19zYWYz";
+        
+        if (password.equals(encodedkey)) {
+            System.out.println("Sesame open");
+            return true;
+        }
+        else {
+            System.out.println("Password is incorrect\n");
+            return false;
+        }
+    }
+```
+
+
+`encodedkey = "cGwzYXMzX2wzdF9tM18xbnQwX3RoM19zYWYz";`
+
+The 'encodedkey' variable is set to 'cGwzYXMzX2wzdF9tM18xbnQwX3RoM19zYWYz'. This is a base64 string. I'm getting good at recognizing Base64 encoding. 
+
+Use CyberChef to convert to plaintext 
+
+`cGwzYXMzX2wzdF9tM18xbnQwX3RoM19zYWYz`
+`pl3as3_l3t_m3_1nt0_th3_saf3`
+
+
+### flag
+:pirate_flag:`picoCTF{pl3as3_l3t_m3_1nt0_th3_saf3}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# Safe Opener 2
+* **Difficulty:** Medium
+* **Category:** Reverse Engineering
+* **Author:** Mubarak Mikail
+
+### Description
+> What can you do with this file? 
+> I forgot the key to my safe but this <a href="https://artifacts.picoctf.net/c/287/SafeOpener.class">file</a> is supposed to help me with retrieving the lost key. Can you help me unlock my safe?
+
+
+### Solution
+Downloaded the SafeOpener.class binary. First used `xxd` to take a look in hexidecimal. I was able to manually find part of the flag that way. 
+
+```
+00000310: 2920 6c65 6674 0c00 7d00 7401 002c 7069  ) left..}.t..,pi
+00000320: 636f 4354 467b 5341 6633 5f30 7033 6e33  coCTF{SAf3_0p3n3
+00000330: 7272 5f79 3075 5f73 6f6c 7633 645f 6974  rr_y0u_solv3d_it
+00000340: 5f62 3432 3739 3432 627d 0c00 7e00 7f01  _b427942b}..~...
+00000350: 000b 5365 7361 6d65 206f 7065 6e01 0016  ..Sesame open...
+```
+
+So the flag is there at offset `0000310`, but I wanted a more elegant solution. 
+
+Using `grep` with `-a` tells grep to treat the binary file as text and return the pattern. 
+
+```
+$ grep -a "picoCTF" SafeOpener.class
+You have  
+          z{
+            z| attempt(s) left
+                              }t,picoCTF{SAf3_0p3n3rr_y0u_solv3d_it_b427942b}
+                                                                             ~
+                                                                              Sesame openPassword is incorrect
+```
+
+
+
+### flag
+:pirate_flag:`picoCTF{SAf3_0p3n3rr_y0u_solv3d_it_b427942b}`:pirate_flag:
+
+<br>
+
+---
+
 <br>
