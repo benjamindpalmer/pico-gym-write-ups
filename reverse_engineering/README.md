@@ -10,8 +10,8 @@
 - [vault-door-4](#vault-door-4) :pirate_flag:
 - [vault-door-5](#vault-door-5) :pirate_flag:
 - [vault-door-6](#vault-door-6)
-- [Safe Opener](#safe-opener)
-- [Safe Opener 2](#safe-opener-2)
+- [Safe Opener](#safe-opener) :pirate_flag:
+- [Safe Opener 2](#safe-opener-2) :flag_flag:
 
 
 
