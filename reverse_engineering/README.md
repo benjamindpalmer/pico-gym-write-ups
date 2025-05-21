@@ -1,5 +1,9 @@
 <h1 align="center"> :gear: REVERSE ENGINEERING :gear:</h1>
 
+- [Bit-O-Asm-1](#bit-o-asm-1) :pirate_flag:
+- [Bit-O-Asm-1](#bit-o-asm-2)
+- [Bit-O-Asm-1](#bit-o-asm-3)
+- [Bit-O-Asm-1](#bit-o-asm-4)
 - [Picker 1](#picker-1) :pirate_flag:
 - [keygenme-py](#keygenme-py) 
 - [asm1](#asm1) :pirate_flag:
@@ -12,6 +16,133 @@
 - [vault-door-6](#vault-door-6)
 - [Safe Opener](#safe-opener) :pirate_flag:
 - [Safe Opener 2](#safe-opener-2) :flag_flag:
+
+# Bit-O-Asm-1
+* **Difficulty:** Medium
+* **Category:** Reverse Engineering
+* **Author:** LT 'syreal' Jones
+
+### Description
+> Can you figure out what is in the `eax` register? Put your answer in the picoCTF flag format: `picoCTF{n}` where n is the contents of the `eax` register in the decimal number base. If the answer was `0x11` your flag would be `picoCTF{17}`. 
+> Download the assembly dump <a href="https://artifacts.picoctf.net/c/509/disassembler-dump0_a.txt">here<a>.
+
+
+### Solution
+Taking a look at the provided assembly dump, we can see the hexidecimal value `0x30` is in the `eax` register. 
+
+```
+<+0>:     endbr64 
+<+4>:     push   rbp
+<+5>:     mov    rbp,rsp
+<+8>:     mov    DWORD PTR [rbp-0x4],edi
+<+11>:    mov    QWORD PTR [rbp-0x10],rsi
+<+15>:    mov    eax,0x30
+<+20>:    pop    rbp
+<+21>:    ret
+```
+
+Using an <a href="https://www.asciitable.com/">ASCII table</a>, we can see that `0x30` in hexidecimal is `48` in decimal. 
+
+[!NOTE]
+> A CPU register refers to an actual physical location on a CPU
+
+
+### flag
+:pirate_flag:`picoCTF{48}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# Bit-O-Asm-2
+* **Difficulty:** Medium
+* **Category:** Reverse Engineering
+* **Author:** LT 'syreal' Jones
+
+### Description
+> Can you figure out what is in the `eax` register? Put your answer in the picoCTF flag format: `picoCTF{n}` where n is the contents of the eax register in the decimal number base. If the answer was 0x11 your flag would be `picoCTF{17}`. 
+> Download the assembly dump <a href="https://artifacts.picoctf.net/c/510/disassembler-dump0_b.txt">here</a>.
+
+
+### Solution
+
+For this challenge, we're asked download another disassembly dump and find what is the `eax` register again. 
+
+```
+<+0>:     endbr64 
+<+4>:     push   rbp
+<+5>:     mov    rbp,rsp
+<+8>:     mov    DWORD PTR [rbp-0x14],edi
+<+11>:    mov    QWORD PTR [rbp-0x20],rsi
+<+15>:    mov    DWORD PTR [rbp-0x4],0x9fe1a
+<+22>:    mov    eax,DWORD PTR [rbp-0x4]
+<+25>:    pop    rbp
+<+26>:    ret
+```
+
+At instruction `<+22>` we see the line `mov    eax,DWORD PTR [rbp-0x4]`. This is loading the value at `[rbp-0x4]` to `eax`. At instruction `<+15>` we see that location `[rbp-0x4]` is set to `0x9fe1a`.  This means `0x9fe1a` is the value in `eax` register. Now we just convert to decimal. 
+
+Interestingly, converting to decimal was the hardest part here. I was using Cyberchef's 'From Hex' recipe which was converting `0x9fe1a` as three separate hex bytes as `159 225 10`
+
+What I really wanted here was a base16 to decimal conversion. As a Base16 number, `0x9fe1a` is `654874` in decimal. 
+
+https://gchq.github.io/CyberChef/#recipe=From_Base(16)&input=MHg5ZmUxYQ
+
+
+### flag
+:pirate_flag:`picoCTF{654874}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# Bit-O-Asm-3
+* **Difficulty:** Medium
+* **Category:** Reverse Engineering
+* **Author:** LT 'syreal' Jones
+
+### Description
+
+
+
+### Solution
+
+
+
+### flag
+:pirate_flag: :pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# Bit-O-Asm-4
+* **Difficulty:** Medium
+* **Category:** Reverse Engineering
+* **Author:** LT 'syreal' Jones
+
+### Description
+
+
+
+### Solution
+
+
+
+### flag
+:pirate_flag: :pirate_flag:
+
+<br>
+
+---
+
+<br>
 
 
 
@@ -111,7 +242,9 @@ No helpful description or hints here. Just a link to download a python script. T
 :pirate_flag:``:pirate_flag:
 
 <br>
+
 ---
+
 <br>
 
 # asm1
