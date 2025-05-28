@@ -10,6 +10,7 @@
 * [substitution0]
 * [substitution1]
 * [substitution2]
+* [Flags](#flags)
 
 
 :pirate_flag: Flags Captured: 5 / 5 :pirate_flag:
@@ -745,3 +746,27 @@ The process IS a little tedious, but rinse and repeat until the flag text is dec
 ---
 
 <br>
+
+# Flags
+* **Difficulty:** Medium
+* **Category:** Cryptography
+* **Author:** Danny
+
+
+### Description
+> What do the <a href="https://jupiter.challenges.picoctf.org/static/fbeb5f9040d62b18878d199cdda2d253/flag.png">flags</a> mean?
+>
+>
+
+### Solution
+<p>I recognized these maritime flags from putting together ship models as a kid. A quick web search returned a chart of NATO's flaghoist alphabet: 
+
+![NATO code signals](https://www.nato.int/nato_static_fl2014/assets/pictures/stock_2018/20180110_alphabet-sign-signal-big2.jpg)
+
+<p>From there it was just a matter of manually finding the letter or number value for each flag. Kind of interesting. Kind of rote and borning. Maybe knowing this is more useful than assembly language if I ever find myself in a sea battle without a radio. Knowing the phonetic nato alphabet might be useful in more practical situations. It's worth keeping this chart handy.</p>
+
+![Decoded Flags](/cryptography/assets/screenshots/flagsdecode.png)
+
+
+### flag
+:pirate_flag:`PICOCTF{F1AG5AND5TUFF}` :pirate_flag:
