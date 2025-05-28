@@ -1,4 +1,4 @@
-# used to solve 'la cifra de' challenge even though it wasn't necessary. I just wanted to write some pythhon. 
+# used to solve 'la cifra de' challenge even though it wasn't necessary. I just wanted to write some python.
 
 # let's write a little script that can decode vigenere when we know the key. 
 

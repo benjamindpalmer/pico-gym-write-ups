@@ -1,17 +1,17 @@
 <h1 align="center"> :closed_lock_with_key: CRYPTOGRAPHY :closed_lock_with_key:</h1>
 
 * [Easy1](#easy1):pirate_flag:
+* [The Numbers](#the-numbers) :pirate_flag:
 * [13](#13):pirate_flag:
 * [Mod 26](#mod-26):pirate_flag:
 * [Caesar](#caesar):pirate_flag:
 * [interencdec](#interencdec):pirate_flag:
 * [la cifra de](#la-cifra-de) :pirate_flag:
-* [Mr Worldwide](#mr-worldwide) :pirate_flag: 
+* [Mr Worldwide](#mr-worldwide) :pirate_flag:
+* [Flags](#flags)
 * [substitution0](#substituion0) :pirate_flag: 
 * [substitution1](#substituion1) :pirate_flag: 
 * [substitution2](#substituion2) :pirate_flag: 
-* [Flags](#flags)
-
 
 :pirate_flag: Flags Captured: 5 / 5 :pirate_flag:
 
@@ -88,6 +88,98 @@ Plain Text: `CRYPTOISFUN`
 
  :black_flag: **flag:**`picoCTF{CRYPTOISFUN}`
 
+<br>
+
+---
+
+<br>
+
+# The Numbers
+* **Difficulty:** Easy 
+* **Category:** Crytography
+* **Author:** Danny
+
+### Description
+> The <a href="https://jupiter.challenges.picoctf.org/static/f209a32253affb6f547a585649ba4fda/the_numbers.png">numbers</a>... what do they mean?
+
+
+### Solution
+Based on the image provided, we need to find a flag. 
+
+The brackets in the .png image give away that the numbers are in flag format. I started building a little table to decode the numbers assuming that 16, 9, 3, 15 mapped to the letters p, i, c, 0. 
+
+| numbers| 16 | 9 | 3 | 15 | 3 | 20 | 6 | 
+| -- | -- | --| --| --| --| --| -- | 
+| flag | p | i | c | o | C | T | F | 
+
+This is a 'rot 0' caeser cipher. "P" is the 16th letter of the alphabet so it is represented as "16" 
+
+So now all we have to do is convert the rest of the numbers from <a href="https://jupiter.challenges.picoctf.org/static/f209a32253affb6f547a585649ba4fda/the_numbers.png">the_numbers.png</a> into their cooresponding letters. 
+
+[!The numbers]("https://jupiter.challenges.picoctf.org/static/f209a32253affb6f547a585649ba4fda/the_numbers.png")
+
+
+I wrote a <a href="/cryptography/assets/scripts/hellocaesar.py">little script</a> to do this. It probably wasn't necessary, but it's good practice for other challenges. 
+
+```python3
+# Created a dictionary that maps each letter to a number key
+alphabet = {
+1:"a",
+2:"b",
+3:"c",
+4:"d",
+5:"e",
+6:"f",
+7:"g",
+8:"h",
+9:"i",
+10:"j",
+11:"k",
+12:"l",
+13:"m",
+14:"n",
+15:"o",
+16:"p",
+17:"q",
+18:"r",
+19:"s",
+20:"t",
+21:"u",
+22:"v",
+23:"w",
+24:"x",
+25:"y",
+26:"z"
+}
+
+#list of numbers from 'the_numbers.png' 
+numbers = [20,8,5,14,21,13,2,5,18,19,13,1,19,15,14]
+
+flag = []
+
+for num in numbers:
+    letter = alphabet.get(num)
+    flag.append(letter)
+
+final_flag = "".join(flag)
+print(final_flag)
+```
+
+Running this script prints the flag! 
+
+```
+$ python3 hellocaesar.py 
+thenumbersmason
+```
+
+### flag
+:pirate_flag:`picoCTF{thenumbersmason}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
 
 # 13
 * **Difficulty:** Easy
@@ -543,6 +635,36 @@ _
 
 <br>
 
+# Flags
+* **Difficulty:** Medium
+* **Category:** Cryptography
+* **Author:** Danny
+
+
+### Description
+> What do the <a href="https://jupiter.challenges.picoctf.org/static/fbeb5f9040d62b18878d199cdda2d253/flag.png">flags</a> mean?
+>
+>
+
+### Solution
+<p>I recognized these maritime flags from putting together ship models as a kid. A quick web search returned a chart of NATO's flaghoist alphabet: 
+
+![NATO code signals](https://www.nato.int/nato_static_fl2014/assets/pictures/stock_2018/20180110_alphabet-sign-signal-big2.jpg)
+
+<p>From there it was just a matter of manually finding the letter or number value for each flag. Kind of interesting. Kind of rote and borning. Maybe knowing this is more useful than assembly language if I ever find myself in a sea battle without a radio. Knowing the phonetic nato alphabet might be useful in more practical situations. It's worth keeping this chart handy.</p>
+
+![Decoded Flags](/cryptography/assets/screenshots/flagsdecode.png)
+
+
+### flag
+:pirate_flag:`PICOCTF{F1AG5AND5TUFF}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
 # Substitution0
 * **Difficulty:** Medium
 * **Category:** Cryptography
@@ -747,26 +869,4 @@ The process IS a little tedious, but rinse and repeat until the flag text is dec
 
 <br>
 
-# Flags
-* **Difficulty:** Medium
-* **Category:** Cryptography
-* **Author:** Danny
 
-
-### Description
-> What do the <a href="https://jupiter.challenges.picoctf.org/static/fbeb5f9040d62b18878d199cdda2d253/flag.png">flags</a> mean?
->
->
-
-### Solution
-<p>I recognized these maritime flags from putting together ship models as a kid. A quick web search returned a chart of NATO's flaghoist alphabet: 
-
-![NATO code signals](https://www.nato.int/nato_static_fl2014/assets/pictures/stock_2018/20180110_alphabet-sign-signal-big2.jpg)
-
-<p>From there it was just a matter of manually finding the letter or number value for each flag. Kind of interesting. Kind of rote and borning. Maybe knowing this is more useful than assembly language if I ever find myself in a sea battle without a radio. Knowing the phonetic nato alphabet might be useful in more practical situations. It's worth keeping this chart handy.</p>
-
-![Decoded Flags](/cryptography/assets/screenshots/flagsdecode.png)
-
-
-### flag
-:pirate_flag:`PICOCTF{F1AG5AND5TUFF}` :pirate_flag:
