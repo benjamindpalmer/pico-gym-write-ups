@@ -8,12 +8,12 @@
 * [interencdec](#interencdec):pirate_flag:
 * [la cifra de](#la-cifra-de) :pirate_flag:
 * [Mr Worldwide](#mr-worldwide) :pirate_flag:
-* [Flags](#flags)
+* [Flags](#flags) :pirate_flag:
 * [substitution0](#substituion0) :pirate_flag: 
 * [substitution1](#substituion1) :pirate_flag: 
 * [substitution2](#substituion2) :pirate_flag: 
 
-:pirate_flag: Flags Captured: 5 / 5 :pirate_flag:
+:pirate_flag: Flags Captured: 12 / 68 :pirate_flag:
 
 # Easy1
 * **Difficulty:** Medium
@@ -242,9 +242,14 @@ final_flag = "".join(flag)
 print(final_flag)
 ```
 
-:black_flag: **flag:**
-`picoCTF{not_too_bad_of_a_problem}`
+### Flag
+:pirate_flag:`picoCTF{not_too_bad_of_a_problem}`:pirate_flag:
 
+<br>
+
+---
+
+<br>
 
 # Mod 26
 
