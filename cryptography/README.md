@@ -7,9 +7,9 @@
 * [interencdec](#interencdec):pirate_flag:
 * [la cifra de](#la-cifra-de) :pirate_flag:
 * [Mr Worldwide](#mr-worldwide) :pirate_flag: 
-* [substitution0]
-* [substitution1]
-* [substitution2]
+* [substitution0](#substituion0) :pirate_flag: 
+* [substitution1](#substituion1) :pirate_flag: 
+* [substitution2](#substituion2) :pirate_flag: 
 * [Flags](#flags)
 
 
