@@ -1,12 +1,13 @@
 <h1 align="center"> :gear: REVERSE ENGINEERING :gear:</h1>
 
+- [A]
 - [Bit-O-Asm-1](#bit-o-asm-1) :pirate_flag:
-- [Bit-O-Asm-1](#bit-o-asm-2)
-- [Bit-O-Asm-1](#bit-o-asm-3)
-- [Bit-O-Asm-1](#bit-o-asm-4)
+- [Bit-O-Asm-1](#bit-o-asm-2) :pirate_flag:
+- [Bit-O-Asm-1](#bit-o-asm-3) :pirate_flag:
+- [Bit-O-Asm-1](#bit-o-asm-4) :pirate_flag:
 - [Picker 1](#picker-1) :pirate_flag:
 - [keygenme-py](#keygenme-py) 
-- [asm1](#asm1) :pirate_flag:
+
 - [asm2](#asm2)
 - [vault-door-training](#vault-door-training) :pirate_flag:
 - [vault-door-1](#vault-door-1) :pirate_flag:
@@ -16,6 +17,94 @@
 - [vault-door-6](#vault-door-6)
 - [Safe Opener](#safe-opener) :pirate_flag:
 - [Safe Opener 2](#safe-opener-2) :flag_flag:
+
+# asm1
+* **Difficulty:** Medium
+* **Category:** Reverse Engineering
+* **Author:** SANJAY C
+
+### Description
+> What does asm1(0x2e0) return? Submit the flag as a hexadecimal value (starting with '0x'). NOTE: Your submission for this question will NOT be in the normal flag format. 
+> <a href="https://jupiter.challenges.picoctf.org/static/f1c2358ff7d1e9386e41552c549cf2f6/test.S">Source</a>
+>
+> HINT: assembly <a href="https://www.tutorialspoint.com/assembly_programming/assembly_conditions.htm">conditions</a>
+
+### Solution 
+
+```x86 assembly
+asm1:
+	<+0>:	push   ebp
+	<+1>:	mov    ebp,esp
+	<+3>:	cmp    DWORD PTR [ebp+0x8],0x3fb
+	<+10>:	jg     0x512 <asm1+37>
+	<+12>:	cmp    DWORD PTR [ebp+0x8],0x280
+	<+19>:	jne    0x50a <asm1+29>
+	<+21>:	mov    eax,DWORD PTR [ebp+0x8]
+	<+24>:	add    eax,0xa
+	<+27>:	jmp    0x529 <asm1+60>
+	<+29>:	mov    eax,DWORD PTR [ebp+0x8]
+	<+32>:	sub    eax,0xa
+	<+35>:	jmp    0x529 <asm1+60>
+	<+37>:	cmp    DWORD PTR [ebp+0x8],0x559
+	<+44>:	jne    0x523 <asm1+54>
+	<+46>:	mov    eax,DWORD PTR [ebp+0x8]
+	<+49>:	sub    eax,0xa
+	<+52>:	jmp    0x529 <asm1+60>
+	<+54>:	mov    eax,DWORD PTR [ebp+0x8]
+	<+57>:	add    eax,0xa
+	<+60>:	pop    ebp
+	<+61>:	ret    
+```
+
+<p>This is my first time looking at anything assembly language related. I spent about a week every night opening this file and muttering "where the f*** do I even begin with this one?" On Friday night I opened the provided `test.S` file with some determination, knowing that I'd probably have to learn some assembly language. The assembly conditions hint was helpful, as it touches on what many of the assembly intructions in `test.S` actually do.</p>
+<p>So I knew there were instructions in the file. I knew assembly needed to be read line by line. But I like a little context. What is actually happening here? What is an assembly language? I found this <a href="https://www.youtube.com/watch?v=75gBFiFtAb8">x86 Assembly Crash Course</a> video that breaks everything down in ten minutes. I still don't know assembly language, but I have a little bit of context as to what all of the different assembly intructions are actually doing in this challenge.</p>
+
+```
+asm1:
+	<+0>:	push   ebp							;0x2e0 to base pointer												
+	<+1>:	mov    ebp,esp										
+```
+We know that asm1 starting with 0x2e0 per the challenge description. 0x2e0 is 736 in decimal. This is important because will be adding, subtracting, and comparing this value with other hex values as we move line by line through asm1.
+
+```
+    <+3>:	cmp    DWORD PTR [ebp+0x8],0x3fb	;0x2e0(736), 0x3FB(1019)
+    <+10>:	jg     0x512 <asm1+37>				;jg - jump if greater than
+```
+`cmp` "compares" two values, the one at ebp + 8bits(?) and hex value 0x3FB which is 1019 in decimal. The value at ebp is 0x2e0 or 736. 736 is less than 1019. We know that compare instructions are always followed by a "jump", depending on the type of jump, we'll move to a different line of asm1 (or not). `jg` is jump if greater. Because the `cmp` above does not resolve to 'greater than', we don't jump here and instead move on the to the next line.
+
+```
+    <+12>:	cmp    DWORD PTR [ebp+0x8],0x280	;736 =! 640
+    <+19>:	jne    0x50a <asm1+29>				;jne - jump if NOT equal
+```
+On the next line we have another `cmp` instruction, followed by `jne` or 'jump if NOT equal'. Because the values in our compare are not equal, we can jump to `<asm1+29>`.
+
+```
+	<+29>:	mov    eax,DWORD PTR [ebp+0x8]		;set 0x2e0 to eax register
+	<+32>:	sub    eax,0xa						;subtract 0xa (10) from 0x2e0, eax register updated to value 726						
+	<+35>:	jmp    0x529 <asm1+60>				;jmp - non conditional jump to go <+60>
+```
+
+Down here at `asm1+29` we start with a `mov` instruction. This sets the value at ebp to a different register at eax. The value is still 0x2e0. 
+Next, we have a `sub` or 'subtract' instruction to subtract 10 from the value at eax (736). This gives us 726.
+Our next 'jump' instruction is `jmp` which is a non-conditional jump. We just get to jump all the way down to `<asm1+60>`
+
+```
+	<+60>:	pop    ebp							;pop ebp out of the stack 
+	<+61>:	ret    
+```
+My understanding is that here `ret` transfers program control to a retrun address on the top of the stack. For the purposes of this challenge however, the most important thing about this line is that it is the end of asm1. We're left with decimal value 726 which in hex is 0x2d6!
+
+[!Hansel: do I know what I'm doing today? no, but I'm here and I'm going to give it my best shot](https://c.tenor.com/iEFPkqaIeXIAAAAC/do-i-know-what-im-doing.gif)
+
+### Flag
+:pirate_flag:`0x2d6`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
 
 # Bit-O-Asm-1
 * **Difficulty:** Medium
@@ -204,8 +293,6 @@ Detailed breakdown of the relevant lines:
 
 <br>
 
-
-
 # Picker 1
 * **Difficulty:** Medium
 * **Category:** Reverse Engineering
@@ -307,65 +394,7 @@ No helpful description or hints here. Just a link to download a python script. T
 
 <br>
 
-# asm1
-* **Difficulty:** Medium
-* **Category:** Reverse Engineering
-* **Author:** SANJAY C
 
-### Description
-> What does asm1(0x2e0) return? Submit the flag as a hexadecimal value (starting with '0x'). <br>
-> NOTE: Your submission for this question will NOT be in the normal flag format. <a href="https://jupiter.challenges.picoctf.org/static/f1c2358ff7d1e9386e41552c549cf2f6/test.S">Source</a>
-><br>
-> HINT: assembly <a href="https://www.tutorialspoint.com/assembly_programming/assembly_conditions.htm">conditions</a>
-
-### Solution 
-
-<p>This is my first time looking at anything assembly language related. I spent about a week every night opening this file and muttering "where the f*** do I even begin with this one?" On Friday night I opened the provided `test.S` file with some determination, knowing that I'd probably have to learn some assembly language. The assembly conditions hint was helpful, as it touches on what many of the assembly intructions in `test.S` actually do.</p>
-<p>So I knew there were instructions in the file. I knew assembly needed to be read line by line. But I like a little context. What is actually happening here? What is an assembly language? I found this <a href="https://www.youtube.com/watch?v=75gBFiFtAb8">x86 Assembly Crash Course</a> video that breaks everything down in ten minutes. I still don't know assembly language, but I have a little bit of context as to what all of the different assembly intructions are actually doing in this challenge.</p>
-
-```
-asm1:
-	<+0>:	push   ebp							;0x2e0 to base pointer												
-	<+1>:	mov    ebp,esp										
-```
-We know that asm1 starting with 0x2e0 per the challenge description. 0x2e0 is 736 in decimal. This is important because will be adding, subtracting, and comparing this value with other hex values as we move line by line through asm1.
-
-```
-    <+3>:	cmp    DWORD PTR [ebp+0x8],0x3fb	;0x2e0(736), 0x3FB(1019)
-    <+10>:	jg     0x512 <asm1+37>				;jg - jump if greater than
-```
-`cmp` "compares" two values, the one at ebp + 8bits(?) and hex value 0x3FB which is 1019 in decimal. The value at ebp is 0x2e0 or 736. 736 is less than 1019. We know that compare instructions are always followed by a "jump", depending on the type of jump, we'll move to a different line of asm1 (or not). `jg` is jump if greater. Because the `cmp` above does not resolve to 'greater than', we don't jump here and instead move on the to the next line.
-
-```
-    <+12>:	cmp    DWORD PTR [ebp+0x8],0x280	;736 =! 640
-    <+19>:	jne    0x50a <asm1+29>				;jne - jump if NOT equal
-```
-On the next line we have another `cmp` instruction, followed by `jne` or 'jump if NOT equal'. Because the values in our compare are not equal, we can jump to `<asm1+29>`.
-
-```
-	<+29>:	mov    eax,DWORD PTR [ebp+0x8]		;set 0x2e0 to eax register
-	<+32>:	sub    eax,0xa						;subtract 0xa (10) from 0x2e0, eax register updated to value 726						
-	<+35>:	jmp    0x529 <asm1+60>				;jmp - non conditional jump to go <+60>
-```
-
-Down here at `asm1+29` we start with a `mov` instruction. This sets the value at ebp to a different register at eax. The value is still 0x2e0. 
-Next, we have a `sub` or 'subtract' instruction to subtract 10 from the value at eax (736). This gives us 726.
-Our next 'jump' instruction is `jmp` which is a non-conditional jump. We just get to jump all the way down to `<asm1+60>`
-
-```
-	<+60>:	pop    ebp							;pop ebp out of the stack 
-	<+61>:	ret    
-```
-My understanding is that here `ret` transfers program control to a retrun address on the top of the stack. For the purposes of this challenge however, the most important thing about this line is that it is the end of asm1. We're left with decimal value 726 which in hex is 0x2d6!
-
-<p><a href="https://c.tenor.com/iEFPkqaIeXIAAAAC/do-i-know-what-im-doing.gif">Do I know what I'm doing today? No. But I'm here, and I'm gonna give it my best shot.</a></p>
-
-### Flag
-:pirate_flag:`0x2d6`:pirate_flag:
-
-<br>
----
-<br>
 
 # asm2
 * **Difficulty:** Hard
@@ -388,7 +417,7 @@ asm2:
 	<+0>:	push   ebp
 	<+1>:	mov    ebp,esp
 	<+3>:	sub    esp,0x10
-	<+6>:	mov    eax,DWORD PTR [ebp+0xc]
+	<+6>:	mov    eax,DWORD PTR [ebp+0xc] ; 
 	<+9>:	mov    DWORD PTR [ebp-0x4],eax
 	<+12>:	mov    eax,DWORD PTR [ebp+0x8]
 	<+15>:	mov    DWORD PTR [ebp-0x8],eax
