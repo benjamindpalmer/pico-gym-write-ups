@@ -68,7 +68,7 @@ Using an <a href="https://www.asciitable.com/">ASCII table</a>, we can see that 
 
 ### Solution
 
-For this challenge, we're asked download another disassembly dump and find what is the `eax` register again. 
+For this challenge, we're asked download another disassembly dump and find what is the `eax` register again. This challenge introduces pointers: `PTR`. 
 
 ```
 <+0>:     endbr64 
@@ -84,9 +84,9 @@ For this challenge, we're asked download another disassembly dump and find what 
 
 At instruction `<+22>` we see the line `mov    eax,DWORD PTR [rbp-0x4]`. This is loading the value at `[rbp-0x4]` to `eax`. At instruction `<+15>` we see that location `[rbp-0x4]` is set to `0x9fe1a`.  This means `0x9fe1a` is the value in `eax` register. Now we just convert to decimal. 
 
-Interestingly, converting to decimal was the hardest part here. I was using Cyberchef's 'From Hex' recipe which was converting `0x9fe1a` as three separate hex bytes as `159 225 10`
+Interestingly, converting to decimal was the hardest part here. I was using Cyberchef's 'From Hex' recipe which was converting `0x9fe1a` as three separate hex bytes: `159 225 10`
 
-What I really wanted here was a base16 to decimal conversion. As a Base16 number, `0x9fe1a` is `654874` in decimal. 
+What I really wanted here was a base16 to decimal conversion. Treated as a Base16 number, `0x9fe1a` is `654874` in decimal. 
 
 https://gchq.github.io/CyberChef/#recipe=From_Base(16)&input=MHg5ZmUxYQ
 
