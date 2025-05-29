@@ -1,14 +1,13 @@
 <h1 align="center"> :gear: REVERSE ENGINEERING :gear:</h1>
 
-- [A]
+- [asm1](#asm1)
 - [Bit-O-Asm-1](#bit-o-asm-1) :pirate_flag:
 - [Bit-O-Asm-1](#bit-o-asm-2) :pirate_flag:
 - [Bit-O-Asm-1](#bit-o-asm-3) :pirate_flag:
 - [Bit-O-Asm-1](#bit-o-asm-4) :pirate_flag:
+- [asm2](#asm2)
 - [Picker 1](#picker-1) :pirate_flag:
 - [keygenme-py](#keygenme-py) 
-
-- [asm2](#asm2)
 - [vault-door-training](#vault-door-training) :pirate_flag:
 - [vault-door-1](#vault-door-1) :pirate_flag:
 - [vault-door-3](#vault-door-3) :pirate_flag:
@@ -16,7 +15,7 @@
 - [vault-door-5](#vault-door-5) :pirate_flag:
 - [vault-door-6](#vault-door-6)
 - [Safe Opener](#safe-opener) :pirate_flag:
-- [Safe Opener 2](#safe-opener-2) :flag_flag:
+- [Safe Opener 2](#safe-opener-2) :pirate_flag:
 
 # asm1
 * **Difficulty:** Medium
@@ -94,7 +93,7 @@ Our next 'jump' instruction is `jmp` which is a non-conditional jump. We just ge
 ```
 My understanding is that here `ret` transfers program control to a retrun address on the top of the stack. For the purposes of this challenge however, the most important thing about this line is that it is the end of asm1. We're left with decimal value 726 which in hex is 0x2d6!
 
-[!Hansel: do I know what I'm doing today? no, but I'm here and I'm going to give it my best shot](https://c.tenor.com/iEFPkqaIeXIAAAAC/do-i-know-what-im-doing.gif)
+![Hansel: do I know what I'm doing today? no, but I'm here and I'm going to give it my best shot](#https://c.tenor.com/iEFPkqaIeXIAAAAC/do-i-know-what-im-doing.gif)
 
 ### Flag
 :pirate_flag:`0x2d6`:pirate_flag:
@@ -368,7 +367,9 @@ This time, the python script printed out some stuff in hexidecimal. This is defi
 
 <br>
 
+
 ---
+
 
 <br>
 
@@ -393,8 +394,6 @@ No helpful description or hints here. Just a link to download a python script. T
 ---
 
 <br>
-
-
 
 # asm2
 * **Difficulty:** Hard
@@ -435,7 +434,9 @@ asm2:
 :pirate_flag:``:pirate_flag:
 
 <br>
+
 ---
+
 <br>
 
 # vault-door-training
@@ -690,7 +691,9 @@ Could have saved a ton of time here if I had just written the little python scri
 :pirate_flag:`picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_c79a21}`:pirate_flag:
 
 <br>
+
 ---
+
 <br>
 
 # vault-door-4
@@ -785,7 +788,9 @@ print(f"picoCTF{{{flag}}}")
 :pirate_flag:`picoCTF{jU5t_4_bUnCh_0f_bYt3s_8f4a6cbf3b}`:pirate_flag:
 
 <br>
+
 ---
+
 <br>
 
 # vault-door-5
@@ -837,7 +842,9 @@ We can use our friend :chef: <a href="https://gchq.github.io/CyberChef/#recipe=F
 :pirate_flag:`picoCTF{c0nv3rt1ng_fr0m_ba5e_64_e3152bf4}`:pirate_flag:
 
 <br>
+
 ---
+
 <br>
 
 # vault-door-6
