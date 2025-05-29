@@ -157,15 +157,46 @@ Cyberchef was used to convert all of the results of the operations to Decimal an
 * **Author:** LT 'syreal' Jones
 
 ### Description
-
+> Can you figure out what is in the `eax` register? Put your answer in the picoCTF flag format: `picoCTF{n}` where n is the contents of the eax register in the decimal number base. If the answer was 0x11 your flag would be `picoCTF{17}`. 
+> Download the assembly dump <a href="https://artifacts.picoctf.net/c/511/disassembler-dump0_d.txt">here</a>.
 
 
 ### Solution
 
+In this challenge, we're introduced to compares (`cmp`) and jumps (`jmp` and `jle` for this challenge). Also present is is a subtract `sub` operator.
+I found PicoCTF's brief summary of '<a href="https://play.picoctf.org/playlists/2?m=22">Assembly Branching</a>' absolutely necessary to solve this.  
+
+Once again I copied the provided assembly dump and went straight into commenting what each line relevant to the challenge does. 
+
+```
+<+0>:     endbr64 
+<+4>:     push   rbp
+<+5>:     mov    rbp,rsp
+<+8>:     mov    DWORD PTR [rbp-0x14],edi
+<+11>:    mov    QWORD PTR [rbp-0x20],rsi
+<+15>:    mov    DWORD PTR [rbp-0x4],0x9fe1a ; store 0x9fe1a at [rbp-0x4]
+<+22>:    cmp    DWORD PTR [rbp-0x4],0x2710 ; compare 0x9fe1a > 0x2710
+<+29>:    jle    0x55555555514e <main+37> ; conditional jump to location +37 if 0x9fe1a <= 0x2710. This is false. No jump. 
+<+31>:    sub    DWORD PTR [rbp-0x4],0x65 ; subtract 0x9fe1a - 0x65 = 0x9FDB5
+<+35>:    jmp    0x555555555152 <main+41> ; jump to location <+41>
+<+37>:    add    DWORD PTR [rbp-0x4],0x65 ; 
+<+41>:    mov    eax,DWORD PTR [rbp-0x4] ; eax = 0x9FDB5
+<+44>:    pop    rbp
+<+45>:    ret
+```
+
+Detailed breakdown of the relevant lines: 
+
+* At instruction `<+15>` the value 0x9fe1a<sub>16</sub> is stored at address `[rbp-0x4]`
+* At instruction `<+22>` 0x9fe1a is compared to 0x2710 with `cmp`. It is worth noting that 0x9fe1a is greater than 0x2710
+* At instruction `<+29>` There is a conditional jump to location `<+37>` with `jle` "jump if less than or equal to". This condition is false, so there is no jump. 
+* At instruction `<+31>` 0x65<sub>16</sub> (101<sub>10</sub>) is substracted from 0x9fe1a<sub>16</sub> at location `[rbp-0x4]`. The difference is 654773<sub>10</sub>. 
+* At instruction `<+35>` there is a non-conditional jump `jmp` to instruction `<+41>` 
+* At instruction `<+41>` eax = the value at location `[rbp-0x4]`, which is 0x9FDB5<sub>16</sub> or  654773<sub>10</sub> in decimal.
 
 
 ### flag
-:pirate_flag: :pirate_flag:
+:pirate_flag:`picoCTF{654773}`:pirate_flag:
 
 <br>
 
