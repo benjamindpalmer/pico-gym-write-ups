@@ -106,15 +106,44 @@ https://gchq.github.io/CyberChef/#recipe=From_Base(16)&input=MHg5ZmUxYQ
 * **Author:** LT 'syreal' Jones
 
 ### Description
-
+> Can you figure out what is in the `eax` register? Put your answer in the picoCTF flag format: `picoCTF{n}` where n is the contents of the eax register in the decimal number base. If the answer was 0x11 your flag would be `picoCTF{17}`. 
+> Download the assembly dump <a href="https://artifacts.picoctf.net/c/530/disassembler-dump0_c.txt">here</a>.
 
 
 ### Solution
 
+This assembly challenge introduces two arithematic operators: `add` which adds, and `imul` which multiplies. 
+The assembly dump is copied below, and I've added some comments to break down the solution. 
+
+```
+<+0>:     endbr64 
+<+4>:     push   rbp
+<+5>:     mov    rbp,rsp
+<+8>:     mov    DWORD PTR [rbp-0x14],edi
+<+11>:    mov    QWORD PTR [rbp-0x20],rsi
+<+15>:    mov    DWORD PTR [rbp-0xc],0x9fe1a ; store 0x9fe1a at [rbp-0xc]
+<+22>:    mov    DWORD PTR [rbp-0x8],0x4 ; store 0x4 at [rbp-0x8]
+<+29>:    mov    eax,DWORD PTR [rbp-0xc] ; set eax to equal 0x9fe1a
+<+32>:    imul   eax,DWORD PTR [rbp-0x8] ; multiply 0x9fe1a * 0x4, eax = 0x27fa5d
+<+36>:    add    eax,0x1f5 ; add 0x1f5 + 0x27fa5d, eax = 0x27f868
+<+41>:    mov    DWORD PTR [rbp-0x4],eax; store 0x27f868 at [[rbp-0x4]]
+<+44>:    mov    eax,DWORD PTR [rbp-0x4] ; eax = 0x27f868
+<+47>:    pop    rbp
+<+48>:    ret
+```
+
+* At instruction `<+29>` there is an `eax` pointer to location `[rbp-0xc]`. That location is set to `0x9fe1a` (a familiar value from the last challenge.)
+* The value at `eax` is `0x9fe1a`
+* At instruction `<+32>` the `imul` operator appears with a `PTR` to location `[rbp-0x8]`. Multiplying the value at `[rbp-0x8]` (`0x4`) returns a product of `0x27f868` (654874<sub>10</sub> *<sub>10</sub> 4 = 2619496<sub>10</sub> = 0x27f868<sub>16</sub>
+* The value at `eax` is `0x27f868`
+* At instruction `<+36>` the `add` operator adds `0x1f5`  to `eax`. `0x27f868` + `0x1f5` = `0x27fa5d`. (2619496<sub>10</sub> + 501<sub>10</sub> = 2619997<sub>10</sub> = 0x27f868<sub>16</sub>)
+* Finally, instruction `<+44>` just has the the current value of `eax` which is `0x27f868` or `2619997` in decimal. 
+
+Cyberchef was used to convert all of the results of the operations to Decimal and then back to Base16. This was unnecessary since the answer needed to be in Decimal anyway. 
 
 
-### flag
-:pirate_flag: :pirate_flag:
+### flag`
+:pirate_flag:`picoCTF{2619997}`:pirate_flag:
 
 <br>
 
