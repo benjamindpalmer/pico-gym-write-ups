@@ -93,7 +93,7 @@ Our next 'jump' instruction is `jmp` which is a non-conditional jump. We just ge
 ```
 My understanding is that here `ret` transfers program control to a retrun address on the top of the stack. For the purposes of this challenge however, the most important thing about this line is that it is the end of asm1. We're left with decimal value 726 which in hex is 0x2d6!
 
-![Hansel: do I know what I'm doing today? no, but I'm here and I'm going to give it my best shot](#https://c.tenor.com/iEFPkqaIeXIAAAAC/do-i-know-what-im-doing.gif)
+![Hansel gif](https://c.tenor.com/iEFPkqaIeXIAAAAC/do-i-know-what-im-doing.gif)
 
 ### Flag
 :pirate_flag:`0x2d6`:pirate_flag:
