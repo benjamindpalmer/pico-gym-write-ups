@@ -650,5 +650,56 @@ https://www.youtube.com/watch?v=VVdmmN0su6E
 
 <br>
 
+# RED
+* **Difficulty:** Easy
+* **Category:** Forensics
+* **Author:** Shuailin Pan (LeConjuror)
+
+### Description
+> RED, RED, RED, RED 
+> Download the image: <a href="">red.png</a>
+
+### Solution
+
+```
+$ xxd red.png 
+00000000: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR
+00000010: 0000 0080 0000 0080 0806 0000 00c3 3e61  ..............>a
+00000020: cb00 0000 e774 4558 7450 6f65 6d00 4372  .....tEXtPoem.Cr
+00000030: 696d 736f 6e20 6865 6172 742c 2076 6962  imson heart, vib
+00000040: 7261 6e74 2061 6e64 2062 6f6c 642c 0a48  rant and bold,.H
+00000050: 6561 7274 7320 666c 7574 7465 7220 6174  earts flutter at
+00000060: 2079 6f75 7220 7369 6768 742e 0a45 7665   your sight..Eve
+00000070: 6e69 6e67 7320 676c 6f77 2073 6f66 746c  nings glow softl
+00000080: 7920 7265 642c 0a43 6865 7272 6965 7320  y red,.Cherries 
+00000090: 6275 7273 7420 7769 7468 2073 7765 6574  burst with sweet
+000000a0: 206c 6966 652e 0a4b 6973 7365 7320 6c69   life..Kisses li
+000000b0: 6e67 6572 2077 6974 6820 796f 7572 2077  nger with your w
+000000c0: 6172 6d74 e682e 0a4c 6f76 6520 6465 6570  armth..Love deep
+000000d0: 2061 7320 6d65 726c 6f74 2e0a 5363 6172   as merlot..Scar
+000000e0: 6c65 7420 6c65 6176 6573 2066 616c 6c69  let leaves falli
+000000f0: 6e67 2073 6f66 746c 792c 0a42 6f6c 6420  ng softly,.Bold 
+00000100: 696e 2065 7665 7279 2073 7472 6f6b 652e  in every stroke.
+00000110: 7895 9d15 0000 01f0 4944 4154 789c edd2  x.......IDATx...
+00000120: 4b72 0231 0003 5129 f73f 33ca c21e 9222  Kr.1..Q).?3...."
+```
+
+Crimson heart, vibrant and bold,.Hearts flutter at your sight..Evenings glow softly red,.Cherries burst with sweet life..Kisses linger with your warmth..Love deep as merlot..Scarlet leaves falling softly,.Bold in every stroke.
+
+cute. 
+
+
+
+
+
+### flag
+:pirate_flag: :pirate_flag:
+
+<br>
+
+---
+
+<br>
+
 
 
