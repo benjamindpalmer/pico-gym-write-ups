@@ -12,8 +12,9 @@
 * [substitution0](#substituion0) :pirate_flag: 
 * [substitution1](#substituion1) :pirate_flag: 
 * [substitution2](#substituion2) :pirate_flag: 
+* [hashcrack](#hashcrack) :pirate_flag: 
 
-:pirate_flag: Flags Captured: 12 / 68 :pirate_flag:
+:pirate_flag: Flags Captured: 13 / 68 :pirate_flag:
 
 # Easy1
 * **Difficulty:** Medium
@@ -660,7 +661,6 @@ _
 
 ![Decoded Flags](/cryptography/assets/screenshots/flagsdecode.png)
 
-
 ### flag
 :pirate_flag:`PICOCTF{F1AG5AND5TUFF}`:pirate_flag:
 
@@ -867,6 +867,83 @@ The process IS a little tedious, but rinse and repeat until the flag text is dec
 
 ### flag
 :pirate_flag:`PICOCTF{N6R4M_4N41Y515_15_73D10U5_42EA1770}` :pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# hashcrack
+* **Difficulty:** Easy
+* **Category:** Cryptography
+* **Author:** Nana Ama Atombo-Sackey
+
+### Description
+> A company stored a secret message on a server which got breached due to the admin using weakly hashed passwords. Can you gain access to the secret stored within the server? 
+> Access the server using `nc verbal-sleep.picoctf.net 52518`
+
+
+### Solution
+
+In this challenge, we're given three different password hashes and are asked to enter the password for each. 
+
+
+```
+$ nc verbal-sleep.picoctf.net 52518
+Welcome!! Looking For the Secret?
+
+We have identified a hash: 482c811da5d5b4bc6d497ffa98491e38
+Enter the password for identified hash: 
+```
+
+For the first hash, I checked the length of the hash with python's `len()` function 
+
+```
+>>> len('482c811da5d5b4bc6d497ffa98491e38')
+32
+```
+I found a helpful table for identifing different Hash Algorithms. My understanding is that these are general rules and aren't always accurate, but in this case it looks like the we're working with an `MD5` hash because it is 32 characters. 
+
+| Algorithm   | Digest Length (Hex) | 
+| ----------- | ------------------- |
+| **MD5**     | 32 characters       |
+| **SHA-1**   | 40 characters       | 
+| **SHA-256** | 64 characters       | 
+| **SHA-512** | 128 characters      |
+
+Once I knew which hashing algorithm was being used, I was able to use online tools to get the passwords. But how does this work? There isn't any complex math at play here and we aren't actually breaking the hashing algorithm at all. The only reason this works is because a big lists of compromised passwords already exist and can be accessed by anyone. One of the big lists is called <a href="https://github.com/josuamarcelc/common-password-list">rockyou.txt</a> which is just a plaintext file with millions of passwords. 
+
+If we can get the hashes from `rockyou.txt` we can compare them to the password hashes in the challenge. If the password has been compomised in the past, the hash will match one of the hashes from `rockyou.txt`. 
+
+With that understood, I had good reason to write another script. 
+
+I wrote <a href="/cryptography/assets/scripts/hashgogo.py">hashgogo.txt</a> to do the following: 
+1. Take a hash from the user
+2. Determine the hash algorithm based on the length of the hash
+3. Loop through each word of `rockyou.txt`
+4. Use the determined hash algorithm on each word to get the hash
+5. Compare that hash to the user provided hash, if they match then print the plaintext password from `rockyou.txt`
+
+
+```
+We have identified a hash: 482c811da5d5b4bc6d497ffa98491e38
+Enter the password for identified hash: password123
+Correct! You've cracked the MD5 hash with no secret found!
+
+Flag is yet to be revealed!! Crack this hash: b7a875fc1ea228b9061041b7cec4bd3c52ab3ce3
+Enter the password for the identified hash: letmein
+Correct! You've cracked the SHA-1 hash with no secret found!
+
+Almost there!! Crack this hash: 916e8c4f79b25028c9e467f1eb8eee6d6bbdff965f9928310ad30a8d88697745
+Enter the password for the identified hash: qwerty098
+Correct! You've cracked the SHA-256 hash with a secret found. 
+The flag is: picoCTF{UseStr0nG_h@shEs_&PaSswDs!_70ffa57c}
+```
+
+
+### flag
+:pirate_flag:`picoCTF{UseStr0nG_h@shEs_&PaSswDs!_70ffa57c}`:pirate_flag:
 
 <br>
 
