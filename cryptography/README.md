@@ -9,6 +9,7 @@
 * [la cifra de](#la-cifra-de) :pirate_flag:
 * [Mr Worldwide](#mr-worldwide) :pirate_flag:
 * [Flags](#flags) :pirate_flag:
+* [tapping](#tapping) :pirate_flag:
 * [substitution0](#substituion0) :pirate_flag: 
 * [substitution1](#substituion1) :pirate_flag: 
 * [substitution2](#substituion2) :pirate_flag: 
@@ -663,6 +664,49 @@ _
 
 ### flag
 :pirate_flag:`PICOCTF{F1AG5AND5TUFF}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# tapping
+* **Difficulty:** Medium
+* **Category:** Cryptography
+* **Author:** Danny
+
+### Description
+> Theres tapping coming in from the wires. What's it saying `nc jupiter.challenges.picoctf.org 48247`.
+
+
+### Solution
+When we netcat in, we're just given a list of dots and dashes. 
+
+```
+$ nc jupiter.challenges.picoctf.org 9422
+.--. .. -.-. --- -.-. - ..-. { -- ----- .-. ... ...-- -.-. ----- -.. ...-- .---- ... ..-. ..- -. ..--- -.... ---.. ...-- ---.. ..--- ....- -.... .---- ----- }
+```
+
+Well, if that isn't morse code! There are tools online that could easily decrypt this for me, but why not have some fun practicing python?!
+
+I don't know morse code, so the first business was finding a table that converted dots and dashes to letters and numbers. 
+
+![morse code tabe](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/International_Morse_Code.svg/828px-International_Morse_Code.svg.png)
+
+I copied the above table into a python dictionary that mapped each plaintext character to morsecode. Then I wrote a dumb little python script around it. 
+
+<a href="/cryptography/assets/scripts/dotdash.py">dotdash.py takes the string encoded in morse, splits it into individual characters and compares those characters with the morse code dictionary</a>
+
+```
+$ python3 dotdash.py 
+Enter Morse Code Here: 
+.--. .. -.-. --- -.-. - ..-. { -- ----- .-. ... ...-- -.-. ----- -.. ...-- .---- ... ..-. ..- -. ..--- -.... ---.. ...-- ---.. ..--- ....- -.... .---- ----- }
+PICOCTFM0RS3C0D31SFUN2683824610
+```
+
+### flag
+:pirate_flag:`picoCTF{M0RS3C0D31SFUN2683824610}`:pirate_flag:
 
 <br>
 
