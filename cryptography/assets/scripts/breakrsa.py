@@ -1,0 +1,24 @@
+# Import to allow inverse and byte converstion to readable flag
+from Crypto.Util.number import long_to_bytes, inverse
+
+# starting variables
+N = 26136061630893063061566633940435951047588150030939646248146629467367418369361371330905360172488587909848259549754800672730566201072465616463198849404548218
+e = 65537
+c = 25833520961329646167454073711532988363439729439362126394873559467326162549158762527067393759830019716078141775644336819381403288758583569708158284734910477
+p = 2
+q = N // 2
+
+# solve for phi (q-1)*(p-1)
+# simplifed (q-1)*1 
+phi = (q-1)
+
+# solve for d 
+d = inverse(e, phi)
+
+# decrypt message
+m = pow(c, d, N)
+print("m:", m)
+
+# print message as flag
+flag = long_to_bytes(m).decode('utf-8')
+print(flag)

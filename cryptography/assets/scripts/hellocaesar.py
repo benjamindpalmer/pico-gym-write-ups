@@ -1,3 +1,4 @@
+# Created a dictionary that maps each letter to a number key
 alphabet = {
 1:"a",
 2:"b",

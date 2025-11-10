@@ -14,6 +14,7 @@
 * [substitution1](#substituion1) :pirate_flag: 
 * [substitution2](#substituion2) :pirate_flag: 
 * [hashcrack](#hashcrack) :pirate_flag: 
+* [EVEN RSA CAN BE BROKEN???](#even-rsa-can-be-broken???) :pirate_flag:
 
 :pirate_flag: Flags Captured: 13 / 68 :pirate_flag:
 
@@ -995,4 +996,188 @@ The flag is: picoCTF{UseStr0nG_h@shEs_&PaSswDs!_70ffa57c}
 
 <br>
 
+# EVEN RSA CAN BE BROKEN???
+* **Difficulty:** EASY
+* **Category:** Cryptography
+* **Author:** Michael Crotty
+
+### Description
+> This service provides you an encrypted flag. Can you decrypt it with just N & e? 
+> Connect to the program with netcat: 
+> `$ nc verbal-sleep.picoctf.net 58620`
+> The program's source code can be downloaded <a href="https://challenge-files.picoctf.net/c_verbal_sleep/b1999e70e98a4fb11d441bd4ef60a948c1ae4a27a3a7154ed2678990b91f52e4/encrypt.py">here</a>.
+
+
+### Solution
+
+```
+$  nc verbal-sleep.picoctf.net 58620
+N: 21037861512023827325120279521696096097558995364078409230627361409116137387194008048755273379029729884198572164666992792982172907224977324805784556640409198
+e: 65537
+cyphertext: 7899985859277116608449515891411251626837418028861676114881074195821441758368211043774747503461580929983579615172324824511081936508663959788761228352061483
+
+We're given the `N` and `e` values that comprise a `public key` in RSA cryptography. RSA relies on not knowing the two values (`p` and `q`) used to generate `N` - the product of two (usually really big) prime numbers `p` and `q`.
+
+If we can find the `p` and `q` values, we can reverse the algorithm to find the the `private_key` (`d`) and decrypt the cyphertext. 
+
+To start, I made a bunch of requests to the server to see if there were any red flags around the way `N` is being generated. Here are some of the `N` values generated. 
+
+```
+N: 16174387492614483788223491864112077846819408546123096720999251233076065499984280934295467574761766561837441606443430978503714768573344335944257818790874686
+N: 16112908934477581261035743313027163508131703842813648355285978866763728092826936938564199597498906126596532088093044589802986711688489296252721371599839842
+N: 20921656852950376864586428680080446536333292500757960344088800214750325177089789802775722844950286924741117902028617466190769709261685999341422005328520182
+N: 18030295869805775630278373893631875323369608709985329732845354803785368758080759075200030513040122616473072870283964259220785552110792121109986497821441982
+N: 14321075729536821131549281875610486957045336418408817156901570540443612975871426019178592193835256918139374158612915273010119436089866141450314457459200654
+```
+
+Since we're looking for two factors of `n`, the first thing I noticed was that all of these `N` values are divisble by 2! 
+
+But `p` and `q` *should* be prime numbers in RSA. When you multiply prime numbers, the product should always be odd *except* when one of the primes is 2. In order for the product `n` to be even, our `p` value must be `2`. Which means our `q` value is `N / 2`. 
+
+*`p` = 2* 
+*`q` = N // 2*
+
+
+Now that we we have the values for `p` and `q` we can find the private key, `d` with the following formula: 
+
+*`d * e ≡ 1 (mod phi)`*
+
+I was able to lift this bit from the source code to find `d` using python.
+d = inverse(e, (p-1)*(q-1))
+
+To decrypt the cyphertext, we use the formula *`ciphertext^d (mod n)`*
+
+We can leverage python's built-in `pow()` which conveniently allows a base, exponent, and a modulus as arguments. The final script looks like this: 
+
+```python3
+# Import to allow inverse and byte converstion to readable flag
+from Crypto.Util.number import long_to_bytes, inverse
+
+# starting variables
+N = 21037861512023827325120279521696096097558995364078409230627361409116137387194008048755273379029729884198572164666992792982172907224977324805784556640409198
+e = 65537
+c = 7899985859277116608449515891411251626837418028861676114881074195821441758368211043774747503461580929983579615172324824511081936508663959788761228352061483
+p = 2
+q = N // 2
+
+# solve for phi (q-1)*(p-1)
+# simplifed (q-1)*1 
+phi = (q-1)
+
+# solve for d 
+d = inverse(e, phi)
+
+# decrypt message
+m = pow(c, d, N)
+print("m:", m)
+
+# print message as flag
+flag = long_to_bytes(m).decode('utf-8')
+print(flag)
+```
+
+Running the script gives us the flag! Success!
+
+```
+$ python3 breakrsa.py 
+m: 3030612722376619015339251852200174143198160267119078548827775782172029
+picoCTF{tw0_1$_pr!m305af7255}
+```
+
+### flag
+:pirate_flag:`picoCTF{tw0_1$_pr!m305af7255}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
+
+# MiniRSA
+* **Difficulty:** Medium
+* **Category:** Cryptography
+* **Author:** speeeday/Danny
+
+### Description
+> Let's decrypt this. 
+> Can you decrypt this <a href="https://challenge-files.picoctf.net/c_fickle_tempest/85842c29b0cfe5b651df70af3ae29e233ba1fb1fea0e969d0bd6328220e3d589/ciphertext">ciphertext</a>? Something seems a bit small.
+
+
+### Solution
+
+The included ciphertext file contains the following variables: 
+```
+N: 29331922499794985782735976045591164936683059380558950386560160105740343201513369939006307531165922708949619162698623675349030430859547825708994708321803705309459438099340427770580064400911431856656901982789948285309956111848686906152664473350940486507451771223435835260168971210087470894448460745593956840586530527915802541450092946574694809584880896601317519794442862977471129319781313161842056501715040555964011899589002863730868679527184420789010551475067862907739054966183120621407246398518098981106431219207697870293412176440482900183550467375190239898455201170831410460483829448603477361305838743852756938687673
+e: 3
+ciphertext (c): 2205316413931134031074603746928247799030155221252519872649623032309858335634930905823772075854701452855221838394245708423677446071037579056802166539608092137318255066882213632330761244608889333441750786668677889178187306076425401962650981
+```
+
+Understanding that the encryption formula for RSA is `plaintext ^ e Mod N ` is crucial here. The problem is that our exponent (`e`) and our ciphertext (`c`) are waaaay to small for our public key (`N`). 
+
+That's not good. In order to encrypt or decrypt in RSA, `n` needs to be greater than your text to the power of `d` or `e`. This is because a smaller number MOD a greater number always equals the smaller number. We can prove this concept in python. 9 MOD 100 is 9, 3 MOD 14 is 3, etc. 
+
+```
+>>> 9 % 100
+9
+>>> 3 % 14
+3
+>>> 3 % 92837483920293874290472013984720234982374
+3
+```
+
+When applied to our RSA encryption formuala, we have plaintext (`c`) to the power of 3 (`e`) Mod a really big number (`N`). For encryption to work as intented c ^ 3 must but greater than N. 
+
+```
+>>> (c ^ 3) > N 
+False
+```
+
+Because it isn't, we can just decrypt the ciphertext by finding the cubed root of N. We can reduce `plaintext ^ e Mod N` to `plaintext ^ e`.  All we have to do to decrypt is find the **cubed root** of the ciphertext. 
+
+```python
+import gmpy2   # Documentation here: https://gmpy2.readthedocs.io/en/latest/mpz.html
+
+# provided variables
+n = 29331922499794985782735976045591164936683059380558950386560160105740343201513369939006307531165922708949619162698623675349030430859547825708994708321803705309459438099340427770580064400911431856656901982789948285309956111848686906152664473350940486507451771223435835260168971210087470894448460745593956840586530527915802541450092946574694809584880896601317519794442862977471129319781313161842056501715040555964011899589002863730868679527184420789010551475067862907739054966183120621407246398518098981106431219207697870293412176440482900183550467375190239898455201170831410460483829448603477361305838743852756938687673
+e = 3
+c = 2205316413931134031074603746928247799030155221252519872649649212867614751848436763801274360463406171277838056821437115883619169702963504606017565783537203207707757768473109845162808575425972525116337319108047893250549462147185741761825125 
+
+
+# Find the cubed root of c 
+cube_check =  gmpy2.iroot(c,3)
+if True in cube_check:
+    print(f"{c} is a perfect cube!")
+    print(f"The cubed root is {cube_check[0]} \n")
+    plaintext = cube_check[0]
+else:
+    print(f"{c} is not a perfect cube.")
+
+
+# convert to hex, then convert to string
+hexstring = hex(plaintext)
+hexstring = hexstring[2:]
+bytes_object = bytes.fromhex(hexstring)
+ascii_string = bytes_object.decode("ASCII")
+print(f"FLAG:{ascii_string}")
+```
+
+Run the script! 
+
+
+```
+$ python3 minirsa_crack.py 
+2205316413931134031074603746928247799030155221252519872649649212867614751848436763801274360463406171277838056821437115883619169702963504606017565783537203207707757768473109845162808575425972525116337319108047893250549462147185741761825125 is a perfect cube!
+The cubed root is 13016382529449106065894479374027604750406953699090365388202874238148389207291005 
+
+FLAG:picoCTF{n33d_a_lArg3r_e_606ce004}
+```
+
+### flag
+:pirate_flag:`picoCTF{n33d_a_lArg3r_e_606ce004}`:pirate_flag:
+
+<br>
+
+---
+
+<br>
 
