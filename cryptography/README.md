@@ -14,9 +14,10 @@
 * [substitution1](#substituion1) :pirate_flag: 
 * [substitution2](#substituion2) :pirate_flag: 
 * [hashcrack](#hashcrack) :pirate_flag: 
-* [EVEN RSA CAN BE BROKEN???](#even-rsa-can-be-broken???) :pirate_flag:
+* [EVEN RSA CAN BE BROKEN???](#even-rsa-can-be-broken) :pirate_flag:
+* [MiniRSA](#minirsa) :pirate_flag:
 
-:pirate_flag: Flags Captured: 13 / 68 :pirate_flag:
+:pirate_flag: Flags Captured: 15 / 68 :pirate_flag:
 
 # Easy1
 * **Difficulty:** Medium
